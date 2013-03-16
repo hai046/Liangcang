@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black" >
+
+    <ImageView
+        android:id="@+id/chat_meImage"
+        android:layout_width="@dimen/size80"
+        android:layout_height="@dimen/size80"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/margin5"
+        android:src="@drawable/demo_2" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/chat_meImage"
+        android:background="@drawable/chat_bg" >
+
+        <TextView
+            android:id="@+id/chat_meContent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="靠，还有聊天，不会还要IM吧，实时性应该要求不高"
+            android:textColor="@color/black"
+            android:textSize="@dimen/title_14" />
+
+        <TextView
+            android:id="@+id/chat_meTime"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/chat_meContent"
+            android:text="2013-3-15 13:30:07"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/title_12" />
+    </RelativeLayout>
+
+</RelativeLayout>

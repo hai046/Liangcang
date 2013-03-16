@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg">#FF004E</color>
+    <color name="man_bg">#436EEE</color>
+    <color name="woman_bg">#EEAEEE</color>
+    <color name="black">#000000</color>
+    <color name="blue">#00acee</color>
+    <color name="red">#ff004e</color>
+    <color name="black_11">#95000000</color>
+    <color name="loadingBg">#05000000</color>
+    <color name="black_98">#98000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="contentbg">#F9F9F9</color>
+    <color name="galleryBg">#68000000</color>
+    <color name="itemDetail_menu_bg">#68000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <color name="status_text">#ffffffff</color>
+    <color name="viewfinder_frame">#ff88ae00</color>
+    <color name="viewfinder_laser">#ffff0000</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="bg_line">#40000000</color>
+
+</resources>
