@@ -11,6 +11,17 @@ import com.liangcang.weigets.LoadMoreListView;
 
 public class GridPicsItemView extends BaseView {
 
+	public GridPicsItemView(Context mContext) {
+		super(mContext);
+		LoadMoreListView listview = new LoadMoreListView(mContext);
+		setContentView(listview);
+		for (int i = 0; i < 10; i++) {
+			adapter.add("" + i);
+		}
+		listview.setAdapter(adapter);
+
+	}
+
 	/* private MyBaseAdapter<String> adapter = new */
 	class MyAdapter extends MyBaseAdapter<String> {
 
@@ -26,19 +37,8 @@ public class GridPicsItemView extends BaseView {
 		@Override
 		public View bindView(int position, String t, View view) {
 			// TODO Auto-generated method stub
-			return null;
+			return getGridItemView(position, view);
 		}
-	}
-
-	public GridPicsItemView(Context mContext) {
-		super(mContext);
-		LoadMoreListView listview = new LoadMoreListView(mContext);
-		setContentView(listview);
-		for (int i = 0; i < 10; i++) {
-			adapter.add("" + i);
-		}
-		listview.setAdapter(adapter);
-
 	}
 
 	MyAdapter adapter = new MyAdapter();

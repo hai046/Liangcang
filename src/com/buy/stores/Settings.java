@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 public class Settings {
-
     private  String PASSWORD="pass_word";
     private static final String SettingName = "settingsName";
     private SharedPreferences setting;

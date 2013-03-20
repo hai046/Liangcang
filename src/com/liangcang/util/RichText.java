@@ -2,19 +2,18 @@ package com.liangcang.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 
-public class RichText {
+public class RichText extends SpannableStringBuilder{
 	private Context mContext;
-	private SpannableStringBuilder spannable = null;
+//	private SpannableStringBuilder spannable = null;
 
 	public RichText(Context context) {
-		spannable = new SpannableStringBuilder();
+//		spannable = new SpannableStringBuilder();
 		this.mContext = context;
 	}
 
@@ -22,25 +21,23 @@ public class RichText {
 		if (text==null) {
 			return;
 		}
-		spannable.append(text);
+		append(text);
 
 	}
 
-	public SpannableStringBuilder getSpannable() {
-		return spannable;
-	}
+	
 
 	public void addText(String text, int color, int Typeface) {
 		if (text==null) {
 			return;
 		}
-		int start = spannable.toString().length();
+		int start = toString().length();
 		int end = start + text.length();
-		spannable.append(text);
-		spannable.setSpan(new StyleSpan(Typeface), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-		spannable.setSpan(new ForegroundColorSpan(color), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		append(text);
+		setSpan(new StyleSpan(Typeface), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
+		setSpan(new ForegroundColorSpan(color), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
 	}
 
 	public void addText(String text, int color, int Typeface, float textSize) {
@@ -48,15 +45,15 @@ public class RichText {
 		if (text==null) {
 			return;
 		}
-		int start = spannable.toString().length();
+		int start = toString().length();
 		int end = start + text.length();
-		spannable.append(text);
-		spannable.setSpan(new StyleSpan(Typeface), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-		spannable.setSpan(new ForegroundColorSpan(color), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-		spannable.setSpan(new RelativeSizeSpan(textSize), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		append(text);
+		setSpan(new StyleSpan(Typeface), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
+		setSpan(new ForegroundColorSpan(color), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
+		setSpan(new RelativeSizeSpan(textSize), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
 
 	}
 
@@ -64,16 +61,16 @@ public class RichText {
 		if (text==null) {
 			return;
 		}
-		int start = spannable.toString().length();
+		int start = toString().length();
 		int end = start + text.length();
-		spannable.append(text);
-		spannable.setSpan(new ForegroundColorSpan(color), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		append(text);
+		setSpan(new ForegroundColorSpan(color), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
 
 	}
 
 	public void clearText() {
-		spannable.clear();
+		clear();
 
 	}
 
@@ -81,11 +78,11 @@ public class RichText {
 		if (text==null) {
 			return;
 		}
-		int start = spannable.toString().length();
+		int start = toString().length();
 		int end = start + text.length();
-		spannable.append(text);
-		spannable.setSpan(new StyleSpan(Typeface), start, end,
-				Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		append(text);
+		setSpan(new StyleSpan(Typeface), start, end,
+				SPAN_INCLUSIVE_INCLUSIVE);
 
 	}
 
@@ -99,17 +96,17 @@ public class RichText {
 	public void addImage(Bitmap bitmap, int width, int height) {
 		
 		
-		spannable.append(" # ");
+		append(" # ");
 		ImageSpan span = new ImageSpan(mContext, BitmapUtil.formatBitmap(
 				bitmap, width, height));
-		spannable.setSpan(span, spannable.length() - " # ".length(),
-				spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		setSpan(span, length() - " # ".length(),
+				length(), SPAN_EXCLUSIVE_EXCLUSIVE);
 
 	}
 
 	public void nextLine() {
 
-		spannable.append("\n");
+		append("\n");
 
 	}
 
@@ -146,13 +143,13 @@ public class RichText {
 		if (bitmap == null)
 			return;
 
-		spannable.append(" # \n");
+		append(" # \n");
 		ImageSpan span = new ImageSpan(mContext, BitmapUtil.formatBitmap(
 				bitmap, width, height));
-		spannable.setSpan(span, spannable.length() - " #".length(),
-				spannable.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-//		Log.i("hai", "addImage  start=" + spannable.length() + "  end="
-//				+ (spannable.length() + "#".length()));
+		setSpan(span, length() - " #".length(),
+				length(), SPAN_EXCLUSIVE_EXCLUSIVE);
+//		Log.i("hai", "addImage  start=" + length() + "  end="
+//				+ (length() + "#".length()));
 
 	}
 

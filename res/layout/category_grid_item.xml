@@ -9,6 +9,7 @@
         android:id="@+id/category_grid_img"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/size160"
+        android:src="@drawable/demo_2"
         android:scaleType="centerCrop" >
     </ImageView>
 

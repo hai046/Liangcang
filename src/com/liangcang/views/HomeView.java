@@ -7,16 +7,39 @@ import com.liangcang.R;
 import com.liangcang.weigets.FlyInMenu;
 
 public class HomeView extends BaseView {
-	FlyInMenu  mFlyInMenu;
+	FlyInMenu mFlyInMenu;
+	private LinearLayout mLinear;
+
 	public HomeView(Context mContext) {
 		super(mContext);
 		setContentView(R.layout.home_layout);
-		mFlyInMenu=(FlyInMenu) findViewById(R.id.leftPanel2);
-		LinearLayout mLinear = (LinearLayout) findViewById(R.id.rightcontent);
-//		mLinear.removeAllViews();
-//		GridPicsItemView mGridPicsItemView = new GridPicsItemView(mContext);
-//		mLinear.addView(mGridPicsItemView.getView());
+		mFlyInMenu = (FlyInMenu) findViewById(R.id.leftPanel2);
+		mLinear = (LinearLayout) findViewById(R.id.rightcontent);
+		showView(1, 0);
+	}
 
+	private UserView mUserView;
+	GridPicsItemView mGridPicsItemView;
+
+	public void showView(int parents, int position) {
+		switch (parents) {
+		case 0:
+			mLinear.removeAllViews();
+			if (mGridPicsItemView == null) {
+				mGridPicsItemView = new GridPicsItemView(mContext);
+			}
+			mLinear.addView(mGridPicsItemView.getView());
+			break;
+		case 1:
+			mLinear.removeAllViews();
+			if (mUserView == null) {
+				mUserView = new UserView(mContext);
+			}
+			mLinear.addView(mUserView.getView());
+			break;
+		default:
+			break;
+		}
 	}
 
 	public void showOrHide() {

@@ -24,7 +24,7 @@ public class MsgView extends BaseView {
 						mContext.getResources().getColor(R.color.blue));
 				rt.addTextColor("评论的内容是什么这里马上就可以知道了，亲 你说呢  哈哈哈", mContext
 						.getResources().getColor(R.color.white));
-				tv.setText(rt.getSpannable());
+				tv.setText(rt);
 			}
 			// view.findViewById(R.id.msg_userShop).setVisibility(
 			// position % 2 == 0 ? View.VISIBLE : View.GONE);
