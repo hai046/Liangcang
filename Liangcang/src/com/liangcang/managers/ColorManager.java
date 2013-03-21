@@ -10,7 +10,7 @@ public class ColorManager {
 		return mColorManager;
 	}
 
-	private ColorStyle mColorStyle = ColorStyle.BLUE;
+	ColorStyle mColorStyle = ColorStyle.BLUE;
 
 	public void setColorStyle(int value) {
 		mColorStyle = ColorStyle.valueOf(value);

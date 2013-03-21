@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black" >
+
+    <LinearLayout
+        android:id="@+id/chat_flag_left"
+        android:layout_width="@dimen/size85"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="@dimen/size80"
+            android:layout_height="@dimen/size80"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/demo_people" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="李大齐"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_12" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="著名设计师，造型师"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/title_10" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/chat_flag_left"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chat_bg" >
+
+            <TextView
+                android:id="@+id/chat_meContent"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="靠，还有聊天，不会还要IM吧，实时性应该要求不高"
+                android:textColor="@color/black"
+                android:textSize="@dimen/title_14" />
+
+            <TextView
+                android:id="@+id/chat_meTime"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/chat_meContent"
+                android:gravity="right"
+                android:text="2013-3-15 13:30:07"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/title_12" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/chat_btnReply"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:gravity="right"
+            android:text="回复"
+            android:textColor="@color/blue" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black" >
+
+    <ImageView
+        android:id="@+id/privateMsgImageUser"
+        android:layout_width="@dimen/size44"
+        android:layout_height="@dimen/size44"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/demo_people" />
+
+    <Button
+        android:id="@+id/privateMsgReplyBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin5"
+        android:layout_marginTop="@dimen/margin5"
+        android:background="@null"
+        android:text="@string/reply"
+        android:textColor="@color/blue" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin5"
+        android:layout_toLeftOf="@id/privateMsgReplyBtn"
+        android:layout_toRightOf="@id/privateMsgImageUser"
+        android:text="来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

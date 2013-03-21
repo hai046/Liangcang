@@ -1,10 +1,8 @@
 package com.liangcang;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.GridView;
 
 import com.liangcang.base.BaseViewPagerActivity;
 import com.liangcang.views.ChatView;
@@ -12,12 +10,11 @@ import com.liangcang.views.DyncView;
 import com.liangcang.views.FansView;
 import com.liangcang.views.HomeView;
 import com.liangcang.views.MsgView;
-import com.liangcang.views.PrivateMsgView;
 
 public class MainActivity extends BaseViewPagerActivity {
 	DyncView mDyncView;
 	MsgView mMsgView;
-	PrivateMsgView mChatView;
+	ChatView mChatView;
 	FansView mFansView;
 	HomeView mHomeView;
 
@@ -26,11 +23,12 @@ public class MainActivity extends BaseViewPagerActivity {
 		super.onCreate(savedInstanceState);
 		mDyncView = new DyncView(this);
 		mMsgView = new MsgView(this);
-		mChatView = new PrivateMsgView(this);
+		mChatView = new ChatView(this);
 		mFansView = new FansView(this);
-		mHomeView = new HomeView(this);
+		mHomeView=new HomeView(this);
 		switchView(0);
 	}
+
 
 	@Override
 	public void onClickLeftButton(int position) {

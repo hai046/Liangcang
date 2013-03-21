@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flyinmenu="http://schemas.android.com/apk/res/com.liangcang"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.liangcang.weigets.FlyInMenu
+        android:id="@+id/leftPanel2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/navigation_list_background"
+        flyinmenu:content="@+id/rightcontent"
+        flyinmenu:menu="@+id/menu" >
+
+        <RelativeLayout
+            android:id="@+id/menu"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+           >
+
+            <LinearLayout
+                android:id="@+id/setting"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="心" />
+
+                <Button
+                    android:id="@+id/myselfSetting"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="个人设置" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@id/setting"
+                android:background="@color/transparent"
+                android:divider="#ff555555"
+                android:dividerHeight="1.0px" >
+            </ListView>
+        </RelativeLayout>
+
+        <!-- <FrameLayout -->
+        <!-- android:id="@+id/frameLayoutMain" -->
+        <!-- android:layout_width="fill_parent" -->
+        <!-- android:layout_height="fill_parent" > -->
+        <!-- </FrameLayout> -->
+
+        <LinearLayout
+            android:id="@+id/rightcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical" >
+
+            <!-- <Button -->
+            <!-- android:id="@+id/panelH" -->
+            <!-- android:layout_width="240dip" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_marginTop="140dip" -->
+            <!-- android:text="Content" /> -->
+            <!-- </LinearLayout> -->
+        </LinearLayout>
+    </com.liangcang.weigets.FlyInMenu>
+
+</RelativeLayout>

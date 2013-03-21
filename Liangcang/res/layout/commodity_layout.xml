@@ -1,0 +1,23 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/recommed_gallery_height"
+    android:minHeight="@dimen/recommed_gallery_height" >
+
+    <com.liangcang.weigets.MyGallery
+        android:id="@+id/recomment_gallery"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/recommed_gallery_height"
+        android:spacing="3dip" />
+
+    <TextView
+        android:id="@+id/recomment_tvprogress"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/topic_item_bottom_height"
+        android:layout_alignParentBottom="true"
+        android:gravity="top|center_horizontal"
+        android:paddingTop="0dip"
+        android:singleLine="true" />
+
+</RelativeLayout>
