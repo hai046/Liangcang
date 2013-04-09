@@ -2,8 +2,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/navigation_height"
-    android:fadingEdgeLength="0dp"
-    android:background="@color/black" >
+    android:background="@color/black"
+    android:fadingEdgeLength="0dp" >
 
     <Button
         android:id="@+id/btn_left_title"
@@ -11,34 +11,46 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/margin5"
-        android:background="@drawable/selector_back"
+        android:background="@drawable/selector_navigation_menu"
         android:singleLine="true"
-        android:textSize="@dimen/title_16"
-        android:textColor="@color/blue" />
+        android:textColor="@color/blue"
+        android:textSize="@dimen/title_16" />
 
-    <Button
-        android:id="@+id/btn_right_title"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin5"
-        android:background="@null"
-        android:singleLine="true"
-        android:textColor="@color/white" />
-    <!-- android:textSize="@dimen/navigation_textsize" -->
+        android:gravity="center_vertical" >
 
-    <Button
-        android:id="@+id/btn_right2_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/margin5"
-        android:layout_toLeftOf="@id/btn_right_title"
-        android:background="@null"
-        android:singleLine="true"
-        android:visibility="gone" />
+        <Button
+            android:id="@+id/btn_right_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin5"
+            android:background="@null"
+            android:singleLine="true"
+            android:text="登录"
+            android:textColor="@color/white" />
+        <!-- android:textSize="@dimen/navigation_textsize" -->
 
+        <View
+            android:layout_width="1px"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_xuxian" >
+        </View>
+
+        <Button
+            android:id="@+id/btn_right2_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin5"
+            android:layout_marginRight="@dimen/margin5"
+            android:background="@null"
+            android:singleLine="true"
+            android:text="注册"
+            android:textColor="@color/white" />
+    </LinearLayout>
     <!-- <ImageView -->
     <!-- android:id="@+id/btnLoading" -->
     <!-- android:layout_width="wrap_content" -->
@@ -48,17 +60,30 @@
     <!-- android:layout_marginRight="5dip" -->
     <!-- android:src="@drawable/selector_loading" /> -->
 
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:gravity="center"
-        android:maxLength="9"
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:paddingLeft="25dip"
-        android:paddingRight="25dip"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textSize="@dimen/navigation_textsize" />
+        android:paddingRight="25dip" >
+
+        <ImageView
+            android:id="@+id/menu_homeImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/demo_menu_home" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/menu_homeImage"
+            android:background="@drawable/navigation_msg_num"
+            android:gravity="center"
+            android:maxLength="9"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_10" />
+    </RelativeLayout>
 
 </RelativeLayout>

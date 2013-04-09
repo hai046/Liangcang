@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.LinearLayout;
 
 import com.liangcang.R;
-import com.liangcang.weigets.FlyInMenu;
+import com.liangcang.menus.FlyInMenu;
 
 public class HomeView extends BaseView {
 	FlyInMenu mFlyInMenu;
@@ -44,7 +44,7 @@ public class HomeView extends BaseView {
 
 	public void showOrHide() {
 		// TODO Auto-generated method stub
-		mFlyInMenu.showOrHide();
+//		mFlyInMenu.showOrHide();
 	}
 
 }

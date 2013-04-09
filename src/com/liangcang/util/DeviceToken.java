@@ -9,7 +9,7 @@ import android.net.wifi.WifiManager;
 import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 
-import com.buy.stores.Settings;
+import com.liangcang.stores.Settings;
 
 /**
  * 获取设备的唯一标示

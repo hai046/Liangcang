@@ -1,4 +1,4 @@
-package com.liangcang.weigets;
+package com.liangcang.menus;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -30,7 +30,7 @@ public class MenuListAdapter extends BaseAdapter {
 	public MenuListAdapter(Context mContext) {
 		this.mContext = mContext;
 		this.inflater = LayoutInflater.from(mContext);
-		list = mContext.getResources().getStringArray(R.array.parentsMenu);
+//		list = mContext.getResources().getStringArray(R.array.parentsMenu);
 	}
 
 	private int menuParentsIndex = 0;
@@ -47,18 +47,11 @@ public class MenuListAdapter extends BaseAdapter {
 	public void switchToSon(int index) {
 		menuParentsIndex = index;
 		switch (index) {
-		case 0:
+		case 1:
 			list = mContext.getResources().getStringArray(
 					R.array.menu_categorye);
-
 			break;
-		case 5:
-
-			list = mContext.getResources()
-					.getStringArray(R.array.menu_settings);
-
-			break;
-
+		case 0:
 		default:
 			list = mContext.getResources().getStringArray(R.array.parentsMenu);
 			break;
@@ -89,8 +82,6 @@ public class MenuListAdapter extends BaseAdapter {
 		if (convertView == null) {
 			viewHolder = new ViewHolder();
 			convertView = inflater.inflate(R.layout.menu_item_list, null);
-//			viewHolder.ivSelected = (ImageView) convertView
-//					.findViewById(R.id.ivSelected);
 			viewHolder.tvMenu = (TextView) convertView
 					.findViewById(R.id.tvMenu);
 		} else {
@@ -102,7 +93,7 @@ public class MenuListAdapter extends BaseAdapter {
 	}
 
 	class ViewHolder {
-//		ImageView ivSelected;
+		// ImageView ivSelected;
 		TextView tvMenu;
 	}
 

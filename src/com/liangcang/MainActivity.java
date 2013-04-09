@@ -2,15 +2,15 @@ package com.liangcang;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.widget.GridView;
 
+import com.igexin.slavesdk.MessageManager;
+import com.igexin.slavesdk.MessageManagerObserver;
 import com.liangcang.base.BaseViewPagerActivity;
-import com.liangcang.views.ChatView;
+import com.liangcang.menus.MenuActivity;
+import com.liangcang.util.MyLog;
 import com.liangcang.views.DyncView;
 import com.liangcang.views.FansView;
-import com.liangcang.views.HomeView;
 import com.liangcang.views.MsgView;
 import com.liangcang.views.PrivateMsgView;
 
@@ -19,7 +19,7 @@ public class MainActivity extends BaseViewPagerActivity {
 	MsgView mMsgView;
 	PrivateMsgView mChatView;
 	FansView mFansView;
-	HomeView mHomeView;
+//	HomeView mHomeView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,15 +28,24 @@ public class MainActivity extends BaseViewPagerActivity {
 		mMsgView = new MsgView(this);
 		mChatView = new PrivateMsgView(this);
 		mFansView = new FansView(this);
-		mHomeView = new HomeView(this);
-		switchView(0);
+//		mHomeView = new HomeView(this);
+		switchView(0);	
+		MessageManager.getInstance().initialize(getApplicationContext());
+		MessageManager.getInstance().setObserver(new MessageManagerObserver() {
+			
+			@Override
+			public void onData(byte[] arg0) {
+				MyLog.e("hhh", "setObserver="+new String(arg0));
+				
+			}
+		});
 	}
 
 	@Override
 	public void onClickLeftButton(int position) {
 		switch (position) {
 		case 4:
-			mHomeView.showOrHide();
+//			mHomeView.showOrHide();
 			break;
 
 		default:
@@ -53,7 +62,7 @@ public class MainActivity extends BaseViewPagerActivity {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
+		
 		return 5;
 	}
 
@@ -69,7 +78,10 @@ public class MainActivity extends BaseViewPagerActivity {
 		case 3:
 			return mFansView.getView();
 		case 4:
-			return mHomeView.getView();
+//			return mHomeView.getView();
+			Intent intent=new Intent();
+			intent.setClass(this, MenuActivity.class);
+			startActivity(intent);
 		default:
 			break;
 		}
@@ -78,6 +90,7 @@ public class MainActivity extends BaseViewPagerActivity {
 
 	@Override
 	public void onPageSelected(int position) {
+		setNavigationMsgNum(position);
 		switch (position) {
 		case 0:
 			setLeftText("好友动态 18");

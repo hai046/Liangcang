@@ -1,9 +1,30 @@
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/loading_background"
-    android:scaleType="fitXY"
-    android:background="@null" >
+    android:layout_height="fill_parent" >
 
-</ImageView>
+    <ImageView
+        android:id="@+id/layout_loadingTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/loading_title" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/layout_loadingTitle"
+        android:layout_centerInParent="true"
+        android:src="@drawable/loading_icon"
+        android:id="@+id/loading_icon"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/margin16"
+        android:src="@drawable/loading_copy_all_right" />
+
+</RelativeLayout>

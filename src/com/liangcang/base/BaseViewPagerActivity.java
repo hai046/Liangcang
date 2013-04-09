@@ -16,8 +16,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.buy.stores.Settings;
 import com.liangcang.R;
+import com.liangcang.stores.Settings;
 import com.liangcang.util.BitmapUtil;
 import com.liangcang.util.Rotate3dAnimation;
 import com.liangcang.webUtil.CheckUpdataManager;
@@ -110,59 +110,7 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 		}.execute();
 	}
 
-	// private NetUtil mNetUtil;
-	// private boolean first = true;
-	//
-	// private void listenerNetworkChange() {
-	// mNetUtil = new NetUtil( this );
-	// mNetUtil.setNetWorkCallback( new NetWorkCallback( ) {
-	// @Override
-	// public void netChanger(int typeMobile, State mobile, boolean
-	// isFastNetwork) {
-	// MyLog.i( "network", "typeMobile=" + typeMobile + "  mobile=" + mobile );
-	// switch (typeMobile) {
-	// case ConnectivityManager.TYPE_WIFI:
-	// MyToast.showMsgLong( BaseViewPagerActivity.this, "在WIFI模式下，自动为您切换到高清模�?
-	// );
-	// if (getMinWH( ) <= 0)
-	// ImageDownloader.getInstance( ).setQuality( Quality.MIDDLE );
-	// else {
-	// Quality mQuality = ImageDownloader.getInstance( ).getNextQuality(
-	// getMinWH( ) );
-	// MyLog.e( "network", "222mQuality=" + mQuality + "  " + getMinWH( ) );
-	// ImageDownloader.getInstance( ).setQuality( mQuality );
-	// }
-	// if (!first) {
-	// deleteCacheFiles( );
-	// }
-	// first = false;
-	// break;
-	// case ConnectivityManager.TYPE_MOBILE:
-	// if (isFastNetwork) {
-	// MyToast.showMsgLong( BaseViewPagerActivity.this, "在手�?G模式下，自动为您切换到标清模�?
-	// );
-	//
-	// if (getMinWH( ) <= 0)
-	// ImageDownloader.getInstance( ).setQuality( Quality.LOW );
-	// else {
-	// Quality mQuality = ImageDownloader.getInstance( ).getQuality( getMinWH( )
-	// );
-	// ImageDownloader.getInstance( ).setQuality( mQuality );
-	// MyLog.e( "network", "11mQuality=" + mQuality + "  " + getMinWH( ) );
-	// }
-	// } else {
-	// MyToast.showMsgLong( BaseViewPagerActivity.this, "由于您的网�?较慢，自动为您切换到极�?模式"
-	// );
-	// ImageDownloader.getInstance( ).setQuality( Quality.LOWEST );
-	// }
-	// break;
-	// default:
-	// break;
-	// }
-	// }
-	// } );
-	//
-	// }
+
 
 	private int getMinWH() {
 
@@ -174,31 +122,14 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 
 	protected void switchView(int position) {
 		currentIndex = position;
-		mainLayout.removeAllViews();
+		
 		if (getShowView(position) != null) {
+			mainLayout.removeAllViews();
 			mainLayout.addView(getShowView(position));
 		}
 		switchMenuBg(position);
 		onPageSelected(position);
 	}
-
-	// @Override
-	// public void netChanger(int typeMobile, State mobile) {
-	//
-	// if (typeMobile == ConnectivityManager.TYPE_MOBILE) {
-	// if (mobile == State.CONNECTED) {
-	// Toast.makeText( this, "当前为模式，切换到低质量图片", Toast.LENGTH_LONG ).show( );
-	// ImageDownloader.getInstance( ).setQuality( ImageDownloader.Quality.LOW );
-	// }
-	// } else if (typeMobile == ConnectivityManager.TYPE_WIFI) {
-	// if (mobile == State.CONNECTED) {
-	// Toast.makeText( this, "当前为wifi模式，切换到高清原图", Toast.LENGTH_LONG ).show( );
-	// ImageDownloader.getInstance( ).setQuality( ImageDownloader.Quality.HIGHT
-	// );
-	// }
-	// }
-	//
-	// }
 
 	public void startLeftAnimation() {
 
@@ -249,6 +180,17 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 		}
 	}
 
+	public void setRithColoseImage(boolean isShow)
+	{
+		if (!isShow ) {
+			btnRight.setVisibility(View.GONE);
+		} else {
+			btnRight.setVisibility(View.VISIBLE);
+			btnRight.setText(null);
+			btnRight.setBackgroundResource(R.drawable.navigation_close);
+		}
+	}
+	
 	public void setCurrentTitleString(String leftBtnText, String centerText,
 			String rightBtnText) {
 		if (leftBtnText == null) {
@@ -400,6 +342,18 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 	 */
 	public abstract void onPageSelected(int position);
 
+	public void setNavigationMsgNum(int num)
+	{
+		if(num>0)
+		{
+			tvTitle.setText(num+"");
+			tvTitle.setVisibility(View.VISIBLE);
+		}else
+		{
+			tvTitle.setVisibility(View.GONE);
+		}
+		
+	}
 	public void setNaviationLeftBg(int leftImgId) {
 		if (leftImgId > 0) {
 			btnLeft.setBackgroundResource(leftImgId);

@@ -1,15 +1,22 @@
 package com.liangcang;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.liangcang.base.BaseActivity;
+import com.liangcang.weigets.LoadMoreListView;
 
-public class HomeActivity extends BaseActivity {
+public class RecommendActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home_layout);
+		View topView=getLayoutInflater().inflate(R.layout.comment_layout, null);
+		LoadMoreListView moreListView=new LoadMoreListView(this);
+		moreListView.addHeaderView(topView);
+		setContentView(moreListView);
+		
+		
 	}
 
 	@Override
@@ -41,6 +48,5 @@ public class HomeActivity extends BaseActivity {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

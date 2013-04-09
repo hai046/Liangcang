@@ -15,6 +15,7 @@ public class LoadMoreListView extends ListView {
     public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
         super( context, attrs, defStyle );
         init( context );
+        
     }
 
     public LoadMoreListView(Context context, AttributeSet attrs) {

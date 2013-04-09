@@ -6,12 +6,13 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.liangcang.weigets.FlyInMenu
+    <com.liangcang.menus.FlyInMenu
         android:id="@+id/leftPanel2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/navigation_list_background"
         flyinmenu:content="@+id/rightcontent"
+       
         flyinmenu:menu="@+id/menu" >
 
         <RelativeLayout
@@ -19,7 +20,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical"
-           >
+            android:visibility="gone" >
 
             <LinearLayout
                 android:id="@+id/setting"
@@ -48,7 +49,7 @@
                 android:layout_height="fill_parent"
                 android:layout_above="@id/setting"
                 android:background="@color/transparent"
-                android:divider="#ff555555"
+                android:divider="@color/transparent"
                 android:dividerHeight="1.0px" >
             </ListView>
         </RelativeLayout>
@@ -74,6 +75,6 @@
             <!-- android:text="Content" /> -->
             <!-- </LinearLayout> -->
         </LinearLayout>
-    </com.liangcang.weigets.FlyInMenu>
+    </com.liangcang.menus.FlyInMenu>
 
 </RelativeLayout>

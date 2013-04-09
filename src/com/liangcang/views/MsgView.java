@@ -2,11 +2,14 @@ package com.liangcang.views;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.liangcang.R;
 import com.liangcang.base.MyBaseAdapter;
 import com.liangcang.util.RichText;
+import com.liangcang.util.Util;
 import com.liangcang.weigets.LoadMoreListView;
 
 public class MsgView extends BaseView {
@@ -41,5 +44,13 @@ public class MsgView extends BaseView {
 			adapter.add("as");
 		}
 		list.setAdapter(adapter);
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Util.gotoComment(MsgView.this.mContext,"");
+			}
+		});
 	}
 }

@@ -1,25 +1,146 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/topLayout"
     android:layout_width="fill_parent"
-    android:layout_height="@dimen/recommed_gallery_height"
-    android:minHeight="@dimen/recommed_gallery_height" >
+    android:layout_height="fill_parent"
+    android:background="@color/black" >
 
-    <com.liangcang.weigets.MyGallery
-        android:id="@+id/recomment_gallery"
+    <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/recommed_gallery_height"
-        android:spacing="3dip" >
-    </com.liangcang.weigets.MyGallery>
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/recomment_tvprogress"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/topic_item_bottom_height"
-        android:layout_alignParentBottom="true"
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="180dip" >
 
-        android:gravity="top|center_horizontal"
-        android:paddingTop="0dip"
-        android:singleLine="true" />
+            <com.liangcang.weigets.MyGallery
+                android:id="@+id/item_detail_gallery"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:minHeight="300dip"
+                android:spacing="3dip" >
+            </com.liangcang.weigets.MyGallery>
 
-</RelativeLayout>
+            <Button
+                android:id="@+id/item_detail_love"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:text="Love" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/item_detail_love"
+                android:text="1224"
+                android:textColor="@color/blue" />
+
+            <RelativeLayout
+                android:id="@+id/bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/item_detail_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥123.12"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/item_detail_msgNum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:background="@drawable/demo2" />
+
+                <Button
+                    android:id="@+id/item_detail_shareTo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/item_detail_msgNum"
+                    android:background="@drawable/demo1" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/item_detail_tvprogress"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/topic_item_bottom_height"
+                android:layout_above="@id/bottom"
+                android:gravity="top|center_horizontal"
+                android:singleLine="true"
+                android:text="·······" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10" >
+
+            <ImageView
+                android:id="@+id/item_detail_userImage"
+                android:layout_width="@dimen/size44"
+                android:layout_height="@dimen/size44"
+                android:src="@drawable/demo_people" />
+
+            <ImageButton
+                android:id="@+id/item_detail_buy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@null"
+                android:src="@drawable/demo3" />
+
+            <TextView
+                android:id="@+id/item_detail_userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_toRightOf="@id/item_detail_userImage"
+                android:text="LIYU"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_14" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/item_detail_userName"
+                android:layout_marginLeft="@dimen/margin5"
+                android:layout_toLeftOf="@id/item_detail_buy"
+                android:layout_toRightOf="@id/item_detail_userImage"
+                android:maxLines="2"
+                android:text="3月22日消息，据国外媒体报道，Google一周前把移动设备操作系统Android及笔记本电脑操作系统ChromeOS，交由同一位主管经营，引发外界揣测"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_12" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/item_detail_itemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="Wave 横山宏 1/20 SnowMan"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/title_14" />
+
+        <TextView
+            android:id="@+id/item_detail_itemDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin5"
+            android:text="3月22日消息，据国外媒体报道，Google一周前把移动设备操作系统Android及笔记本电脑操作系统ChromeOS，交由同一位主管经营，引发外界揣测。
+　　不过，Google CEO施密特周四(21日)澄清，两套OS仍将维持为各自独立的产品，尽管可能会有更多部分重迭。
+　　Google上周宣布，负责建构Android的AndyRubin将转任尚未确定新职，而Android部门将纳入Chrome浏览器主管SundarPichai辖下经营。Pichai还负责包括GoogleDrive及Gmail邮件等应用程序产品。
+　　《路透社》周四报道，正在亚洲访问的施密特于印度接受3月22日消息，据国外媒体报道，Google一周前把移动设备操作系统Android及笔记本电脑操作系统ChromeOS，交由同一位主管经营，引发外界揣测。
+　　不过，Google CEO施密特周四(21日)澄清，两套OS仍将维持为各自独立的产品，尽管可能会有更多部分重迭。
+　　Google上周宣布，负责建构Android的AndyRubin将转任尚未确定新职，而Android部门将纳入Chrome浏览器主管SundarPichai辖下经营。Pichai还负责包括GoogleDrive及Gmail邮件等应用程序产品。
+　　《路透社》周四报道，正在亚洲访问的施密特于印度接受访问时，作出上述表示。他同时澄清自己可能离开Google的谣传，称这样的揣测“完全不正确”。虽然他计划出售约42%的Google持股，但不代表他将离开公司。"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_12" />
+    </LinearLayout>
+
+</ScrollView>

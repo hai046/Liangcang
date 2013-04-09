@@ -1,4 +1,4 @@
-package com.buy.stores;
+package com.liangcang.stores;
 
 import android.content.Context;
 import android.content.SharedPreferences;

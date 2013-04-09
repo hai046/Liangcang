@@ -2,11 +2,14 @@ package com.liangcang.views;
 
 import android.content.Context;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.liangcang.R;
 import com.liangcang.base.MyBaseAdapter;
+import com.liangcang.util.Util;
 import com.liangcang.weigets.LoadMoreListView;
 
 public class GridPicsItemView extends BaseView {
@@ -19,7 +22,15 @@ public class GridPicsItemView extends BaseView {
 			adapter.add("" + i);
 		}
 		listview.setAdapter(adapter);
+		listview.setOnItemClickListener(new OnItemClickListener() {
 
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				Util.gotoItemDetail(GridPicsItemView.this.mContext,"");
+				
+			}
+		});
 	}
 
 	/* private MyBaseAdapter<String> adapter = new */

@@ -1,5 +1,19 @@
-package com.liangcang.weigets;
+package com.liangcang.menus;
 
+/**
+ * 
+ * @Description: TODO
+
+ * @File: FlyInMenu.java
+
+ * @Paceage com.meiya.ui
+
+ * @Author huangxj
+
+ * @Date 上午10:51:34
+
+ * @Version 
+ */
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
@@ -9,17 +23,17 @@ import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.liangcang.R;
-import com.liangcang.util.MyLog;
 
 public class FlyInMenu extends FrameLayout {
 
-	String TAG = "FlyInMenu";
-	private static final int SNAP_VELOCITY = 500;
-	private static final int FINAL_DP = 200;
+	private static final int SNAP_VELOCITY = 400;
+	private static final int FINAL_DP = 180;
 
 	private int menuId, rightLayoutId;
 
@@ -39,7 +53,7 @@ public class FlyInMenu extends FrameLayout {
 	private VelocityTracker velocityTracker;
 	private int velocityX;
 
-	public int duration = 200;
+	public int duration = 100;
 	public boolean linearFlying = true;
 	private int finalDis;
 
@@ -50,6 +64,10 @@ public class FlyInMenu extends FrameLayout {
 		ANIMATING, READY, TRACKING,
 	};
 
+	public boolean isOpen() {
+		return isOpened;
+	}
+
 	private State mState;
 
 	public FlyInMenu(Context context, AttributeSet attrs) {
@@ -58,7 +76,7 @@ public class FlyInMenu extends FrameLayout {
 
 		TypedArray a = context.obtainStyledAttributes(attrs,
 				R.styleable.FlyInMenu);
-		duration = a.getInteger(R.styleable.FlyInMenu_animationDuration, 200);
+		duration = a.getInteger(R.styleable.FlyInMenu_animationDuration, 500);
 		RuntimeException e = null;
 		menuId = a.getResourceId(R.styleable.FlyInMenu_menu, 0);
 		if (menuId == 0) {
@@ -108,7 +126,6 @@ public class FlyInMenu extends FrameLayout {
 		final float scale = myContext.getResources().getDisplayMetrics().density;
 		LayoutParams params = (LayoutParams) menu.getLayoutParams();
 		params.rightMargin = (int) (FINAL_DP * scale + 0.5f);
-		MyLog.e(TAG, "params.rightMargin=" + params.rightMargin);
 		menu.setLayoutParams(params);
 
 		initView();
@@ -117,44 +134,50 @@ public class FlyInMenu extends FrameLayout {
 	@Override
 	protected void onLayout(boolean changed, int left, int top, int right,
 			int bottom) {
-		MyLog.i(TAG, "changed=" + changed + "  left=" + left + " top=" + top
-				+ "  right=" + right + "  bottom=" + bottom);
+		System.out.println("onLayout+changed" + changed + "  left=" + left
+				+ "  top=" + top + "  right=" + right + " bottom=" + bottom);
+
 		super.onLayout(changed, left, top, right, bottom);
 		final float scale = myContext.getResources().getDisplayMetrics().density;
 		testRight = this.getWidth() - (int) (FINAL_DP * scale + 0.5f);
-		MyLog.i(TAG, "testRighttestRighttestRight=" + testRight);
 		everyMSpd = (testRight * 16) / duration;
+		//
+		// if (isOpened) {
+		// setToOpen();
+		// } else {
+		// setToClose();
+		// }
 
 	}
+
+	// @Override
+	// public boolean onInterceptTouchEvent(MotionEvent ev) {
+	// int action = ev.getAction();
+	// switch (action) {
+	// case MotionEvent.ACTION_DOWN:
+	// Log.d(VIEW_LOG_TAG, "viewgroup intercept down");
+	// break;
+	// case MotionEvent.ACTION_MOVE:
+	// Log.d(VIEW_LOG_TAG, "viewgroup intercept move");
+	// break;
+	// case MotionEvent.ACTION_UP:
+	// Log.d(VIEW_LOG_TAG, "viewgroup intercept up");
+	// break;
+	// }
+	//
+	// return super.onInterceptTouchEvent(ev);
+	// }
 
 	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
-		int action = ev.getAction();
-		switch (action) {
-		case MotionEvent.ACTION_DOWN:
-			Log.d(VIEW_LOG_TAG, "viewgroup intercept down");
-			break;
-		case MotionEvent.ACTION_MOVE:
-			Log.d(VIEW_LOG_TAG, "viewgroup intercept move");
-			break;
-		case MotionEvent.ACTION_UP:
-			Log.d(VIEW_LOG_TAG, "viewgroup intercept up");
-			break;
-		}
+	public boolean onTouchEvent(MotionEvent event) {
 
-		return false;
-	}
+		// Log.d(VIEW_LOG_TAG, "mState="+mState);
 
-
-	private boolean myTouch(MotionEvent event)
-	{
-		Log.d("isOpened = ", "isopen=" + isOpened+"  mState="+mState);
+		Log.d("isOpened = ", "isopen=" + isOpened + "  mState=" + mState);
 
 		if (mState == State.ANIMATING) {
 			return false;
 		}
-
-	
 		if (velocityTracker == null) {
 			velocityTracker = VelocityTracker.obtain();
 		}
@@ -171,21 +194,20 @@ public class FlyInMenu extends FrameLayout {
 					return false;
 			}
 
-//			if (isOpened) {
-//				menu.setVisibility(VISIBLE);
-//			}
+			if (isOpened) {
+				menu.setVisibility(VISIBLE);
+			}
 
 			lastMotionX = x;
 			startX = x;
 			break;
 		case MotionEvent.ACTION_MOVE:
-			
 
 			mState = State.TRACKING;
 
 			int deltaX = (int) (lastMotionX - x);
 			lastMotionX = x;
-			
+			Log.d(VIEW_LOG_TAG, "move   deltaX=" + deltaX);
 			// 向右滑，如果已经到最右边就停止滑动
 			if (deltaX < 0) {
 				if (rightLayout.getLeft() >= testRight)
@@ -202,7 +224,7 @@ public class FlyInMenu extends FrameLayout {
 				if (deltaX > rightLayout.getLeft())
 					deltaX = rightLayout.getLeft();
 			}
-			 Log.d(VIEW_LOG_TAG, "move"+"   deltaX="+deltaX);
+
 			// rightLayout.scrollBy(deltaX, 0);
 			rightLayout.offsetLeftAndRight(-deltaX);
 			// rightLayout.scrollBy(-deltaX, 0);
@@ -230,7 +252,8 @@ public class FlyInMenu extends FrameLayout {
 			if (Math.abs(x - startX) < touchSlop) {
 				if (isOpened) {
 					Log.d("action up", "onclick...");
-//					menu.setVisibility(GONE);
+
+					menu.setVisibility(GONE);
 					setToOpen();
 				} else {
 					setToClose();
@@ -243,10 +266,14 @@ public class FlyInMenu extends FrameLayout {
 					// 是一次向左的滑动不做处理
 					if (x - startX < 0) {
 						Log.d("action up", "fling to left...");
-//						menu.setVisibility(GONE);
+
+						menu.setVisibility(GONE);
+
 						break;
 					}
+
 					// 如果是向右的滑动，如果速度满足值
+
 					if (sudu) {
 						setToClose();
 					}
@@ -266,6 +293,7 @@ public class FlyInMenu extends FrameLayout {
 					// 如果是向右的滑动不做处理
 					if (x - startX > 0)
 						break;
+
 					if (sudu) {
 						setToOpen();
 					} else {
@@ -283,36 +311,13 @@ public class FlyInMenu extends FrameLayout {
 			mState = State.READY;
 			break;
 		}
-//		if(mState==State.ANIMATING)
-//		{
-//			super.dispatchTouchEvent(event);
-//			return true;
-//		}
-//		super.dispatchTouchEvent(event);
-		return false;
-		
-	}
-
-
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		MyLog.i(TAG, "MotionEvent="+ev);
-		myTouch(ev);
-		return super.dispatchTouchEvent(ev);
-	}
-
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
-		return myTouch(event);
-		// Log.d(VIEW_LOG_TAG, "mState="+mState);
-
-		
+		return true;
 	}
 
 	private void setToClose() {
+		menu.setVisibility(View.VISIBLE);
 		isOpened = false;
 		finalDis = rightLayout.getLeft() - testRight;
-		Log.d("finalDis", finalDis + "   setToClose");
 		if (finalDis == 0) {
 			mState = State.READY;
 		} else {
@@ -323,30 +328,12 @@ public class FlyInMenu extends FrameLayout {
 	private void setToOpen() {
 		isOpened = true;
 		finalDis = rightLayout.getLeft();
-		Log.d("finalDis", finalDis + "   setToOpen");
+		Log.d("finalDis", finalDis + "");
 		if (finalDis == 0) {
 			mState = State.READY;
-//			menu.setVisibility(View.GONE);
+			menu.setVisibility(View.GONE);
 		} else {
 			updateConUI(finalDis, true);
-		}
-	}
-
-	public void showOrHide() {
-		menu.setVisibility(View.VISIBLE);
-		if (isOpened) {
-			isOpened = false;
-			setToClose();
-//			menu.setVisibility(View.GONE);
-//			rightLayout.offsetLeftAndRight(testRight);
-//			invalidate();
-			// updateConUI(testRight, true);
-		} else {
-			isOpened = true;
-			setToOpen();
-//			rightLayout.offsetLeftAndRight(-testRight);
-//			invalidate();
-			// updateConUI(-testRight, true);
 		}
 	}
 
@@ -383,11 +370,11 @@ public class FlyInMenu extends FrameLayout {
 				if (rightLayout.getLeft() == 0
 						|| rightLayout.getLeft() == testRight) {
 					mState = State.READY;
-//					if (rightLayout.getLeft() == 0)
-//						menu.setVisibility(GONE);
-//					else {
-//						menu.setVisibility(VISIBLE);
-//					}
+					if (rightLayout.getLeft() == 0)
+						menu.setVisibility(GONE);
+					else {
+						menu.setVisibility(VISIBLE);
+					}
 					System.out.println("end update state=" + mState);
 
 				}
@@ -398,27 +385,48 @@ public class FlyInMenu extends FrameLayout {
 
 	// 添加的部分
 	private MenuListAdapter menuListAdapter;
-
 	private ListView mListView;
 
 	private void initView() {
 		mListView = (ListView) findViewById(R.id.list);
 		menuListAdapter = new MenuListAdapter(myContext);
+
+	}
+
+	public void setAdapter(int position) {
+		menuListAdapter.switchToSon(position);
 		mListView.setAdapter(menuListAdapter);
-		menuListAdapter.notifyDataSetChanged();
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+				if (mClickCallBack != null) {
+					mClickCallBack.onClick(menuListAdapter.getItem(arg2), arg2);
+				}
+			}
+		});
+	}
+
+	public void showOfHide() {
+		Log.i("showOfHide", "showOfHideshowOfHideshowOfHide  isOpened"
+				+ isOpened);
+		if (isOpened) {
+			setToClose();
+
+		} else {
+			setToOpen();
+		}
 
 	}
 
-	protected void onClickeMenu(int position) {
+	private ClickCallBack mClickCallBack;
 
+	public void setClickCallBack(ClickCallBack mClickCallBack) {
+		this.mClickCallBack = mClickCallBack;
 	}
 
-	protected void clickSetting(int position) {
-
+	public interface ClickCallBack {
+		void onClick(Object item, int position);
 	}
-
-	protected void clickCagegory(int position) {
-
-	}
-
 }
