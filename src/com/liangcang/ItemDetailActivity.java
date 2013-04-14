@@ -7,37 +7,138 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.Gallery;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liangcang.base.BaseActivity;
+import com.liangcang.managers.DataCallBack;
+import com.liangcang.managers.DataManager;
+import com.liangcang.mode.Good;
+import com.liangcang.mode.GoodDetail;
 import com.liangcang.util.ImageDownloader;
 import com.liangcang.util.MyHandler;
 import com.liangcang.util.MyHandler.HandlerCallBack;
+import com.liangcang.util.MyLog;
 import com.liangcang.util.RichText;
+import com.liangcang.util.Util;
 import com.liangcang.weigets.MyGallery;
 
-public class ItemDetailActivity extends BaseActivity {
+public class ItemDetailActivity extends BaseActivity implements OnClickListener {
+
+	public static Good Good;
+	private Button btnLike, btnMsgNum;
+	private TextView tvLiked_count, tv_goodPrice, tvOrderName, tvOrderDesc,
+			tvGoodName, tvGoodsDesc;
+	private ImageButton btnShareTo, btnBuy;
+	private ImageView goodOrderImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		if (Good == null) {
+			finish();
+			return;
+		}
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item_detail_layout);
 		initView();
-		list.add("http://www.iliangcang.com/ware/slider/20.jpg");
-		list.add("http://www.iliangcang.com/ware/slider/22.jpg");
-		list.add("http://www.iliangcang.com/ware/slider/21.jpg");
-		list.add("http://www.iliangcang.com/ware/slider/24.jpg");
-		setDatas(list);
+		receviceData();
+		setTopBtnLeftBackground(R.drawable.navigation_back);
+		hideRightBtn2();
+		setRightTitleString(null);
+	}
+
+	private void receviceData() {
+		DataManager.getInstance(this).getGoodsDetail(Good.getGoods_id(),
+				new DataCallBack<GoodDetail>() {
+					@Override
+					public void success(GoodDetail t) {
+						initData(t);
+					}
+
+					@Override
+					public void failure(String msg) {
+
+					}
+				});
+
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		super.onClick(v);
+		switch (v.getId()) {
+		case R.id.item_detail_buy:
+			Util.gotoBuy(this,buyUrl);
+			break;
+		case R.id.item_detail_shareTo:
+
+			break;
+		case R.id.item_detail_love:
+
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void initView() {
-		this.mGallery=(MyGallery) findViewById(R.id.item_detail_gallery);
-		this.tvProgress=(TextView) findViewById(R.id.item_detail_tvprogress);
-		
+		tvLiked_count = (TextView) findViewById(R.id.item_detail_likedCount);
+
+		this.tv_goodPrice = (TextView) findViewById(R.id.item_detail_price);
+		this.btnBuy = (ImageButton) findViewById(R.id.item_detail_buy);
+		btnBuy.setOnClickListener(this);
+		this.btnMsgNum = (Button) findViewById(R.id.item_detail_msgNum);
+		this.btnShareTo = (ImageButton) findViewById(R.id.item_detail_shareTo);
+		btnShareTo.setOnClickListener(this);
+		goodOrderImage = (ImageView) findViewById(R.id.item_detail_userImage);
+		btnLike = (Button) findViewById(R.id.item_detail_love);
+		btnLike.setOnClickListener(this);
+		this.mGallery = (MyGallery) findViewById(R.id.item_detail_gallery);
+
+		this.tvProgress = (TextView) findViewById(R.id.item_detail_tvprogress);
+		this.tvOrderName = (TextView) findViewById(R.id.item_detail_userName);
+		tvOrderDesc = (TextView) findViewById(R.id.item_detail_Userdesc);
+		tvGoodName = (TextView) findViewById(R.id.item_detail_goodsName);
+		tvGoodsDesc = (TextView) findViewById(R.id.item_detail_goodsDesc);
+		initData();
+	}
+
+	private void initData() {
+
+		tvLiked_count.setText(Good.getLike_count());
+		tv_goodPrice.setText("￥" + Good.getPrice());
+		btnMsgNum.setText(Good.getComment_count());
+		list.add(Good.getGoods_image());
+		setDatas(list);
+	}
+
+	private String buyUrl;
+
+	protected void initData(GoodDetail t) {
+		buyUrl = t.getGoods_url();
+		list.add(t.getGoods_image());
+		tvLiked_count.setText(t.getLike_count());
+		tv_goodPrice.setText("￥" + t.getPrice());
+		btnMsgNum.setText(t.getComment_count());
+		ImageDownloader.getInstance().download(t.getOwner_image(),
+				goodOrderImage);
+		this.tvGoodName.setText(t.getGoods_name());
+		this.tvGoodsDesc.setText(t.getGoods_desc());
+		this.tvLiked_count.setText(t.getLike_count());
+		this.tvOrderName.setText(t.getOwner_name());
+		this.tvOrderDesc.setText(t.getOwner_desc());
+
+		list.clear();
+		list.add(Good.getGoods_image());
+		setDatas(list);
 	}
 
 	@Override
@@ -47,6 +148,11 @@ public class ItemDetailActivity extends BaseActivity {
 			MyHandler.getInstance().removeMessages(SCROLLER);
 			MyHandler.getInstance().sendEmptyMessageDelayed(SCROLLER, 4000);
 		}
+		/*
+		 * final int width = Util.getDisplayWindth(ItemDetailActivity.this);
+		 * mGallery.setLayoutParams(new RelativeLayout.LayoutParams(width,
+		 * width));
+		 */
 		super.onResume();
 	}
 
@@ -59,7 +165,7 @@ public class ItemDetailActivity extends BaseActivity {
 	private TextView tvProgress;
 	private MyGallery mGallery;
 	private BaseAdapter galleryAdapter;
-	private boolean isGalleryClear=false;
+	private boolean isGalleryClear = false;
 	private List<String> list = new ArrayList<String>();
 
 	public void setDatas(List<String> list) {
@@ -69,19 +175,23 @@ public class ItemDetailActivity extends BaseActivity {
 				isGalleryClear = false;
 			}
 			this.list.addAll(list);
+			final int width = Util.getDisplayWindth(ItemDetailActivity.this);
+			// mGallery.setLayoutParams(new RelativeLayout.LayoutParams(width,
+			// width));
+
 			if (galleryAdapter == null) {
 				galleryAdapter = new BaseAdapter() {
 
 					private Gallery.LayoutParams params = new Gallery.LayoutParams(
-							Gallery.LayoutParams.FILL_PARENT,
-							Gallery.LayoutParams.FILL_PARENT);
+							width, width);
 
 					public View bindView(int position, String t, View view) {
 						ImageView image;
 						if (view == null) {
 							image = new ImageView(ItemDetailActivity.this);
-							image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+							image.setScaleType(ImageView.ScaleType.FIT_XY);
 							image.setLayoutParams(params);
+							MyLog.e("gallery", "width=" + width);
 						} else {
 							image = (ImageView) view;
 						}
@@ -161,6 +271,7 @@ public class ItemDetailActivity extends BaseActivity {
 
 	@Override
 	public void onDestroy() {
+		Good = null;
 		MyHandler.getInstance().removeMessages(SCROLLER);
 		MyHandler.getInstance().removeListener(mHandlerCallBack);
 		super.onDestroy();
@@ -193,8 +304,6 @@ public class ItemDetailActivity extends BaseActivity {
 		MyHandler.getInstance().sendEmptyMessageDelayed(SCROLLER, 4000);
 	}
 
-
-
 	@Override
 	public void onRefresh() {
 		// TODO Auto-generated method stub
@@ -216,13 +325,13 @@ public class ItemDetailActivity extends BaseActivity {
 	@Override
 	public void onClickRightButton() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onClickLeftButton() {
-		// TODO Auto-generated method stub
-		
+		finish();
+
 	}
 
 }

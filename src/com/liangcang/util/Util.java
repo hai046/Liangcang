@@ -17,9 +17,11 @@ import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.util.DisplayMetrics;
 
+import com.liangcang.BuyWebActivity;
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
 import com.liangcang.RecommendActivity;
+import com.liangcang.mode.Good;
 
 public class Util {
 
@@ -109,12 +111,14 @@ public class Util {
 		return false;
 	}
 
-	public static void gotoItemDetail(Context mContext, String string) {
+	public static void gotoItemDetail(Context mContext, Good good) {
 		Intent intent = new Intent();
+		ItemDetailActivity.Good = good;
 		intent.setClass(mContext, ItemDetailActivity.class);
 		mContext.startActivity(intent);
 
 	}
+
 	public static void gotoLogin(Context mContext) {
 		Intent intent = new Intent();
 		intent.setClass(mContext, LoginActivity.class);
@@ -126,13 +130,21 @@ public class Util {
 		Intent intent = new Intent();
 		intent.setClass(mContext, RecommendActivity.class);
 		mContext.startActivity(intent);
-		
+
 	}
 
 	public static int getDisplayWindth(Context mContext) {
-		DisplayMetrics mDisplayMetrics=mContext.getResources().getDisplayMetrics();
-		
-		return (int) (mDisplayMetrics.widthPixels*0.5);
+		DisplayMetrics mDisplayMetrics = mContext.getResources()
+				.getDisplayMetrics();
+		return mDisplayMetrics.widthPixels;
+	}
+
+	public static void gotoBuy(Context mContext, String buyUrl) {
+		Intent intent = new Intent();
+		intent.setClass(mContext, BuyWebActivity.class);
+		intent.putExtra(BuyWebActivity.PATH, buyUrl);
+		mContext.startActivity(intent);
+
 	}
 
 }

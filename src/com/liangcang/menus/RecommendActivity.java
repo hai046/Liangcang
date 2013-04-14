@@ -2,6 +2,7 @@ package com.liangcang.menus;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -10,6 +11,7 @@ import com.liangcang.base.BaseListActivity;
 import com.liangcang.base.MyBaseAdapter;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.MyLog;
 import com.liangcang.util.Util;
 
 public class RecommendActivity extends BaseListActivity<Good> {
@@ -20,8 +22,8 @@ public class RecommendActivity extends BaseListActivity<Good> {
 		super.onCreate(savedInstanceState);
 		setAdapter(adapter);
 		onRefresh();
-		params = new LinearLayout.LayoutParams(Util.getDisplayWindth(this),
-				Util.getDisplayWindth(this));
+		int widht = (int) (Util.getDisplayWindth(this) * 0.5);
+		params = new LinearLayout.LayoutParams(widht, widht);
 	}
 
 	class MyAdapter extends MyBaseAdapter<Good> {
@@ -100,8 +102,28 @@ public class RecommendActivity extends BaseListActivity<Good> {
 		ImageView img = (ImageView) convertView
 				.findViewById(R.id.category_grid_img);
 		ImageDownloader.getInstance().download(item.getGoods_image(), img);
+		img.setTag(position);
+		img.setOnClickListener(mOnClickListener);
 		return convertView;
 	}
+
+	private OnClickListener mOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			if (v.getTag() instanceof Integer) {
+				MyLog.i("Recommend", "onClick  v.getTag()=" + v.getTag());
+				int position = (Integer) v.getTag();
+				if (position >= 0 || position < adapter.size()) {
+					Util.gotoItemDetail(RecommendActivity.this,
+							adapter.getItem(position));
+
+				}
+
+			}
+
+		}
+	};
 
 	@Override
 	public String path() {

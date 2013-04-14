@@ -40,6 +40,7 @@ public class MenuActivity extends IActivityGroup {
 
 			}
 		});
+		showRegister();
 	}
 
 	@Override
@@ -87,16 +88,17 @@ public class MenuActivity extends IActivityGroup {
 
 	@Override
 	public void onClickRightButton() {
-		Intent intent=new Intent();
+		Intent intent = new Intent();
 		intent.setClass(this, LoginActivity.class);
 		startActivity(intent);
 	}
-	public void  onClickRightTwoButton()
-	{
-		Intent intent=new Intent();
+
+	public void onClickRightTwoButton() {
+		Intent intent = new Intent();
 		intent.setClass(this, RegisterActivity.class);
 		startActivity(intent);
 	}
+
 	@Override
 	public void setCurrentTitleString() {
 		// TODO Auto-generated method stub

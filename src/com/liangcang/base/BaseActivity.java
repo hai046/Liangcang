@@ -15,6 +15,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	private Button btnLeft, btnRight, btnRight2;
 	private TextView tvTitle;
+	private View LineView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +30,19 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		btnRight.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		btnLeft.setText(getNavigationLeftText());
-		
+		LineView=findViewById(R.id.navigation_line);
 		
 	}
-
+	public void setRightBackground(int resid)
+	{
+		btnRight.setText(null);
+		btnRight.setBackgroundColor(resid);
+		btnRight.setVisibility(View.VISIBLE);
+	}
+	public void hideRightBtn2(){
+		btnRight2.setVisibility(View.GONE);
+		LineView.setVisibility(View.GONE);
+	}
 	
 	public abstract String getNavigationLeftText();
 	
@@ -116,7 +126,17 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 	public void setTitle(int titleId) {
 		tvTitle.setText(titleId);
 	}
+	
 
+	public void setTopBtnLeftBackground(int btnLeftBackground) {
+
+		if (btnLeftBackground > 0) {
+			btnLeft.setVisibility(View.VISIBLE);
+			btnLeft.setBackgroundResource(btnLeftBackground);
+		} else {
+			btnLeft.setVisibility(View.GONE);
+		}
+	}
 	public void setTopBtnBackground(int btnLeftBackground,
 			int btnRightBackground) {
 

@@ -31,13 +31,16 @@
             android:background="@null"
             android:singleLine="true"
             android:text="登录"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
         <!-- android:textSize="@dimen/navigation_textsize" -->
 
         <View
+            android:id="@+id/navigation_line"
             android:layout_width="1px"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_xuxian" >
+            android:background="@drawable/bg_xuxian"
+            android:visibility="gone" >
         </View>
 
         <Button
@@ -49,7 +52,8 @@
             android:background="@null"
             android:singleLine="true"
             android:text="注册"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:visibility="gone" />
     </LinearLayout>
     <!-- <ImageView -->
     <!-- android:id="@+id/btnLoading" -->

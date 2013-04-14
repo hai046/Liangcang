@@ -57,6 +57,10 @@
         <activity
             android:name="com.liangcang.RegisterActivity">
         </activity>
+         <activity
+            android:name="com.liangcang.BuyWebActivity"
+            android:launchMode="singleTask" >
+        </activity>
         <activity
             android:name="com.liangcang.HomeActivity"
             android:launchMode="singleTask" >

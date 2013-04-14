@@ -16,6 +16,7 @@ public abstract class IActivityGroup extends ActivityGroup {
 
     private Button btnLeft, btnRight,btnRightTwo;
     private TextView tvTitle;
+    private View viewLine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,15 @@ public abstract class IActivityGroup extends ActivityGroup {
         tvTitle = (TextView) findViewById( R.id.tv_title );
         btnLeft.setBackgroundResource(R.drawable.menu_mzsm);
         setCurrentTitleString( );
+        this.viewLine=findViewById(R.id.navigation_line);
+       
     }
-
+    public void showRegister()
+    {
+    	btnRight.setVisibility(View.VISIBLE);
+    	btnRightTwo.setVisibility(View.VISIBLE);
+    	viewLine.setVisibility(View.VISIBLE);
+    }
     private OnClickListener mOnClickListener = new OnClickListener( ) {
 
         @Override
