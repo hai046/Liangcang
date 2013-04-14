@@ -10,14 +10,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
-import com.liangcang.ItemDetailActivity;
-import com.liangcang.RecommendActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
+import android.util.DisplayMetrics;
+
+import com.liangcang.ItemDetailActivity;
+import com.liangcang.LoginActivity;
+import com.liangcang.RecommendActivity;
 
 public class Util {
 
@@ -113,12 +115,24 @@ public class Util {
 		mContext.startActivity(intent);
 
 	}
+	public static void gotoLogin(Context mContext) {
+		Intent intent = new Intent();
+		intent.setClass(mContext, LoginActivity.class);
+		mContext.startActivity(intent);
+
+	}
 
 	public static void gotoComment(Context mContext, String string) {
 		Intent intent = new Intent();
 		intent.setClass(mContext, RecommendActivity.class);
 		mContext.startActivity(intent);
 		
+	}
+
+	public static int getDisplayWindth(Context mContext) {
+		DisplayMetrics mDisplayMetrics=mContext.getResources().getDisplayMetrics();
+		
+		return (int) (mDisplayMetrics.widthPixels*0.5);
 	}
 
 }

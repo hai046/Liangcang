@@ -37,6 +37,7 @@
     <dimen name="size105">105dip</dimen>
     <dimen name="size97">97dip</dimen>
     <dimen name="size90">90dp</dimen>
+     <dimen name="size100">100dip</dimen>
     <dimen name="size120">120dip</dimen>
     <dimen name="size160">160dip</dimen>
     <dimen name="size190">190dip</dimen>

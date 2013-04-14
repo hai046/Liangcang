@@ -22,8 +22,8 @@
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
     <application
-        android:allowBackup="true"
         android:name="com.liangcang.base.MyApplication"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
@@ -31,19 +31,38 @@
             android:name="com.liangcang.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" >
-<!--             <intent-filter> -->
-<!--                 <action android:name="android.intent.action.MAIN" /> -->
-<!--                 <category android:name="android.intent.category.LAUNCHER" /> -->
-<!--             </intent-filter> -->
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
-        <activity android:name=".LoadingActivity">
+        <activity android:name=".LoadingActivity" >
+
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+        <activity
+            android:name="com.liangcang.menus.MenuActivity"
+            android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity
+            android:name="com.liangcang.RegisterActivity">
+        </activity>
         <activity
             android:name="com.liangcang.HomeActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.liangcang.LoginActivity"
             android:launchMode="singleTask" >
         </activity>
         <activity
@@ -51,11 +70,7 @@
             android:configChanges="keyboard"
             android:launchMode="singleTask" >
         </activity>
-        <activity
-            android:name="com.liangcang.menus.MenuActivity"
-            android:launchMode="singleTask" >
-        </activity>
-        <activity android:name="com.liangcang.menus.FirstTwoColumnPicActivity" />
+        <activity android:name="com.liangcang.menus.RecommendActivity" />
         <activity android:name="com.liangcang.menus.SearchActivity" >
         </activity>
         <activity android:name="com.liangcang.menus.MenuCagegoryActivity" >
@@ -79,7 +94,8 @@
 
 
         <!-- 接受消息 -->
-        <receiver android:name="com.liangcang.managers.PullBroadcastReceiver">
+        <receiver android:name="com.liangcang.managers.PullBroadcastReceiver" >
+
             <!-- 如下配置用于透传 -->
             <intent-filter>
                 <action android:name="com.igexin.sdk.action.tsiV3RQGl07aTOZHwTdFh2" />

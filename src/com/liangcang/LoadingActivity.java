@@ -8,6 +8,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.liangcang.base.IActivity;
+import com.liangcang.base.MyApplication;
+import com.liangcang.util.Util;
 import com.umeng.analytics.MobclickAgent;
 
 public class LoadingActivity extends IActivity {
@@ -32,8 +34,20 @@ public class LoadingActivity extends IActivity {
 
 			@Override
 			public void run() {
-				gotoMain();
-
+				MyApplication myApplication=(MyApplication) getApplication();
+//				if(myApplication.isLogined())
+//				{
+//					//gotoMain();
+//				}else
+//				{
+//					
+//					//Util.gotoLogin(LoadingActivity.this);
+//				}
+				// gotoMain();
+				Intent intent = new Intent();
+				intent.setClass(LoadingActivity.this, HomeActivity.class);
+				startActivity(intent);
+				finish();
 			}
 		}, 2000);
 	}

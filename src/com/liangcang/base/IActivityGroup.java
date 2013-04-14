@@ -14,7 +14,7 @@ import com.liangcang.R;
 
 public abstract class IActivityGroup extends ActivityGroup {
 
-    private Button btnLeft, btnRight;
+    private Button btnLeft, btnRight,btnRightTwo;
     private TextView tvTitle;
 
     @Override
@@ -25,8 +25,10 @@ public abstract class IActivityGroup extends ActivityGroup {
 
         btnLeft = (Button) findViewById( R.id.btn_left_title );
         btnRight = (Button) findViewById( R.id.btn_right_title );
+        btnRightTwo = (Button) findViewById( R.id.btn_right2_title );
         btnLeft.setOnClickListener( mOnClickListener );
         btnRight.setOnClickListener( mOnClickListener );
+        btnRightTwo.setOnClickListener(mOnClickListener);
         tvTitle = (TextView) findViewById( R.id.tv_title );
         btnLeft.setBackgroundResource(R.drawable.menu_mzsm);
         setCurrentTitleString( );
@@ -44,6 +46,9 @@ public abstract class IActivityGroup extends ActivityGroup {
             case R.id.btn_right_title:
                 onClickRightButton( );
                 break;
+            case R.id.btn_right2_title:
+            	onClickRightTwoButton();
+            	break;
             default:
                 break;
             }
@@ -53,6 +58,10 @@ public abstract class IActivityGroup extends ActivityGroup {
     public abstract void onClickLeftButton();
 
     public abstract void onClickRightButton();
+    public  void onClickRightTwoButton()
+    {
+    	
+    }
 
     /**
      * 可使用 {@link setTitle}设置导航的文字<br>

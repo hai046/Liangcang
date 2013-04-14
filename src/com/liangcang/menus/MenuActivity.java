@@ -6,7 +6,9 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
+import com.liangcang.LoginActivity;
 import com.liangcang.R;
+import com.liangcang.RegisterActivity;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.menus.FlyInMenu.ClickCallBack;
 import com.umeng.analytics.MobclickAgent;
@@ -22,7 +24,7 @@ public class MenuActivity extends IActivityGroup {
 		mFlyInMenu = (FlyInMenu) findViewById(R.id.leftPanel2);
 		mFlyInMenu.setAdapter(0);
 		mLinear = (LinearLayout) findViewById(R.id.rightcontent);
-		switchIntent(1);
+		switchIntent(-1);
 		mFlyInMenu.setClickCallBack(new ClickCallBack() {
 
 			@Override
@@ -55,7 +57,7 @@ public class MenuActivity extends IActivityGroup {
 			MobclickAgent.onEvent(this, "SearchActivity");
 			break;
 		case 1:
-			intent.setClass(this, FirstTwoColumnPicActivity.class);
+			intent.setClass(this, RecommendActivity.class);
 			MobclickAgent.onEvent(this, "FirstTwoColumnPicActivity");
 			break;
 		// case 2:
@@ -67,7 +69,8 @@ public class MenuActivity extends IActivityGroup {
 			MobclickAgent.onEvent(this, "FirstTwoColumnPicActivity");
 			break;
 		default:
-			intent.setClass(this, SearchActivity.class);
+			intent.setClass(this, RecommendActivity.class);
+			MobclickAgent.onEvent(this, "RecommendActivity");
 			break;
 		}
 		Window subActivity = getLocalActivityManager().startActivity(
@@ -84,10 +87,16 @@ public class MenuActivity extends IActivityGroup {
 
 	@Override
 	public void onClickRightButton() {
-		// TODO Auto-generated method stub
-
+		Intent intent=new Intent();
+		intent.setClass(this, LoginActivity.class);
+		startActivity(intent);
 	}
-
+	public void  onClickRightTwoButton()
+	{
+		Intent intent=new Intent();
+		intent.setClass(this, RegisterActivity.class);
+		startActivity(intent);
+	}
 	@Override
 	public void setCurrentTitleString() {
 		// TODO Auto-generated method stub

@@ -21,7 +21,7 @@ public class Settings {
     {
         return getString( PASSWORD, null );
     }
-    public static synchronized Settings getInSettings(Context mContext)
+    public static synchronized Settings getInstance(Context mContext)
     {
         if(mSettings==null)
             mSettings=new Settings( mContext );

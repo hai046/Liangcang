@@ -22,7 +22,7 @@ import com.liangcang.util.BitmapUtil;
 import com.liangcang.util.Rotate3dAnimation;
 import com.liangcang.webUtil.CheckUpdataManager;
 
-public abstract class BaseViewPagerActivity extends IActivity implements
+public abstract class MyBaseViewPagerActivity extends IActivity implements
 		OnClickListener {
 	// private SectionsPagerAdapter mSectionsPagerAdapter;
 	// private MyViewPager mViewPager;
@@ -34,16 +34,7 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// try {
 		super.onCreate(savedInstanceState);
-		// } catch (Exception e) {
-		// finish( );
-		// Intent intent = new Intent( );
-		// intent.setClass( this, MainActivity.class );
-		// startActivity( intent );
-
-		// return;
-		// }
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_main);
@@ -79,11 +70,11 @@ public abstract class BaseViewPagerActivity extends IActivity implements
 	}
 
 	private void checkUpdata() {
-		long time = Settings.getInSettings(this).getLong("lastCheckTime",
+		long time = Settings.getInstance(this).getLong("lastCheckTime",
 				24 * 60 * 60 * 1000 + 1);
 		if (System.currentTimeMillis() - time >= 24 * 60 * 60 * 1000) {
 			new CheckUpdataManager(this).checkAndUpdata(false);
-			Settings.getInSettings(this).putLong("lastCheckTime",
+			Settings.getInstance(this).putLong("lastCheckTime",
 					System.currentTimeMillis());
 		}
 

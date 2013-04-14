@@ -1,23 +1,30 @@
-package com.liangcang.views;
+package com.liangcang.menus;
 
-import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.liangcang.R;
+import com.liangcang.base.BaseListActivity;
 import com.liangcang.base.MyBaseAdapter;
-import com.liangcang.weigets.LoadMoreListView;
+import com.liangcang.mode.Good;
+import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.Util;
 
-public class GridPicsItemView extends BaseView {
+public class RecommendActivity extends BaseListActivity<Good> {
 
-	public GridPicsItemView(Context mContext) {
-		super(mContext);
-		LoadMoreListView listview = new LoadMoreListView(mContext);
-		setContentView(listview);
-		
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		setAdapter(adapter);
+		onRefresh();
+		params = new LinearLayout.LayoutParams(Util.getDisplayWindth(this),
+				Util.getDisplayWindth(this));
 	}
-	class MyAdapter extends MyBaseAdapter<String> {
+
+	class MyAdapter extends MyBaseAdapter<Good> {
 
 		@Override
 		public int getCount() {
@@ -29,21 +36,18 @@ public class GridPicsItemView extends BaseView {
 		}
 
 		@Override
-		public View bindView(int position, String t, View view) {
-			// TODO Auto-generated method stub
+		public View bindView(int position, Good t, View view) {
 			return getGridItemView(position, view);
 		}
 	}
 
 	MyAdapter adapter = new MyAdapter();
-	LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-			LinearLayout.LayoutParams.FILL_PARENT,
-			LinearLayout.LayoutParams.WRAP_CONTENT);
+	LinearLayout.LayoutParams params;
 
 	protected View getGridItemView(int position, View view) {
 		if (view == null || !(view instanceof LinearLayout)) {
 			params.weight = 1;
-			LinearLayout layout = new LinearLayout(mContext);
+			LinearLayout layout = new LinearLayout(this);
 			layout.setOrientation(LinearLayout.HORIZONTAL);
 			params.leftMargin = 1;
 			params.rightMargin = 0;
@@ -87,14 +91,36 @@ public class GridPicsItemView extends BaseView {
 
 	}
 
-	private View getLayoutItemView(View convertView, String item, int position) {
-		ImageView img = null;
+	private View getLayoutItemView(View convertView, Good item, int position) {
+
 		if (convertView == null) {
 			convertView = getLayoutInflater().inflate(
 					R.layout.category_grid_item, null);
 		}
-		
+		ImageView img = (ImageView) convertView
+				.findViewById(R.id.category_grid_img);
+		ImageDownloader.getInstance().download(item.getGoods_image(), img);
 		return convertView;
+	}
+
+	@Override
+	public String path() {
+		return "recommendation";
+	}
+
+	@Override
+	public Class<Good> getModeClass() {
+		return Good.class;
+	}
+
+	@Override
+	public void onReceiveFailure(String msg) {
+
+	}
+
+	@Override
+	public void onReceiveSuccess() {
+
 	}
 
 }

@@ -1,80 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/category_grid_itemLayout"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/size160"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:padding="0.5dip" >
 
     <ImageView
         android:id="@+id/category_grid_img"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/size160"
-        android:src="@drawable/demo_2"
-        android:scaleType="centerCrop" >
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        android:src="@drawable/demo_2" >
     </ImageView>
 
-    <!-- <TextView -->
-    <!-- android:id="@+id/category_grid_content" -->
-    <!-- android:layout_width="match_parent" -->
-    <!-- android:layout_height="wrap_content" -->
-    <!-- android:layout_margin="5dip" -->
-    <!-- android:shadowColor="#000000" -->
-    <!-- android:shadowDx="2" -->
-    <!-- android:shadowDy="2" -->
-    <!-- android:shadowRadius="2" -->
-    <!-- android:singleLine="true" -->
-    <!-- android:textColor="@color/white" -->
-    <!-- android:textSize="14sp" /> -->
-
-<!--     <RelativeLayout -->
-<!--         android:layout_width="fill_parent" -->
-<!--         android:layout_height="@dimen/size26_67" -->
-<!--         android:layout_alignParentBottom="true" -->
-<!--         android:background="@color/galleryBg" -->
-<!--         android:gravity="center_vertical" -->
-<!--         android:paddingLeft="@dimen/margin_left10" -->
-<!--         android:paddingRight="@dimen/margin_left10" > -->
-
-<!--         <TextView -->
-<!--             android:id="@+id/category_grid_rmb" -->
-<!--             android:layout_width="wrap_content" -->
-<!--             android:layout_height="fill_parent" -->
-<!--             android:layout_marginBottom="9dip" -->
-<!--             android:gravity="bottom" -->
-<!--             android:text="￥" -->
-<!--             android:textColor="@color/white" -->
-<!--             android:textSize="@dimen/title_12" /> -->
-
-<!--         <TextView -->
-<!--             android:id="@+id/category_grid_price" -->
-<!--             android:layout_width="wrap_content" -->
-<!--             android:layout_height="fill_parent" -->
-<!--             android:layout_alignBaseline="@id/category_grid_rmb" -->
-<!--             android:layout_toRightOf="@id/category_grid_rmb" -->
-<!--             android:gravity="bottom" -->
-<!--             android:text="118" -->
-<!--             android:textColor="@color/white" -->
-<!--             android:textSize="@dimen/title_18" -->
-<!--             android:textStyle="bold" /> -->
-
-<!--         <TextView -->
-<!--             android:id="@+id/category_grid_volumn" -->
-<!--             android:layout_width="wrap_content" -->
-<!--             android:layout_height="fill_parent" -->
-<!--             android:layout_alignBaseline="@id/category_grid_rmb" -->
-<!--             android:layout_alignParentRight="true" -->
-<!--             android:gravity="bottom" -->
-<!--             android:text="销量：1231" -->
-<!--             android:textColor="@color/white" -->
-<!--             android:textSize="@dimen/title_12" /> -->
-<!--     </RelativeLayout> -->
-
-<!--     <TextView -->
-<!--         android:id="@+id/category_grid_screditscore" -->
-<!--         android:layout_width="wrap_content" -->
-<!--         android:layout_height="wrap_content" -->
-<!--         android:layout_alignParentRight="true" -->
-<!--         android:layout_marginRight="@dimen/margin_left8" -->
-<!--         android:layout_marginTop="@dimen/margin_left5" /> -->
-
+    <ImageButton
+        android:id="@+id/catetory_grid_heartBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:layout_marginLeft="@dimen/margin12"
+        android:layout_marginTop="@dimen/margin12"
+        android:src="@drawable/heart" />
+  
 </RelativeLayout>

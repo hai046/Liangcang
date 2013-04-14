@@ -32,7 +32,7 @@ public class DeviceToken {
     public static String getToken(Context mContext) {
         String TAG = "DeviceToken";
         String storeKey = "taose_device_token";
-        String token = Settings.getInSettings( mContext ).getString( storeKey, null );
+        String token = Settings.getInstance( mContext ).getString( storeKey, null );
         if (token != null) {
             return token;
         }
@@ -67,7 +67,7 @@ public class DeviceToken {
         } else {
             MyLog.e( TAG, "randomUUID=" + UUID.randomUUID( ).toString( ).replaceAll( "-", "" ) );
         }
-        Settings.getInSettings( mContext ).putString( storeKey, sb.toString( ) );
+        Settings.getInstance( mContext ).putString( storeKey, sb.toString( ) );
         return sb.toString( ).toUpperCase( Locale.getDefault( ) );
     }
 }

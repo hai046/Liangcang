@@ -4,48 +4,42 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.igexin.slavesdk.MessageManager;
-import com.igexin.slavesdk.MessageManagerObserver;
-import com.liangcang.base.BaseViewPagerActivity;
+import com.liangcang.base.MyApplication;
+import com.liangcang.base.MyBaseViewPagerActivity;
 import com.liangcang.menus.MenuActivity;
-import com.liangcang.util.MyLog;
 import com.liangcang.views.DyncView;
 import com.liangcang.views.FansView;
 import com.liangcang.views.MsgView;
 import com.liangcang.views.PrivateMsgView;
 
-public class MainActivity extends BaseViewPagerActivity {
+public class MainActivity extends MyBaseViewPagerActivity {
 	DyncView mDyncView;
 	MsgView mMsgView;
 	PrivateMsgView mChatView;
 	FansView mFansView;
-//	HomeView mHomeView;
-
+	
+	// HomeView mHomeView;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MyApplication mMyApplication = (MyApplication) getApplication();
+
 		mDyncView = new DyncView(this);
 		mMsgView = new MsgView(this);
 		mChatView = new PrivateMsgView(this);
 		mFansView = new FansView(this);
-//		mHomeView = new HomeView(this);
-		switchView(0);	
-		MessageManager.getInstance().initialize(getApplicationContext());
-		MessageManager.getInstance().setObserver(new MessageManagerObserver() {
-			
-			@Override
-			public void onData(byte[] arg0) {
-				MyLog.e("hhh", "setObserver="+new String(arg0));
-				
-			}
-		});
+
+		// mHomeView = new HomeView(this);
+		switchView(0);
+
 	}
 
 	@Override
 	public void onClickLeftButton(int position) {
 		switch (position) {
 		case 4:
-//			mHomeView.showOrHide();
+			// mHomeView.showOrHide();
 			break;
 
 		default:
@@ -62,7 +56,7 @@ public class MainActivity extends BaseViewPagerActivity {
 
 	@Override
 	public int getCount() {
-		
+
 		return 5;
 	}
 
@@ -78,8 +72,8 @@ public class MainActivity extends BaseViewPagerActivity {
 		case 3:
 			return mFansView.getView();
 		case 4:
-//			return mHomeView.getView();
-			Intent intent=new Intent();
+			// return mHomeView.getView();
+			Intent intent = new Intent();
 			intent.setClass(this, MenuActivity.class);
 			startActivity(intent);
 		default:

@@ -13,9 +13,9 @@ public class BaseView {
     public Context mContext;
 
     public void onRefresh() {
-
+    	
     }
-
+   
     public void stopRefresh() {
 
     }
