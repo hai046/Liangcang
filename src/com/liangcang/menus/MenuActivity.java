@@ -6,9 +6,7 @@ import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 
-import com.liangcang.LoginActivity;
 import com.liangcang.R;
-import com.liangcang.RegisterActivity;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.menus.FlyInMenu.ClickCallBack;
 import com.umeng.analytics.MobclickAgent;
@@ -40,7 +38,7 @@ public class MenuActivity extends IActivityGroup {
 
 			}
 		});
-		showRegister();
+		//showRegister();
 	}
 
 	@Override
@@ -88,15 +86,13 @@ public class MenuActivity extends IActivityGroup {
 
 	@Override
 	public void onClickRightButton() {
-		Intent intent = new Intent();
-		intent.setClass(this, LoginActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent();
+//		intent.setClass(this, LoginActivity.class);
+//		startActivity(intent);
 	}
 
 	public void onClickRightTwoButton() {
-		Intent intent = new Intent();
-		intent.setClass(this, RegisterActivity.class);
-		startActivity(intent);
+	
 	}
 
 	@Override

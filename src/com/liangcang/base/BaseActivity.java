@@ -6,52 +6,101 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liangcang.R;
+import com.liangcang.mode.User;
+import com.liangcang.util.ImageDownloader;
 
 public abstract class BaseActivity extends IActivity implements OnClickListener {
 
-	private Button btnLeft, btnRight, btnRight2;
+	private ImageView btnLeft, btnRight, btnRight2;
 	private TextView tvTitle;
-	private View LineView;
+	private View viewLine;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.base_layout);
 
-		btnLeft = (Button) findViewById(R.id.btn_left_title);
-		btnRight = (Button) findViewById(R.id.btn_right_title);
-		btnRight2 = (Button) findViewById(R.id.btn_right2_title);
+		btnLeft = (ImageView) findViewById(R.id.btn_left_title);
+		btnRight = (ImageView) findViewById(R.id.btn_right_title);
+		btnRight2 = (ImageView) findViewById(R.id.btn_right2_title);
 		btnRight2.setOnClickListener(this);
 		btnLeft.setOnClickListener(this);
 		btnRight.setOnClickListener(this);
 		tvTitle = (TextView) findViewById(R.id.tv_title);
-		btnLeft.setText(getNavigationLeftText());
-		LineView=findViewById(R.id.navigation_line);
-		
+		// btnLeft.setText(getNavigationLeftText());
+		viewLine = findViewById(R.id.navigation_line);
+		initNavigation();
+		if (isShowRightClose()) {
+			setRightImage(R.drawable.nav_close);
+		}
 	}
-	public void setRightBackground(int resid)
-	{
-		btnRight.setText(null);
+
+	void initNavigation() {
+		User user = ((MyApplication) getApplication()).getUser();
+		if (user != null) {
+			btnRight.setVisibility(View.VISIBLE);
+			btnRight2.setVisibility(View.GONE);
+			viewLine.setVisibility(View.GONE);
+			ImageDownloader.getInstance().download(user.getUser_image(),
+					btnRight);
+		} else {
+			showRegister();
+		}
+
+	}
+
+	public void showRegister() {
+		btnRight.setVisibility(View.VISIBLE);
+		btnRight2.setVisibility(View.VISIBLE);
+		viewLine.setVisibility(View.VISIBLE);
+		btnRight.setImageResource(R.drawable.nav_login);
+		btnRight2.setImageResource(R.drawable.nav_register);
+	}
+
+	public void setRightBackground(int resid) {
+		// btnRight.setText(null);
 		btnRight.setBackgroundColor(resid);
 		btnRight.setVisibility(View.VISIBLE);
 	}
-	public void hideRightBtn2(){
-		btnRight2.setVisibility(View.GONE);
-		LineView.setVisibility(View.GONE);
+
+	public void setLeftImage(int resId) {
+		if (resId < 0) {
+			btnLeft.setVisibility(View.GONE);
+			return;
+
+		}
+		btnLeft.setImageResource(resId);
+		btnLeft.setVisibility(View.VISIBLE);
+
 	}
-	
+
+	public void setRightImage(int resId) {
+		if (resId < 0) {
+			btnRight.setVisibility(View.GONE);
+			return;
+
+		}
+		btnRight.setImageResource(resId);
+		btnRight.setVisibility(View.VISIBLE);
+	}
+
+	public void hideRightBtn2() {
+		btnRight2.setVisibility(View.GONE);
+		viewLine.setVisibility(View.GONE);
+	}
+
 	public abstract String getNavigationLeftText();
-	
+
 	public abstract boolean isShowRightClose();
 
 	public abstract void onClickRightButton();
 
 	public abstract void onClickLeftButton();
-	
+
 	@Override
 	public void onClick(View v) {
 
@@ -60,11 +109,10 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 			onClickLeftButton();
 			break;
 		case R.id.btn_right_title:
-			
+
 			if (!isShowRightClose()) {
 				finish();
-			}else
-			{
+			} else {
 				onClickRightButton();
 			}
 			break;
@@ -96,7 +144,6 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		btnRight.clearAnimation();
 	}
 
-	
 	public void setRight2Background(int resid) {
 		if (resid > 0) {
 			btnRight2.setBackgroundResource(resid);
@@ -113,7 +160,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 			btnRight.setVisibility(View.INVISIBLE);
 		} else {
 			btnRight.setVisibility(View.VISIBLE);
-			btnRight.setText(rightBtnText);
+			// btnRight.setText(rightBtnText);
 		}
 	}
 
@@ -126,7 +173,6 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 	public void setTitle(int titleId) {
 		tvTitle.setText(titleId);
 	}
-	
 
 	public void setTopBtnLeftBackground(int btnLeftBackground) {
 
@@ -137,6 +183,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 			btnLeft.setVisibility(View.GONE);
 		}
 	}
+
 	public void setTopBtnBackground(int btnLeftBackground,
 			int btnRightBackground) {
 

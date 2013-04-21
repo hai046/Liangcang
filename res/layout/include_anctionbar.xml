@@ -5,10 +5,10 @@
     android:background="@color/black"
     android:fadingEdgeLength="0dp" >
 
-    <Button
+    <ImageView
         android:id="@+id/btn_left_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/size30"
+        android:layout_height="@dimen/size30"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/margin5"
         android:background="@null"
@@ -23,15 +23,14 @@
         android:layout_centerVertical="true"
         android:gravity="center_vertical" >
 
-        <Button
+        <ImageView
             android:id="@+id/btn_right_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size30"
+            android:layout_height="@dimen/size30"
+            android:scaleType="fitCenter"
             android:layout_marginRight="@dimen/margin10"
             android:background="@null"
             android:singleLine="true"
-            android:text="登录"
-            android:textColor="@color/white"
             android:visibility="gone" />
         <!-- android:textSize="@dimen/navigation_textsize" -->
 
@@ -43,10 +42,10 @@
             android:visibility="gone" >
         </View>
 
-        <Button
+        <ImageView
             android:id="@+id/btn_right2_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/size30"
+            android:layout_height="@dimen/size30"
             android:layout_marginLeft="@dimen/margin10"
             android:layout_marginRight="@dimen/margin5"
             android:background="@null"
@@ -86,6 +85,7 @@
             android:gravity="center"
             android:maxLength="9"
             android:singleLine="true"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="@dimen/title_10" />
     </RelativeLayout>

@@ -19,6 +19,7 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -167,6 +168,11 @@ public class FlyInMenu extends FrameLayout {
 	//
 	// return super.onInterceptTouchEvent(ev);
 	// }
+	@Override
+	public boolean dispatchTouchEvent(MotionEvent ev) {
+		
+		return super.dispatchTouchEvent(ev);
+	}
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {

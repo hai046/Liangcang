@@ -18,7 +18,7 @@
     <string name="navigation_infome">个人设置</string>
     <string name="loading">正在加载中…</string>
     <string name="login">登录</string>
-     <string name="register">注册</string>
+    <string name="register">注册</string>
     <string name="reply">回复</string>
 
     <string-array name="parentsMenu">
@@ -29,22 +29,26 @@
         <item>消息</item>
         <item>个人设置</item>
     </string-array>
-    
-     <string-array name="settings">
+    <string-array name="settings">
         <item>帐号密码</item>
         <item>同步绑定</item>
         <item>邮件提醒</item>
         <item>邀请好友</item>
         <item>选择模板</item>
     </string-array>
-    
     <string-array name="menu_categorye">
         <item>男士</item>
         <item>女士</item>
+        <item>家居</item>
         <item>数码</item>
         <item>工具</item>
         <item>玩具</item>
         <item>美容</item>
+        <item>孩子</item>
+        <item>宠物</item>
+        <item>运动</item>
+        <item>饮食</item>
+        <item>文化</item>
     </string-array>
     <string-array name="menu_settings">
         <item>个人设置</item>
@@ -76,6 +80,5 @@
         <item></item>
         <item></item>
     </string-array>
-
 
 </resources>

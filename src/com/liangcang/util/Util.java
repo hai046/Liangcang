@@ -9,15 +9,17 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
+import android.net.Uri;
 import android.util.DisplayMetrics;
 
-import com.liangcang.BuyWebActivity;
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
 import com.liangcang.RecommendActivity;
@@ -140,11 +142,19 @@ public class Util {
 	}
 
 	public static void gotoBuy(Context mContext, String buyUrl) {
-		Intent intent = new Intent();
-		intent.setClass(mContext, BuyWebActivity.class);
-		intent.putExtra(BuyWebActivity.PATH, buyUrl);
+//		Intent intent = new Intent();
+//		intent.setClass(mContext, BuyWebActivity.class);
+//		intent.putExtra(BuyWebActivity.PATH, buyUrl);
+//		mContext.startActivity(intent);y
+		Uri uri= Uri.parse(buyUrl);
+		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		mContext.startActivity(intent);
 
 	}
-
+	   public static boolean checkEmail(String mail) {
+	        String regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+	        Pattern p = Pattern.compile( regex );
+	        Matcher m = p.matcher( mail );
+	        return m.find( );
+	    }
 }

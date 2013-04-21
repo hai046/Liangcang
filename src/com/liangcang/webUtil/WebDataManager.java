@@ -20,7 +20,9 @@ import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -36,8 +38,20 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import android.text.TextUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.liangcang.mode.User;
 import com.liangcang.util.BitmapUtil;
 import com.liangcang.util.MyLog;
 
@@ -98,10 +112,20 @@ public class WebDataManager {
 	 */
 	public Map<String, String> generateApiParams() {
 		TreeMap<String, String> params = new TreeMap<String, String>();
-		params.put("v", "1");
+		params.put("v", "1.0");
 		params.put("app_key", "Android");
-		params.put("user_id", "");
+		if (!TextUtils.isEmpty(sin))
+			params.put("sin", sin);
+		if (!TextUtils.isEmpty(user_id))
+			params.put("user_id", user_id);
 		return params;
+	}
+
+	private static String sin, user_id;
+
+	public void initUser(User user) {
+		sin = user.getSig();
+		user_id = user.getUser_id();
 	}
 
 	// private Map<String, String> getProtocolParams() {
@@ -168,15 +192,59 @@ public class WebDataManager {
 	public String doPost(String url, Map<String, String> params,
 			Map<String, String> headers, String charset, int connectTimeout,
 			int readTimeout, boolean responseError) throws Exception {
+		// return doPostData(url, params, headers, charset, connectTimeout,
+		// readTimeout);
+
 		String ctype = "application/x-www-form-urlencoded;charset=" + charset;
 		String query = buildQuery(params, charset);
-		// MyLog.d( TAG, "doPost  buildQuery =" + query );
+		MyLog.d(TAG, "doPost  buildQuery= " + query);
 		byte[] content = {};
 		if (query != null) {
 			content = query.getBytes(charset);
 		}
 		return doPost(url, ctype, content, headers, connectTimeout,
 				readTimeout, responseError);
+	}
+
+	public String doPostData(String POST_URL, Map<String, String> params,
+			Map<String, String> headers, String charset, int connectTimeout,
+			int readTimeout) {
+		String resultStr = "";
+		HttpClient httpclient = new DefaultHttpClient();
+		// 参数列表
+		List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+		if (params != null) {
+			for (String key : params.keySet()) {
+				nameValuePairs
+						.add(new BasicNameValuePair(key, params.get(key)));
+			}
+		}
+
+		HttpPost httppost = new HttpPost(ROOTPATH + POST_URL);
+		MyLog.e(TAG, "" + httppost.getURI());
+		if (headers != null) {
+			for (String key : headers.keySet()) {
+				httppost.addHeader(key, headers.get(key));
+			}
+		}
+
+		try {
+			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+			HttpResponse response;
+			response = httpclient.execute(httppost);
+			resultStr = EntityUtils.toString(response.getEntity());
+		} catch (UnsupportedEncodingException e) {
+			MyLog.d(TAG, "UnsupportedEncodingException");
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			MyLog.d(TAG, "ClientProtocolException");
+			e.printStackTrace();
+		} catch (IOException e) {
+			MyLog.d(TAG, "IOException");
+			e.printStackTrace();
+		}
+		return resultStr;
+
 	}
 
 	/**
@@ -227,7 +295,6 @@ public class WebDataManager {
 			try {
 
 				out = conn.getOutputStream();
-
 				out.write(content);
 				rsp = getResponseAsString(conn, responseError);
 				MyLog.d(TAG, "rsp=" + rsp);
@@ -271,6 +338,17 @@ public class WebDataManager {
 					DEFAULT_CHARSET, connectTimeout, readTimeout, false);
 		} else {
 			return doPost( /* context, */url, params, headers, fileParams,
+					DEFAULT_CHARSET, connectTimeout, readTimeout);
+		}
+	}
+
+	public String doPost(String url, Map<String, String> params,
+			Map<String, FileItem> fileParams) throws Exception {
+		if (fileParams == null || fileParams.isEmpty()) {
+			return doPost( /* context, */url, params, null, DEFAULT_CHARSET,
+					connectTimeout, readTimeout, false);
+		} else {
+			return doPost( /* context, */url, params, null, fileParams,
 					DEFAULT_CHARSET, connectTimeout, readTimeout);
 		}
 	}
