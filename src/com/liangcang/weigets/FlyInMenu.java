@@ -1,4 +1,4 @@
-package com.liangcang.menus;
+package com.liangcang.weigets;
 
 /**
  * 
@@ -19,7 +19,6 @@ import android.content.res.TypedArray;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -30,12 +29,11 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 
 import com.liangcang.R;
+import com.liangcang.menus.MenuListAdapter;
 
 public class FlyInMenu extends FrameLayout {
-
 	private static final int SNAP_VELOCITY = 400;
 	private static final int FINAL_DP = 180;
-
 	private int menuId, rightLayoutId;
 
 	private View menu;
@@ -168,14 +166,24 @@ public class FlyInMenu extends FrameLayout {
 	//
 	// return super.onInterceptTouchEvent(ev);
 	// }
-	@Override
-	public boolean dispatchTouchEvent(MotionEvent ev) {
-		
-		return super.dispatchTouchEvent(ev);
+//	@Override
+//	public boolean dispatchTouchEvent(MotionEvent ev) {
+//		if (isOpened) {
+//			onMyTouchEvent(ev);
+//		}
+//
+//		return super.dispatchTouchEvent(ev);
+//	}
+
+	// @Override
+	public boolean onTouchEvent(MotionEvent event) {
+//		if (!isOpened) {
+//			onMyTouchEvent(event);
+//		}
+		return onMyTouchEvent(event);
 	}
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+	public boolean onMyTouchEvent(MotionEvent event) {
 
 		// Log.d(VIEW_LOG_TAG, "mState="+mState);
 

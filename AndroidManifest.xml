@@ -53,11 +53,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
-            android:name="com.liangcang.RegisterActivity">
+            android:name="com.liangcang.menus.UserActivity"
+            android:launchMode="singleTask" >
+            
         </activity>
-         <activity
+        <activity android:name="com.liangcang.RegisterActivity" >
+        </activity>
+        <activity
             android:name="com.liangcang.BuyWebActivity"
             android:launchMode="singleTask" >
         </activity>

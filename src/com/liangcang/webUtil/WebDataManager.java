@@ -39,6 +39,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -62,7 +63,7 @@ public class WebDataManager {
 	private static final String USER_AGENT = "Android_brunjoy";
 	String TAG = "WebUtils";
 	private static WebDataManager mWebDataManager;
-	public static final String HOST = "api.iliangcang.com";
+	public static final String HOST = "42.62.26.49"/*"api.iliangcang.com"*/;
 	public static final String ROOTPATH = "http://" + HOST + "/";
 	private int connectTimeout = 10000;// 10秒
 	private int readTimeout = 10000;// 10秒
@@ -115,7 +116,7 @@ public class WebDataManager {
 		params.put("v", "1.0");
 		params.put("app_key", "Android");
 		if (!TextUtils.isEmpty(sin))
-			params.put("sin", sin);
+			params.put("sig", sin);
 		if (!TextUtils.isEmpty(user_id))
 			params.put("user_id", user_id);
 		return params;
@@ -529,8 +530,10 @@ public class WebDataManager {
 				if (conn == null)
 					return null;
 				rsp = getResponseAsString(conn, false);
+				
 			} catch (IOException e) {
 				rsp = getResposeMsg(conn, e.getMessage());
+				e.printStackTrace();
 				throw new IOException(getResposeMsg(conn, e.getMessage()));
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -540,12 +543,10 @@ public class WebDataManager {
 				conn.disconnect();
 			}
 		}
-		MyLog.i(TAG, "do get url=" + url + " 耗时:"
-				+ (System.currentTimeMillis() - time) + " " + conn.getURL());
+	
 		if (MyLog.isDEBUG) {
-			MyLog.e(TAG, "=================================");
-			MyLog.e(TAG, "get date=" + rsp);
-			MyLog.e(TAG, "=================================");
+			MyLog.i(TAG, "do get url=" + url + " 耗时:"
+					+ (System.currentTimeMillis() - time) + " " + conn.getURL());
 		}
 		return rsp;
 	}
@@ -559,6 +560,7 @@ public class WebDataManager {
 		if (conn != null) {
 			try {
 				int responseCode = conn.getResponseCode();
+				
 				// MyLog.e( TAG, "==========================" );
 				// MyLog.e( TAG, "responseCode=" + responseCode + "   " +
 				// conn.getResponseMessage( ) );
@@ -575,7 +577,7 @@ public class WebDataManager {
 					default:
 						break;
 					}
-					return "{\"err_msg\":\"" + msg + "\",\"op_status\":\"NG\"}";
+					return "{\"status\":"+responseCode+",\"msg\":\"" + msg + "\",\"op_status\":\"NG\"}";
 				}
 
 			} catch (IOException e) {
@@ -674,6 +676,7 @@ public class WebDataManager {
 	private URL buildGetUrl(String strUrl, String query) throws IOException {
 		URL url = new URL(strUrl.startsWith("http") ? strUrl
 				: (ROOTPATH + strUrl));
+		MyLog.e(TAG, "strUrl");
 		if (TextUtils.isEmpty(query)) {
 			return url;
 		}
@@ -711,6 +714,7 @@ public class WebDataManager {
 		for (Entry<String, String> entry : entries) {
 			String name = entry.getKey();
 			String value = entry.getValue();
+			MyLog.e(TAG, "name="+name+" value="+value);
 			// 忽略参数名或参数值为空的参数
 			if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(value)) {
 				if (hasParam) {

@@ -1,15 +1,12 @@
 package com.liangcang.menus;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Window;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.liangcang.R;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.views.GridPicsItemView;
-import com.umeng.analytics.MobclickAgent;
+import com.liangcang.weigets.FlyInMenu;
 
 public class MenuCagegoryActivity extends IActivityGroup {
 	FlyInMenu mFlyInMenu;

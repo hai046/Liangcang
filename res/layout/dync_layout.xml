@@ -24,12 +24,14 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:text="李大齐"
+            android:id="@+id/userName"
             android:textColor="@color/white" />
 
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="著名设计师，造型师"
+            android:id="@+id/userDesc"
             android:textColor="@color/blue" />
     </LinearLayout>
 
@@ -40,7 +42,7 @@
         android:layout_marginLeft="@dimen/margin5"
         android:layout_weight="4"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/demo_2" />
 
 </LinearLayout>

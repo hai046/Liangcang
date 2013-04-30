@@ -235,8 +235,8 @@ public abstract class MyBaseViewPagerActivity extends IActivity implements
 			break;
 		}
 		btn.setImageResource(R.drawable.tuijian);
-		TextView tv = (TextView) view.findViewById(R.id.menu_title);
-		tv.setText(getResources().getStringArray(R.array.centerText)[position]);
+//		TextView tv = (TextView) view.findViewById(R.id.menu_title);
+//		tv.setText(getResources().getStringArray(R.array.centerText)[position]);
 		return view;
 	}
 
@@ -247,24 +247,19 @@ public abstract class MyBaseViewPagerActivity extends IActivity implements
 				continue;
 			// MyLog.e( "base", "iiiiiiiiiiiiiiii=" + i );
 			View v = linearBottomLayout.getChildAt(i);
-			TextView tv = (TextView) v.findViewById(R.id.menu_title);
-			tv.setTextColor(getResources().getColor(R.color.black_98));
+//			TextView tv = (TextView) v.findViewById(R.id.menu_title);
+//			tv.setTextColor(getResources().getColor(R.color.black_98));
 			ImageView btn = (ImageView) v.findViewById(R.id.menu_btn);
 			switch (i) {
 			case 0:
-				// btn.setImageResource( R.drawable.tuijian );
 				break;
 			case 1:
-				// btn.setImageResource( R.drawable.fenlei );
 				break;
 			case 2:
-				// btn.setImageResource( R.drawable.yule );
 				break;
 			case 3:
-				// btn.setImageResource( R.drawable.shoucang );
 				break;
 			case 4:
-				// btn.setImageResource( R.drawable.shezhi );
 				break;
 			default:
 				break;
@@ -293,9 +288,9 @@ public abstract class MyBaseViewPagerActivity extends IActivity implements
 			break;
 		}
 		btn.setImageResource(R.drawable.tuijian_on);
-		TextView tv = (TextView) linearBottomLayout.getChildAt(position)
-				.findViewById(R.id.menu_title);
-		tv.setTextColor(getResources().getColor(R.color.bg));
+//		TextView tv = (TextView) linearBottomLayout.getChildAt(position)
+//				.findViewById(R.id.menu_title);
+//		tv.setTextColor(getResources().getColor(R.color.bg));
 	}
 
 	/**

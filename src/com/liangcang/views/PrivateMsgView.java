@@ -1,53 +1,106 @@
 package com.liangcang.views;
 
-import com.liangcang.ChatActivity;
-import com.liangcang.R;
-import com.liangcang.base.MyBaseAdapter;
-import com.liangcang.views.GridPicsItemView.MyAdapter;
-import com.liangcang.weigets.LoadMoreListView;
-
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-public class PrivateMsgView extends BaseView implements OnClickListener{
+import com.liangcang.ChatActivity;
+import com.liangcang.R;
+import com.liangcang.base.MyBasePageAdapter;
+import com.liangcang.mode.Good;
+import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.RichText;
+import com.liangcang.weigets.LoadMoreListView;
+import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
+
+public class PrivateMsgView extends BaseView implements OnClickListener {
 
 	private LoadMoreListView moreListView;
+	private MyBasePageAdapter<Good> adapter;
 
-	public PrivateMsgView(Context mContext) {
+	public PrivateMsgView(final Context mContext) {
 		super(mContext);
-		moreListView=new LoadMoreListView(mContext);
+		moreListView = new LoadMoreListView(mContext);
 		moreListView.setDividerHeight(0);
 		setContentView(moreListView);
-		for (int i = 0; i < 10; i++) {
-			adapter.add("" + i);
-		}
+		adapter = new MyBasePageAdapter<Good>(mContext) {
+
+			@Override
+			public String path() {
+				return "messages/list";
+			}
+
+			@Override
+			public void onReceiveSuccess() {
+
+			}
+
+			@Override
+			public void onReceiveFailure(String msg) {
+
+			}
+
+			@Override
+			public boolean isDoGet() {
+				return true;
+			}
+
+			@Override
+			public Class<Good> getModeClass() {
+				return Good.class;
+			}
+
+			@Override
+			public View bindView(int position, Good t, View view) {
+				if (view == null) {
+					view = getLayoutInflater().inflate(
+							R.layout.private_msg_layout, null);
+				}
+				ImageView uesrImage = (ImageView) view
+						.findViewById(R.id.privateMsgImageUser);
+				ImageDownloader.getInstance().download(t.getUser_image(),
+						uesrImage);
+				TextView msg = (TextView) view
+						.findViewById(R.id.privateMsgContent);
+
+				RichText rt = new RichText(mContext);
+				rt.addTextColor("来自 " + t.getMsg(), mContext
+						.getResources().getColor(R.color.white));
+				rt.addTextColor(t.getUser_name(), mContext.getResources()
+						.getColor(R.color.blue));
+				rt.addTextColor("：" + t.getMsg(), mContext
+						.getResources().getColor(R.color.white));
+				msg.setText(rt);
+
+				Button btnReply = (Button) view
+						.findViewById(R.id.privateMsgReplyBtn);
+				btnReply.setOnClickListener(PrivateMsgView.this);
+				return view;
+			}
+
+		};
+		
 		moreListView.setAdapter(adapter);
-
-	}
-
-	private MyBaseAdapter<String> adapter = new MyBaseAdapter<String>() {
-
-		@Override
-		public View bindView(int position, String t, View view) {
-			if (view == null) {
-				view = getLayoutInflater().inflate(R.layout.private_msg_layout,
-						null);
+		moreListView.setOnLoadCallBack(new LoadCallBack() {
+			
+			@Override
+			public void onLoading() {
+				adapter.loadMore();
 				
 			}
-			Button btnReply=(Button) view.findViewById(R.id.privateMsgReplyBtn);
-			btnReply.setOnClickListener(PrivateMsgView.this);
-			return view;
-		}
-	};
+		});
+		isFirstLoad=true;
+	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.privateMsgReplyBtn:
-			Intent intent=new Intent();
+			Intent intent = new Intent();
 			intent.setClass(mContext, ChatActivity.class);
 			mContext.startActivity(intent);
 			break;
@@ -55,7 +108,21 @@ public class PrivateMsgView extends BaseView implements OnClickListener{
 		default:
 			break;
 		}
-		
+
 	}
 
+	private boolean isFirstLoad;
+	public void ifLoadMoreNotData() {
+		if(isFirstLoad)
+		{
+			onRefresh();
+			isFirstLoad=false;
+		}
+
+	}
+	@Override
+	public void onRefresh() {
+		adapter.onRefresh();
+	}
+	
 }

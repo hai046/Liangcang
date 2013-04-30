@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/privateMsgImageUser"
-        android:layout_width="@dimen/size44"
-        android:layout_height="@dimen/size44"
+        android:layout_width="@dimen/size60"
+        android:layout_height="@dimen/size60"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/demo_people" />
@@ -24,11 +24,13 @@
         android:textColor="@color/blue" />
 
     <TextView
+         android:id="@+id/privateMsgContent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin5"
+        android:layout_marginLeft="@dimen/margin8"
         android:layout_toLeftOf="@id/privateMsgReplyBtn"
         android:layout_toRightOf="@id/privateMsgImageUser"
+        android:layout_marginRight="@dimen/margin8"
         android:text="来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言来自：彭杨俊的的语音留言"
         android:textColor="@color/white" />
 

@@ -22,7 +22,10 @@ import android.util.DisplayMetrics;
 
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
+import com.liangcang.MainActivity;
 import com.liangcang.RecommendActivity;
+import com.liangcang.menus.MenuActivity;
+import com.liangcang.menus.UserActivity;
 import com.liangcang.mode.Good;
 
 public class Util {
@@ -67,30 +70,43 @@ public class Util {
 	}
 
 	public static String getMD5Str(String str) {
-		MessageDigest messageDigest = null;
+		MessageDigest digest;
 		try {
-			messageDigest = MessageDigest.getInstance("MD5");
-
-			messageDigest.reset();
-
-			messageDigest.update(str.getBytes("UTF-8"));
+			digest = java.security.MessageDigest.getInstance("MD5");
+			digest.update(str.getBytes());
+			byte messageDigest[] = digest.digest();
+			// Create Hex String
+			StringBuffer hexString = new StringBuffer();
+			for (int i = 0; i < messageDigest.length; i++)
+				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+			return hexString.toString();
 		} catch (NoSuchAlgorithmException e) {
-		} catch (UnsupportedEncodingException e) {
+
+			e.printStackTrace();
 		}
-
-		byte[] byteArray = messageDigest.digest();
-
-		StringBuffer md5StrBuff = new StringBuffer();
-
-		for (int i = 0; i < byteArray.length; i++) {
-			if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
-				md5StrBuff.append("0").append(
-						Integer.toHexString(0xFF & byteArray[i]));
-			else
-				md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
-		}
-		return md5StrBuff.substring(8, 24).toString()
-				.toUpperCase(Locale.getDefault());
+		return null;
+		// MessageDigest messageDigest = null;
+		// try {
+		// messageDigest = MessageDigest.getInstance("MD5");
+		// messageDigest.reset();
+		// messageDigest.update(str.getBytes("UTF-8"));
+		// } catch (NoSuchAlgorithmException e) {
+		// } catch (UnsupportedEncodingException e) {
+		// }
+		//
+		// byte[] byteArray = messageDigest.digest();
+		//
+		// StringBuffer md5StrBuff = new StringBuffer();
+		//
+		// for (int i = 0; i < byteArray.length; i++) {
+		// if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+		// md5StrBuff.append("0").append(
+		// Integer.toHexString(0xFF & byteArray[i]));
+		// else
+		// md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+		// }
+		// return md5StrBuff.substring(8, 24).toString()
+		// .toUpperCase(Locale.getDefault());
 	}
 
 	public static boolean isConnectedNetWork(Context mContext) {
@@ -142,19 +158,35 @@ public class Util {
 	}
 
 	public static void gotoBuy(Context mContext, String buyUrl) {
-//		Intent intent = new Intent();
-//		intent.setClass(mContext, BuyWebActivity.class);
-//		intent.putExtra(BuyWebActivity.PATH, buyUrl);
-//		mContext.startActivity(intent);y
-		Uri uri= Uri.parse(buyUrl);
+		// Intent intent = new Intent();
+		// intent.setClass(mContext, BuyWebActivity.class);
+		// intent.putExtra(BuyWebActivity.PATH, buyUrl);
+		// mContext.startActivity(intent);y
+		Uri uri = Uri.parse(buyUrl);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		mContext.startActivity(intent);
 
 	}
-	   public static boolean checkEmail(String mail) {
-	        String regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
-	        Pattern p = Pattern.compile( regex );
-	        Matcher m = p.matcher( mail );
-	        return m.find( );
-	    }
+
+	public static boolean checkEmail(String mail) {
+		String regex = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(mail);
+		return m.find();
+	}
+
+	public static void gotoMain(Context mContext) {
+		Intent intent = new Intent();
+		intent.setClass(mContext, MenuActivity.class);
+		mContext.startActivity(intent);
+	}
+
+	public static void gotoUser(Context mContext, String user_id, String user_image,
+			String user_name) {
+		Intent Intent = new Intent();
+		Intent.putExtra(UserActivity.USERID, user_id);
+		Intent.setClass(mContext, UserActivity.class);
+		mContext.startActivity(Intent);
+		
+	}
 }

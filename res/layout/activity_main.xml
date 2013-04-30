@@ -19,14 +19,6 @@
         android:orientation="horizontal" >
     </LinearLayout>
 
-    <!-- <android.support.v4.view.MyViewPager -->
-    <!-- android:id="@+id/pager" -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="fill_parent" -->
-    <!-- android:layout_above="@id/mainBottomLayout" -->
-    <!-- android:layout_below="@id/mainTitleLayout" -->
-    <!-- tools:context=".MainActivity" /> -->
-
     <RelativeLayout
         android:id="@+id/main_relalayout"
         android:layout_width="fill_parent"

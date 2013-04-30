@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.liangcang.menus.FlyInMenu
+    <com.liangcang.weigets.FlyInMenu
         android:id="@+id/leftPanel2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -60,12 +60,12 @@
         <!-- android:layout_height="fill_parent" > -->
         <!-- </FrameLayout> -->
 
-        <LinearLayout
+        <com.liangcang.menus.MyLinearLayout
             android:id="@+id/rightcontent"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="@android:color/white"
-            android:orientation="vertical" >
+            android:orientation="vertical" />
 
             <!-- <Button -->
             <!-- android:id="@+id/panelH" -->
@@ -74,7 +74,7 @@
             <!-- android:layout_marginTop="140dip" -->
             <!-- android:text="Content" /> -->
             <!-- </LinearLayout> -->
-        </LinearLayout>
-    </com.liangcang.menus.FlyInMenu>
+        
+    </com.liangcang.weigets.FlyInMenu>
 
 </RelativeLayout>

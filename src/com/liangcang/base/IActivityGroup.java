@@ -101,7 +101,7 @@ public abstract class IActivityGroup extends ActivityGroup {
 			case R.id.btn_right_title:
 				if(!((MyApplication) getApplication()).isLogined())
 				{
-					Util.gotoLogin(getApplicationContext());
+					Util.gotoLogin(IActivityGroup.this);
 					break;
 				}
 				onClickRightButton();

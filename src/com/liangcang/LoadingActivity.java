@@ -52,13 +52,13 @@ public class LoadingActivity extends IActivity {
 		}, 2000);
 	}
 
-	private void gotoMain() {
-		Intent intent = new Intent();
-		intent.setClass(LoadingActivity.this, MainActivity.class);
-		startActivity(intent);
-		finish();
-
-	}
+//	private void gotoMain() {
+//		Intent intent = new Intent();
+//		intent.setClass(LoadingActivity.this, MainActivity.class);
+//		startActivity(intent);
+//		finish();
+//
+//	}
 
 	private void gotoGuide() {
 		Intent intent = new Intent();

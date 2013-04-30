@@ -36,4 +36,9 @@ public class FansView extends BaseView {
 
 	}
 
+	public void ifLoadMoreNotData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

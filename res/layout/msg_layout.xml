@@ -13,7 +13,7 @@
         android:src="@drawable/demo_people" />
 
     <ImageView
-        android:id="@+id/msg_userShop"
+        android:id="@+id/msg_userGoodImage"
         android:layout_width="@dimen/size50"
         android:layout_height="@dimen/size50"
         android:layout_alignParentRight="true"
@@ -27,7 +27,7 @@
         android:layout_marginLeft="@dimen/margin5"
         android:textColor="@color/white"
         android:layout_marginRight="@dimen/margin5"
-        android:layout_toLeftOf="@id/msg_userShop"
+        android:layout_toLeftOf="@id/msg_userGoodImage"
         android:layout_toRightOf="@id/msg_userImage" />
 
 </RelativeLayout>

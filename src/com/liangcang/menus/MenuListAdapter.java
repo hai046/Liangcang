@@ -30,7 +30,6 @@ public class MenuListAdapter extends BaseAdapter {
 	public MenuListAdapter(Context mContext) {
 		this.mContext = mContext;
 		this.inflater = LayoutInflater.from(mContext);
-//		list = mContext.getResources().getStringArray(R.array.parentsMenu);
 	}
 
 	private int menuParentsIndex = 0;
@@ -44,6 +43,11 @@ public class MenuListAdapter extends BaseAdapter {
 		return menuParentsIndex != 0 && menuParentsIndex != 5;
 	}
 
+	/**
+	 * 0代表是父类
+	 * 1.代表是分类的列表
+	 * @param index
+	 */
 	public void switchToSon(int index) {
 		menuParentsIndex = index;
 		switch (index) {
@@ -52,13 +56,15 @@ public class MenuListAdapter extends BaseAdapter {
 					R.array.menu_categorye);
 			break;
 		case 0:
+			list = mContext.getResources().getStringArray(R.array.parentsMenu);
+			break;
 		default:
 			list = mContext.getResources().getStringArray(R.array.parentsMenu);
 			break;
 		}
 	}
 
-	public MenuListAdapter() {
+	private MenuListAdapter() {
 	}
 
 	@Override

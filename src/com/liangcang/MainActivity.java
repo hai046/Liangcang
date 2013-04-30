@@ -23,7 +23,7 @@ public class MainActivity extends MyBaseViewPagerActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MyApplication mMyApplication = (MyApplication) getApplication();
+//		MyApplication mMyApplication = (MyApplication) getApplication();
 
 		mDyncView = new DyncView(this);
 		mMsgView = new MsgView(this);

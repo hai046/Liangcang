@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.LinearLayout;
 
 import com.liangcang.R;
-import com.liangcang.menus.FlyInMenu;
+import com.liangcang.weigets.FlyInMenu;
 
 public class HomeView extends BaseView {
 	FlyInMenu mFlyInMenu;
