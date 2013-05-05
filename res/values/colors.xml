@@ -12,7 +12,7 @@
     <color name="black_98">#98000000</color>
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFF</color>
-    <color name="contentbg">#F9F9F9</color>
+    <color name="contentbg">#000000</color>
     <color name="galleryBg">#68000000</color>
     <color name="itemDetail_menu_bg">#68000000</color>
     <color name="possible_result_points">#c0ffff00</color>

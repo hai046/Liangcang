@@ -1,30 +1,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/chat_flag_left"
-    android:gravity="center_horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <ImageView
-        android:layout_width="@dimen/size80"
-        android:layout_height="@dimen/size80"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/fans_imageUser"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:paddingLeft="@dimen/margin5"
+        android:paddingRight="@dimen/margin5"
+        android:paddingTop="@dimen/margin5"
+        android:minWidth="@dimen/size120"
+        android:scaleType="fitCenter"
         android:src="@drawable/demo_people" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin5"
+        android:paddingRight="@dimen/margin5"
         android:singleLine="true"
         android:text="李大齐"
         android:textColor="@color/white"
+        android:id="@+id/fans_userName"
         android:textSize="@dimen/title_12" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/margin5"
+        android:paddingRight="@dimen/margin5"
         android:singleLine="true"
+        android:id="@+id/fans_userDesc"
         android:text="著名设计师，造型师"
         android:textColor="@color/blue"
         android:textSize="@dimen/title_10" />

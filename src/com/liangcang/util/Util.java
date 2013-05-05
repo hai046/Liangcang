@@ -187,6 +187,7 @@ public class Util {
 		Intent.putExtra(UserActivity.USERID, user_id);
 		Intent.setClass(mContext, UserActivity.class);
 		mContext.startActivity(Intent);
+		MyLog.e("gotoUser", "user_id="+user_id+"  user_name="+user_name);
 		
 	}
 }

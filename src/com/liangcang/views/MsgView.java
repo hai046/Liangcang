@@ -2,6 +2,7 @@ package com.liangcang.views;
 
 import android.content.Context;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
@@ -18,19 +19,21 @@ import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
 
 public class MsgView extends BaseView {
 
-	private boolean isHadLoad=false;
+	private boolean isHadLoad = false;
+
 	public void ifLoadMoreNotData() {
-		if(!isHadLoad)
-		{
+		if (!isHadLoad) {
 			onRefresh();
 		}
-		
+
 	}
+
 	@Override
 	public void onRefresh() {
-		isHadLoad=true;
+		isHadLoad = true;
 		adapter.onRefresh();
 	}
+
 	private MyBasePageAdapter<Good> adapter;
 
 	public MsgView(final Context mContext) {
@@ -39,14 +42,14 @@ public class MsgView extends BaseView {
 		list.setDividerHeight(0);
 		setContentView(list);
 		list.setOnLoadCallBack(new LoadCallBack() {
-			
+
 			@Override
 			public void onLoading() {
 				adapter.loadMore();
-				
+
 			}
 		});
-		isHadLoad=false;
+		isHadLoad = false;
 		adapter = new MyBasePageAdapter<Good>(mContext) {
 
 			@Override
@@ -87,6 +90,7 @@ public class MsgView extends BaseView {
 						.findViewById(R.id.msg_userGoodImage);
 				ImageDownloader.getInstance().download(t.getUser_image(),
 						msgUser);
+
 				ImageDownloader.getInstance().download(t.getGoods_image(),
 						msg_userGoodImage);
 
@@ -96,51 +100,86 @@ public class MsgView extends BaseView {
 				case 1:
 					rt.addTextColor(t.getUser_name(), mContext.getResources()
 							.getColor(R.color.blue));
-					rt.addTextColor("评论了我的良品："+t.getMsg(), mContext
+					rt.addTextColor("评论了我的良品：" + t.getMsg(), mContext
 							.getResources().getColor(R.color.white));
 					break;
 				case 2:
 					rt.addTextColor(t.getUser_name(), mContext.getResources()
 							.getColor(R.color.blue));
-					rt.addTextColor("喜欢了我的良品："+t.getMsg(), mContext
+					rt.addTextColor("喜欢了我的良品：" + t.getMsg(), mContext
 							.getResources().getColor(R.color.white));
 					break;
 				case 3:
 					rt.addTextColor(t.getUser_name(), mContext.getResources()
 							.getColor(R.color.blue));
-					rt.addTextColor("回复了我的评论："+t.getMsg(), mContext
+					rt.addTextColor("回复了我的评论：" + t.getMsg(), mContext
 							.getResources().getColor(R.color.white));
 					break;
 				case 4:
-					rt.addTextColor("您的良品 ", mContext
-							.getResources().getColor(R.color.white));
+					rt.addTextColor("您的良品 ",
+							mContext.getResources().getColor(R.color.white));
 					rt.addTextColor(t.getGoods_name(), mContext.getResources()
 							.getColor(R.color.blue));
-					rt.addTextColor(" 被选入了良品精选", mContext
-							.getResources().getColor(R.color.white));
+					rt.addTextColor(" 被选入了良品精选", mContext.getResources()
+							.getColor(R.color.white));
 					break;
 				case 5:
 				default:
-					rt.addTextColor(t.getMsg(), mContext
-							.getResources().getColor(R.color.white));
-				
+					rt.addTextColor(t.getMsg(), mContext.getResources()
+							.getColor(R.color.white));
+
 					break;
 				}
-				
+
 				tv.setText(rt);
+
+				tv.setTag(position);
+				msgUser.setTag(position);
+				msg_userGoodImage.setTag(position);
+				tv.setOnClickListener(mClickListener);
+				msgUser.setOnClickListener(mClickListener);
+				msg_userGoodImage.setOnClickListener(mClickListener);
 
 				return view;
 			}
 		};
 		list.setAdapter(adapter);
-		list.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				Util.gotoComment(MsgView.this.mContext, "");
-			}
-		});
+		// list.setOnItemClickListener(new OnItemClickListener() {
+		//
+		// @Override
+		// public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		// long arg3) {
+		// Util.gotoComment(MsgView.this.mContext, "");
+		// }
+		// });
 	}
+
+	private OnClickListener mClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			if(v.getTag()==null)
+			{
+				return;
+			}
+			int position=Integer.parseInt(v.getTag().toString()) ;
+			Good good=adapter.getItem(position);
+			switch (v.getId()) {
+			case R.id.msg_userImage:
+				Util.gotoUser(mContext, good.getUser_id(), good.getUser_image(), good.getUser_name());
+				break;
+			case R.id.msg_userGoodImage:
+				Util.gotoItemDetail(mContext, good);
+				break;
+			case R.id.msg_content:
+
+				break;
+
+			default:
+				break;
+			}
+
+		}
+	};
 
 }

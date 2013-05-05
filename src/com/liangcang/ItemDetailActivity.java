@@ -47,6 +47,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.item_detail_layout);
+
 		initView();
 		receviceData();
 		setTopBtnLeftBackground(R.drawable.navigation_back);
@@ -76,13 +77,16 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		super.onClick(v);
 		switch (v.getId()) {
 		case R.id.item_detail_buy:
-			Util.gotoBuy(this,buyUrl);
+			Util.gotoBuy(this, buyUrl);
 			break;
 		case R.id.item_detail_shareTo:
 
 			break;
 		case R.id.item_detail_love:
 
+			break;
+		case R.id.item_detail_msgNum:
+			
 			break;
 		default:
 			break;
@@ -96,6 +100,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		this.btnBuy = (ImageButton) findViewById(R.id.item_detail_buy);
 		btnBuy.setOnClickListener(this);
 		this.btnMsgNum = (Button) findViewById(R.id.item_detail_msgNum);
+		btnMsgNum.setOnClickListener(this);
 		this.btnShareTo = (ImageButton) findViewById(R.id.item_detail_shareTo);
 		btnShareTo.setOnClickListener(this);
 		goodOrderImage = (ImageView) findViewById(R.id.item_detail_userImage);
@@ -109,6 +114,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		tvGoodName = (TextView) findViewById(R.id.item_detail_goodsName);
 		tvGoodsDesc = (TextView) findViewById(R.id.item_detail_goodsDesc);
 		initData();
+
 	}
 
 	private void initData() {

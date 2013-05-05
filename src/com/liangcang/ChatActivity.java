@@ -7,12 +7,16 @@ import com.liangcang.base.BaseActivity;
 import com.liangcang.views.ChatView;
 
 public class ChatActivity extends BaseActivity {
+	public static final String MessageId = "Message_id";
 	private ChatView mChatView;
+	private String msg_id;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		msg_id=getIntent().getStringExtra(MessageId);
 		mChatView=new ChatView(this);
+		mChatView.setMessageId(msg_id);
 		setContentView(mChatView.getView());
 		
 		

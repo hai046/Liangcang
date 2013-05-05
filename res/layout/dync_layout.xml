@@ -4,19 +4,23 @@
     android:layout_height="wrap_content"
     android:background="@color/black"
     android:orientation="horizontal"
-    android:padding="@dimen/margin5" >
+    android:paddingLeft="@dimen/margin5"
+    android:paddingRight="@dimen/margin5"
+    android:paddingBottom="@dimen/margin15" >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="7"
+        android:layout_weight="8"
         android:orientation="vertical" >
 
         <ImageView
             android:id="@+id/dync_img_user"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:layout_marginRight="@dimen/margin5"
             android:src="@drawable/demo_people" />
 
         <TextView
@@ -39,7 +43,7 @@
         android:id="@+id/dync_img_shopping"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/margin5"
+        android:layout_marginLeft="@dimen/margin10"
         android:layout_weight="4"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"

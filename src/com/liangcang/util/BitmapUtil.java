@@ -320,7 +320,7 @@ public class BitmapUtil {
         opts.inJustDecodeBounds = true;
         BitmapFactory.decodeFile( filePath, opts );
         //压缩到640x640
-        opts.inSampleSize = BitmapUtil.computeSampleSize( opts, -1, 640 * 640 );
+        opts.inSampleSize = BitmapUtil.computeSampleSize( opts, -1, 114 * 114 );
         opts.inJustDecodeBounds = false;
         try {
             return BitmapFactory.decodeFile( filePath, opts );

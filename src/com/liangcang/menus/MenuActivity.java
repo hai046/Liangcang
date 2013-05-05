@@ -18,8 +18,11 @@ import com.liangcang.base.IActivityGroup;
 import com.liangcang.base.MyApplication;
 import com.liangcang.util.MyLog;
 import com.liangcang.util.Util;
+import com.liangcang.views.CategoryView;
+import com.liangcang.views.DaRenView;
 import com.liangcang.views.DyncView;
 import com.liangcang.views.FansView;
+import com.liangcang.views.LikeListView;
 import com.liangcang.views.MsgView;
 import com.liangcang.views.PrivateMsgView;
 import com.liangcang.weigets.COFixListViewBugLinearLayout;
@@ -37,7 +40,8 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	MsgView mMsgView;
 	PrivateMsgView mChatView;
 	FansView mFansView;
-
+	private CategoryView mCategoryView;
+	LikeListView mLikeListView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -57,7 +61,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 				view.setOnClickListener(this);
 			}
 		}
-		//switchMenuBg(0);
+		// switchMenuBg(0);
 		mDyncView = new DyncView(this);
 		mMsgView = new MsgView(this);
 		mChatView = new PrivateMsgView(this);
@@ -65,6 +69,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		if (!isLogin()) {
 			linearBottomLayout.setVisibility(View.GONE);
 		}
+		mCategoryView=new CategoryView(this);
 	}
 
 	private boolean isLogin() {
@@ -73,11 +78,15 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	}
 
 	private static int currentIndex = 0;
+	private DaRenView mDaRenView;
 
 	protected void switchView(int position) {
 		currentIndex = position;
 		MyLog.e(TAG, "currentIndex=" + currentIndex);
-		switchMenuBg(position);
+		if (position >= 0 && position < 5) {
+			switchMenuBg(position);
+		}
+
 		linearCenter.removeAllViews();
 		switch (position) {
 		case 0:
@@ -95,7 +104,20 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 
 		case 4:
 			switchIntent(-1);
-
+		case R.id.btn_menudaren:
+			if (mDaRenView == null) {
+				mDaRenView = new DaRenView(this);
+			}
+			
+			linearCenter.addView(mDaRenView.getView());
+			break;
+		case R.id.btn_menuHeart:
+			if(mLikeListView==null)
+			{
+				mLikeListView=new LikeListView(this);
+			}
+			linearCenter.addView(mLikeListView.getView());
+			break;
 		default:
 			break;
 		}
@@ -196,7 +218,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		ListView listView = new ListView(this);
 		listView.setCacheColorHint(Color.TRANSPARENT);
 		mMenuListAdapter = new MenuListAdapter(this);
-		mMenuListAdapter.switchToSon(0);
+		mMenuListAdapter.switchToSon(1);
 		listView.setAdapter(mMenuListAdapter);
 		linearLayout.addView(listView);
 
@@ -204,6 +226,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		leftView.findViewById(R.id.btn_menuHeart).setOnClickListener(this);
 		leftView.findViewById(R.id.btn_menuSetting).setOnClickListener(this);
 		leftView.findViewById(R.id.btn_menuExit).setOnClickListener(this);
+		leftView.findViewById(R.id.btn_menudaren).setOnClickListener(this);
 		int w = (int) (Util.getDisplayWindth(this) * 0.33);
 		if (w < 0)
 			w = 200;
@@ -217,8 +240,12 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				if (mMenuListAdapter.getMenuParentIndex() == 0) {
-					switchIntent(arg2);
+				if (mMenuListAdapter.getMenuParentIndex() == 1) {
+					//switchIntent(arg2);
+//					s
+					mCategoryView.setType(mMenuListAdapter.getType(arg2));
+					linearCenter.removeAllViews();
+					linearCenter.addView(mCategoryView.getView());
 				}
 
 			}
@@ -243,6 +270,12 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		case R.id.btn_menuSetting:
 			switchIntent(R.id.btn_menuSetting);
 			break;
+		case R.id.btn_menudaren:
+			switchView(R.id.btn_menudaren);
+			break;
+		case R.id.btn_menuHeart:
+			switchView(R.id.btn_menuHeart);
+			break;
 		default:
 			break;
 		}
@@ -251,20 +284,19 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		if (!isLogin()&&linearBottomLayout.getVisibility()==View.VISIBLE) {
+		if (!isLogin() && linearBottomLayout.getVisibility() == View.VISIBLE) {
 			linearBottomLayout.setVisibility(View.GONE);
-		}else if(isLogin()&&linearBottomLayout.getVisibility()!=View.VISIBLE)
-		{
+		} else if (isLogin()
+				&& linearBottomLayout.getVisibility() != View.VISIBLE) {
 			linearBottomLayout.setVisibility(View.VISIBLE);
 		}
-		if(isLogin())
-		{
-			 mDyncView.ifLoadMoreNotData();
-			 mMsgView.ifLoadMoreNotData();
-			 mChatView.ifLoadMoreNotData();
-			 mFansView.ifLoadMoreNotData();
+		if (isLogin()) {
+			mDyncView.ifLoadMoreNotData();
+			mMsgView.ifLoadMoreNotData();
+			mChatView.ifLoadMoreNotData();
+			mFansView.ifLoadMoreNotData();
 		}
-		
+
 		super.onResume();
 	}
 
@@ -272,6 +304,10 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		Intent intent = new Intent();
 		// mLinear.removeAllViews();
 		switch (i) {
+
+		case 1:
+
+			break;
 		/*
 		 * case 0: intent.setClass(this, MenuCagegoryActivity.class);
 		 * startActivity(intent); MobclickAgent.onEvent(this,
@@ -293,6 +329,8 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			MobclickAgent.onEvent(this, "RecommendActivity");
 			break;
 		}
+		getLocalActivityManager().getActivity("subActivity" + i);
+
 		Window subActivity = getLocalActivityManager().startActivity(
 				"subActivity" + i, intent);
 

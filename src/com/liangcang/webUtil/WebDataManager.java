@@ -39,7 +39,6 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -50,7 +49,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.liangcang.mode.User;
 import com.liangcang.util.BitmapUtil;
@@ -654,8 +652,8 @@ public class WebDataManager {
 			// conn = (HttpURLConnection) url.openConnection( proxy );
 			// }
 		}
-		if (MyLog.isDEBUG)
-			MyLog.e(TAG, "getConnection url=" + url.toString());
+//		if (MyLog.isDEBUG)
+//			MyLog.e(TAG, "getConnection url=" + url.toString());
 		conn.setRequestMethod(method);
 		conn.setDoInput(true);
 		conn.setDoOutput(WebDataManager.METHOD_POST.equals(method));
@@ -676,7 +674,7 @@ public class WebDataManager {
 	private URL buildGetUrl(String strUrl, String query) throws IOException {
 		URL url = new URL(strUrl.startsWith("http") ? strUrl
 				: (ROOTPATH + strUrl));
-		MyLog.e(TAG, "strUrl");
+		MyLog.e(TAG, "strUrl"+url);
 		if (TextUtils.isEmpty(query)) {
 			return url;
 		}

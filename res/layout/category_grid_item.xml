@@ -9,8 +9,8 @@
         android:id="@+id/category_grid_img"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:scaleType="centerCrop"
         android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
         android:src="@drawable/demo_2" >
     </ImageView>
 
@@ -18,9 +18,19 @@
         android:id="@+id/catetory_grid_heartBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
         android:layout_marginLeft="@dimen/margin12"
         android:layout_marginTop="@dimen/margin12"
+        android:background="@null"
         android:src="@drawable/heart" />
-  
+
+    <ImageButton
+        android:id="@+id/catetory_grid_share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/margin12"
+        android:layout_marginTop="@dimen/margin12"
+        android:background="@null"
+        android:src="@drawable/share" />
+
 </RelativeLayout>

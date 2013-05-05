@@ -54,14 +54,21 @@ public class MenuListAdapter extends BaseAdapter {
 		case 1:
 			list = mContext.getResources().getStringArray(
 					R.array.menu_categorye);
+			types=mContext.getResources().getIntArray(R.array.menu_categorye_type);
 			break;
 		case 0:
 			list = mContext.getResources().getStringArray(R.array.parentsMenu);
+			
 			break;
 		default:
 			list = mContext.getResources().getStringArray(R.array.parentsMenu);
 			break;
 		}
+	}
+	public int []types;
+	public int getType(int position)
+	{
+		return types[position];
 	}
 
 	private MenuListAdapter() {

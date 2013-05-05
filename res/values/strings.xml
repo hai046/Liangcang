@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    
+     <string name="choosePhoto">相机</string>
+     <string name="take_photos">相册</string>
+     <string name="noSDCard">没有SD卡！</string>
     <string name="app_name">粮仓</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
@@ -24,8 +28,8 @@
     <string-array name="parentsMenu">
         <item>分类</item>
         <item>达人</item>
-        <item>店铺</item>
-        <item>折扣</item>
+<!--         <item>店铺</item> -->
+<!--         <item>折扣</item> -->
         <item>消息</item>
     </string-array>
     <string-array name="settings">
@@ -49,6 +53,20 @@
         <item>饮食</item>
         <item>文化</item>
     </string-array>
+    <integer-array name="menu_categorye_type">
+        <item>1</item>
+        <item>2</item>
+        <item>20</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>7</item>
+        <item>10</item>
+        <item>9</item>
+        <item>23</item>
+        <item>8</item>
+        <item>15</item>
+    </integer-array>
     <string-array name="menu_settings">
         <item>个人设置</item>
         <item>帐号密码</item>

@@ -32,13 +32,19 @@ public class DyncView extends BaseView {
 
 		final LinearLayout.LayoutParams leftParams;
 		final LinearLayout.LayoutParams rightParams;
-		int widht = Util.getDisplayWindth(mContext) / 8;
-		int leftWidth = widht * 3;
-		int rightWidth = widht * 5;
-		leftParams = new LayoutParams(leftWidth, leftWidth);
-		rightParams = new LayoutParams(rightWidth, rightWidth);
-		rightParams.leftMargin = mContext.getResources().getDimensionPixelSize(
-				R.dimen.margin5);
+		int width = Util.getDisplayWindth(mContext) / 3;
+//		int mar=(int) (widht*0.1);
+//		int leftWidth = widht * 3;
+//		int rightWidth = widht * 5;
+		int pix=mContext.getResources().getDimensionPixelSize(
+				R.dimen.margin10);
+		leftParams = new LayoutParams(width-pix, width-pix);
+//		
+//		leftParams.leftMargin=pix;
+//		leftParams.rightMargin=2*pix;
+		rightParams = new LayoutParams(width*2-pix, width*2-pix);
+//		rightParams.leftMargin = 2*pix;;
+//		rightParams.rightMargin=pix;
 		adapter = new MyBasePageAdapter<Good>(mContext) {
 
 			@Override
@@ -101,7 +107,8 @@ public class DyncView extends BaseView {
 						imgShopping);
 				imageUser.setTag(position);
 				imageUser.setOnClickListener(mClickListener);
-
+				imgShopping.setTag(position);
+				imgShopping.setOnClickListener(mClickListener);
 				return view;
 			}
 
@@ -109,15 +116,20 @@ public class DyncView extends BaseView {
 
 				@Override
 				public void onClick(View v) {
+					if(v.getTag()==null)
+						return;
+					int index = Integer.parseInt(v.getTag().toString());
+					Good good = getItem(index);
 					switch (v.getId()) {
 					case R.id.userName:
 					case R.id.dync_img_user:
-						int index = Integer.parseInt(v.getTag().toString());
-						Good good = getItem(index);
+						
 						Util.gotoUser(mContext, good.getOwner_id(),
 								good.getOwner_image(), good.getOwner_name());
 						break;
-
+					case R.id.dync_img_shopping:
+						Util.gotoItemDetail(mContext, good);
+						break;
 					default:
 						break;
 					}
@@ -127,7 +139,6 @@ public class DyncView extends BaseView {
 		};
 
 		listView.setOnLoadCallBack(new LoadCallBack() {
-
 			@Override
 			public void onLoading() {
 				adapter.loadMore();
@@ -155,29 +166,5 @@ public class DyncView extends BaseView {
 		adapter.onRefresh();
 		super.onRefresh();
 	}
-	/*
-	 * int currentPage; private void getData(int page) { currentPage=page;
-	 * DataManager.getInstance(mContext).getRecomends(currentPage, 20,
-	 * mDataCallBack);
-	 * 
-	 * } private void LoadMore() { currentPage+=1;
-	 * DataManager.getInstance(mContext).getRecomends(currentPage, 20,
-	 * mDataCallBack);
-	 * 
-	 * }
-	 * 
-	 * private DataCallBack<Good> mDataCallBack=new DataCallBack<Good>() {
-	 * 
-	 * 
-	 * @Override public void success(List<Good> list) { // TODO Auto-generated
-	 * method stub
-	 * 
-	 * }
-	 * 
-	 * @Override public void failure(String msg) { // TODO Auto-generated method
-	 * stub
-	 * 
-	 * } };
-	 */
 
 }

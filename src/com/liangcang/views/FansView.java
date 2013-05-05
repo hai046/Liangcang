@@ -1,43 +1,49 @@
 package com.liangcang.views;
 
-import com.liangcang.R;
-import com.liangcang.base.MyBaseAdapter;
-
-import android.R.color;
 import android.content.Context;
-import android.view.View;
-import android.widget.GridView;
+
+import com.liangcang.base.BaseThrAdapter;
+import com.liangcang.base.BaseThrAdapter.Type;
+import com.liangcang.base.MyApplication;
+import com.liangcang.weigets.LoadMoreListView;
+import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
 
 public class FansView extends BaseView {
 
-	private MyBaseAdapter<String> adapter = new MyBaseAdapter<String>() {
-
-		@Override
-		public View bindView(int position, String t, View view) {
-			if (view == null) {
-				view = getLayoutInflater().inflate(R.layout.fans_layout, null);
-			}
-			return view;
-		}
-	};
-
+	private BaseThrAdapter adapter;
 	public FansView(Context mContext) {
 		super(mContext);
-		GridView mGridView = new GridView(mContext);
-		mGridView.setVerticalSpacing(5);
-		mGridView.setBackgroundColor(mContext.getResources().getColor(
-				R.color.black));
-		mGridView.setNumColumns(3);
-		for (int i = 0; i < 7; i++) {
-			adapter.add("" + i);
-		}
-		mGridView.setAdapter(adapter);
-		setContentView(mGridView);
-
+//		GridView mGridView = new GridView(mContext);
+//		mGridView.setVerticalSpacing(5);
+//		mGridView.setBackgroundColor(mContext.getResources().getColor(
+//				R.color.black));
+//		mGridView.setNumColumns(3);
+		LoadMoreListView listView=new LoadMoreListView(mContext);
+		adapter=new BaseThrAdapter(mContext);
+		listView.setAdapter(adapter);
+		listView.setOnLoadCallBack(new  LoadCallBack() {
+			
+			@Override
+			public void onLoading() {
+				adapter.onLoadMore();
+				
+			}
+		});
+		setContentView(listView);
+		adapter.setType(Type.Followed);
+		isLoad=false;
 	}
-
+	private boolean isLoad=false;
 	public void ifLoadMoreNotData() {
-		// TODO Auto-generated method stub
+		if(isLoad)
+		{
+			return;
+		}
+		MyApplication mApp=(MyApplication) mContext.getApplicationContext();
+		adapter.setUserId(mApp.getUser().getUser_id());
+		isLoad=true;
+		adapter.onRefresh();
+		
 		
 	}
 

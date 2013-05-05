@@ -14,6 +14,7 @@ import com.liangcang.base.MyBasePageAdapter;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
 import com.liangcang.util.RichText;
+import com.liangcang.util.Util;
 import com.liangcang.weigets.LoadMoreListView;
 import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
 
@@ -68,43 +69,64 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 						.findViewById(R.id.privateMsgContent);
 
 				RichText rt = new RichText(mContext);
-				rt.addTextColor("来自 " + t.getMsg(), mContext
-						.getResources().getColor(R.color.white));
+				rt.addTextColor("来自" + t.getMsg(), mContext.getResources()
+						.getColor(R.color.white));
 				rt.addTextColor(t.getUser_name(), mContext.getResources()
 						.getColor(R.color.blue));
-				rt.addTextColor("：" + t.getMsg(), mContext
-						.getResources().getColor(R.color.white));
+				rt.addTextColor("：" + t.getMsg(), mContext.getResources()
+						.getColor(R.color.white));
 				msg.setText(rt);
 
 				Button btnReply = (Button) view
 						.findViewById(R.id.privateMsgReplyBtn);
+				btnReply.setTag(position);
+				msg.setTag(position);
+				uesrImage.setTag(position);
+
+				msg.setOnClickListener(PrivateMsgView.this);
+				uesrImage.setOnClickListener(PrivateMsgView.this);
 				btnReply.setOnClickListener(PrivateMsgView.this);
 				return view;
 			}
 
 		};
-		
+
 		moreListView.setAdapter(adapter);
+		
 		moreListView.setOnLoadCallBack(new LoadCallBack() {
-			
+
 			@Override
 			public void onLoading() {
 				adapter.loadMore();
-				
+
 			}
 		});
-		isFirstLoad=true;
+		isFirstLoad = true;
 	}
 
 	@Override
 	public void onClick(View v) {
+
+		if (v.getTag() == null) {
+			return;
+		}
+		int position = Integer.parseInt(v.getTag().toString());
+		Good good = adapter.getItem(position);
 		switch (v.getId()) {
 		case R.id.privateMsgReplyBtn:
+		case R.id.privateMsgContent:
 			Intent intent = new Intent();
 			intent.setClass(mContext, ChatActivity.class);
+			intent.putExtra(ChatActivity.MessageId, good.getMessage_id());
 			mContext.startActivity(intent);
+			
 			break;
-
+		case R.id.privateMsgImageUser:
+		
+			Util.gotoUser(mContext, good.getUser_id(), good.getUser_image(),
+					good.getUser_name());
+			// break;
+			break;
 		default:
 			break;
 		}
@@ -112,17 +134,18 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 	}
 
 	private boolean isFirstLoad;
+
 	public void ifLoadMoreNotData() {
-		if(isFirstLoad)
-		{
+		if (isFirstLoad) {
 			onRefresh();
-			isFirstLoad=false;
+			isFirstLoad = false;
 		}
 
 	}
+
 	@Override
 	public void onRefresh() {
 		adapter.onRefresh();
 	}
-	
+
 }
