@@ -58,6 +58,9 @@
             android:launchMode="singleTask" >
             
         </activity>
+        
+         <activity android:name="com.liangcang.GoodCommentActivity" >
+        </activity>
         <activity android:name="com.liangcang.RegisterActivity" >
         </activity>
         <activity

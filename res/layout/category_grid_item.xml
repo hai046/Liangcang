@@ -21,7 +21,8 @@
         android:layout_marginLeft="@dimen/margin12"
         android:layout_marginTop="@dimen/margin12"
         android:background="@null"
-        android:src="@drawable/heart" />
+        android:src="@drawable/heart"
+        android:visibility="gone" />
 
     <ImageButton
         android:id="@+id/catetory_grid_share"
@@ -31,6 +32,7 @@
         android:layout_marginRight="@dimen/margin12"
         android:layout_marginTop="@dimen/margin12"
         android:background="@null"
-        android:src="@drawable/share" />
+        android:src="@drawable/share"
+        android:visibility="gone" />
 
 </RelativeLayout>

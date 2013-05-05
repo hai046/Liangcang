@@ -559,16 +559,9 @@ public class WebDataManager {
 			try {
 				int responseCode = conn.getResponseCode();
 				
-				// MyLog.e( TAG, "==========================" );
-				// MyLog.e( TAG, "responseCode=" + responseCode + "   " +
-				// conn.getResponseMessage( ) );
-				// MyLog.e( TAG, "==========================" );
 				if (responseCode >= 500) {
 					String msg = "服务器大姨妈，请稍后刷新再试";
 					switch (responseCode) {
-					// case 502:// Bad Gateway
-					// msg="服务器正在维护，请稍后再试";
-					// break;
 					case 503:// Service Unavailable
 					case 504:// Gateway Timeout
 						msg = "连接服务器超时，服务器可能在维护";

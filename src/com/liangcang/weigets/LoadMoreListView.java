@@ -23,9 +23,9 @@ public class LoadMoreListView extends ListView {
         init( context );
     }
 
-    public LoadMoreListView(Context context) {
-        super( context );
-        init( context );
+    public LoadMoreListView(Context mContext) {
+        super( mContext );
+        init( mContext );
     }
 
     private void init(Context context) {

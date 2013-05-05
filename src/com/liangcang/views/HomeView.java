@@ -1,5 +1,6 @@
 package com.liangcang.views;
 
+import android.app.Activity;
 import android.content.Context;
 import android.widget.LinearLayout;
 
@@ -10,7 +11,7 @@ public class HomeView extends BaseView {
 	FlyInMenu mFlyInMenu;
 	private LinearLayout mLinear;
 
-	public HomeView(Context mContext) {
+	public HomeView(Activity mContext) {
 		super(mContext);
 		setContentView(R.layout.home_layout);
 		mFlyInMenu = (FlyInMenu) findViewById(R.id.leftPanel2);
@@ -33,7 +34,7 @@ public class HomeView extends BaseView {
 		case 1:
 			mLinear.removeAllViews();
 			if (mUserView == null) {
-				mUserView = new UserView(mContext);
+				mUserView = new UserView((Activity) mContext);
 			}
 			mLinear.addView(mUserView.getView());
 			break;

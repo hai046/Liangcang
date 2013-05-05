@@ -31,7 +31,7 @@ import com.liangcang.weigets.MyGallery;
 
 public class ItemDetailActivity extends BaseActivity implements OnClickListener {
 
-	public static Good Good;
+	public static Good mGood;
 	private Button btnLike, btnMsgNum;
 	private TextView tvLiked_count, tv_goodPrice, tvOrderName, tvOrderDesc,
 			tvGoodName, tvGoodsDesc;
@@ -40,7 +40,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		if (Good == null) {
+		if (mGood == null) {
 			finish();
 			return;
 		}
@@ -56,7 +56,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 	}
 
 	private void receviceData() {
-		DataManager.getInstance(this).getGoodsDetail(Good.getGoods_id(),
+		DataManager.getInstance(this).getGoodsDetail(mGood.getGoods_id(),
 				new DataCallBack<GoodDetail>() {
 					@Override
 					public void success(GoodDetail t) {
@@ -80,13 +80,13 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 			Util.gotoBuy(this, buyUrl);
 			break;
 		case R.id.item_detail_shareTo:
-
+			
 			break;
 		case R.id.item_detail_love:
-
+			
 			break;
 		case R.id.item_detail_msgNum:
-			
+			Util.gotoGoodComment(this, mGood);
 			break;
 		default:
 			break;
@@ -119,10 +119,10 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	private void initData() {
 
-		tvLiked_count.setText(Good.getLike_count());
-		tv_goodPrice.setText("￥" + Good.getPrice());
-		btnMsgNum.setText(Good.getComment_count());
-		list.add(Good.getGoods_image());
+		tvLiked_count.setText(mGood.getLike_count());
+		tv_goodPrice.setText("￥" + mGood.getPrice());
+		btnMsgNum.setText(mGood.getComment_count());
+		list.add(mGood.getGoods_image());
 		setDatas(list);
 	}
 
@@ -130,7 +130,9 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	protected void initData(GoodDetail t) {
 		buyUrl = t.getGoods_url();
-		list.add(t.getGoods_image());
+		isGalleryClear=true;
+		list.clear();
+		setDatas(t.getImages_item());
 		tvLiked_count.setText(t.getLike_count());
 		tv_goodPrice.setText("￥" + t.getPrice());
 		btnMsgNum.setText(t.getComment_count());
@@ -143,7 +145,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		this.tvOrderDesc.setText(t.getOwner_desc());
 
 		list.clear();
-		list.add(Good.getGoods_image());
+		list.add(mGood.getGoods_image());
 		setDatas(list);
 	}
 
@@ -277,7 +279,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	@Override
 	public void onDestroy() {
-		Good = null;
+		mGood = null;
 		MyHandler.getInstance().removeMessages(SCROLLER);
 		MyHandler.getInstance().removeListener(mHandlerCallBack);
 		super.onDestroy();

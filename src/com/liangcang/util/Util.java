@@ -5,10 +5,10 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,10 +20,12 @@ import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 
+import com.liangcang.GoodCommentActivity;
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
-import com.liangcang.MainActivity;
 import com.liangcang.RecommendActivity;
+import com.liangcang.managers.DataCallBack;
+import com.liangcang.managers.DataManager;
 import com.liangcang.menus.MenuActivity;
 import com.liangcang.menus.UserActivity;
 import com.liangcang.mode.Good;
@@ -131,7 +133,7 @@ public class Util {
 
 	public static void gotoItemDetail(Context mContext, Good good) {
 		Intent intent = new Intent();
-		ItemDetailActivity.Good = good;
+		ItemDetailActivity.mGood = good;
 		intent.setClass(mContext, ItemDetailActivity.class);
 		mContext.startActivity(intent);
 
@@ -180,14 +182,44 @@ public class Util {
 		intent.setClass(mContext, MenuActivity.class);
 		mContext.startActivity(intent);
 	}
-
-	public static void gotoUser(Context mContext, String user_id, String user_image,
-			String user_name) {
-		Intent Intent = new Intent();
-		Intent.putExtra(UserActivity.USERID, user_id);
-		Intent.setClass(mContext, UserActivity.class);
-		mContext.startActivity(Intent);
-		MyLog.e("gotoUser", "user_id="+user_id+"  user_name="+user_name);
+	public static void gotoGoodComment(Context mContext, Good good)
+	{
+		Intent intent = new Intent();
+		intent.putExtra(GoodCommentActivity.GOODS_ID, good.getGoods_id());
+		intent.setClass(mContext, GoodCommentActivity.class);
+		mContext.startActivity(intent);
 		
+	}
+
+	public static void gotoUser(Context mContext, String user_id,
+			String user_image, String user_name) {
+		Intent intent = new Intent();
+//		intent.setAction(Intent.ACTION_VIEW);intent.setFlags(Intent);
+		intent.putExtra(UserActivity.USERID, user_id);
+		intent.setClass(mContext, UserActivity.class);
+//		intent.setClassName(mContext, "com.liangcang.menus.UserActivity");
+		mContext.startActivity(intent);
+		MyLog.e("gotoUser", "user_id=" + user_id + "  user_name=" + user_name);
+
+	}
+
+	public static void doLiked(final Context mContext, boolean toLike, String goods_id) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("type", toLike ? "1" : "0");
+		params.put("goods_id", goods_id);
+		DataManager.getInstance(mContext).doPost("like/action", params,
+				new DataCallBack<String>() {
+
+					@Override
+					public void success(String t) {
+						MyLog.d("doLiked", "String t="+t);
+					}
+
+					@Override
+					public void failure(String msg) {
+						MyToast.showMsgLong(mContext, msg);
+
+					}
+				});
 	}
 }

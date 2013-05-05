@@ -83,6 +83,10 @@ public class UserView extends BaseView {
 
 	public UserView(Context mContext) {
 		super(mContext);
+		followAdapter = new BaseThrAdapter(mContext);
+		followAdapter.setType(Type.Following);
+		fanAdaper = new BaseThrAdapter(mContext);
+		fanAdaper.setType(Type.Followed);
 		mListView = new LoadMoreListView(mContext);
 		View viewTop = getLayoutInflater().inflate(R.layout.user_list_layout,
 				null);
@@ -104,10 +108,7 @@ public class UserView extends BaseView {
 	}
 
 	private void initAdapter() {
-		followAdapter = new BaseThrAdapter(mContext);
-		followAdapter.setType(Type.Following);
-		fanAdaper = new BaseThrAdapter(mContext);
-		fanAdaper.setType(Type.Followed);
+		
 		likeAdapter = new TwoBaseAdapter<Good>(mContext) {
 
 			private DataCallBack<String> mCallBack = new DataCallBack<String>() {

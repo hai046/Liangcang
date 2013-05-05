@@ -60,12 +60,7 @@ public class ChatView extends BaseView {
 		@Override
 		public View bindView(int position, Good t, View view) {
 			MyLog.e("hh", "good " + t);
-//			if (position % 3 == 0) {
-//				
-//			} else {
-//				view = getLayoutInflater().inflate(R.layout.chat_item_left,
-//						null);
-//			}
+
 			if(!t.getUser_id().equals(MyUserId))
 			{
 				view = getLayoutInflater().inflate(R.layout.chat_item_left,
