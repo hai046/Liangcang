@@ -131,7 +131,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 	protected void initData(GoodDetail t) {
 		buyUrl = t.getGoods_url();
 		isGalleryClear=true;
-		list.clear();
+//		list.clear();
 		setDatas(t.getImages_item());
 		tvLiked_count.setText(t.getLike_count());
 		tv_goodPrice.setText("￥" + t.getPrice());

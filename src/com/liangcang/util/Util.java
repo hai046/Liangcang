@@ -186,6 +186,8 @@ public class Util {
 	{
 		Intent intent = new Intent();
 		intent.putExtra(GoodCommentActivity.GOODS_ID, good.getGoods_id());
+		intent.putExtra(GoodCommentActivity.GOODS_IMAGE, good.getGoods_image());
+		intent.putExtra(GoodCommentActivity.COMMENT_COUNT, good.getMsg_count());
 		intent.setClass(mContext, GoodCommentActivity.class);
 		mContext.startActivity(intent);
 		
