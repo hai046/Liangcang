@@ -558,7 +558,7 @@ public class WebDataManager {
 		if (conn != null) {
 			try {
 				int responseCode = conn.getResponseCode();
-				
+				MyLog.e(TAG, "responseCode="+responseCode);
 				if (responseCode >= 500) {
 					String msg = "服务器大姨妈，请稍后刷新再试";
 					switch (responseCode) {
