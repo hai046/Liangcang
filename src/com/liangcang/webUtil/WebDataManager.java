@@ -61,7 +61,7 @@ public class WebDataManager {
 	private static final String USER_AGENT = "Android_brunjoy";
 	String TAG = "WebUtils";
 	private static WebDataManager mWebDataManager;
-	public static final String HOST = "42.62.26.49"/*"api.iliangcang.com"*/;
+	public static final String HOST = "42.62.26.49"/* "api.iliangcang.com" */;
 	public static final String ROOTPATH = "http://" + HOST + "/";
 	private int connectTimeout = 10000;// 10秒
 	private int readTimeout = 10000;// 10秒
@@ -123,11 +123,10 @@ public class WebDataManager {
 	private static String sin, user_id;
 
 	public void initUser(User user) {
-		if(user==null)
-		{
+		if (user == null) {
 			sin = null;
 			user_id = null;
-			
+
 			return;
 		}
 		sin = user.getSig();
@@ -405,7 +404,7 @@ public class WebDataManager {
 				// Map<String, String> map = getParamsFromUrl(url);
 				// TaobaoLogger.logCommError(e,
 				// url,map.get("app_key"),map.get("method"), params);
-
+				e.printStackTrace();
 				throw new IOException(getResposeMsg(conn, e.getMessage()));
 			}
 
@@ -443,6 +442,7 @@ public class WebDataManager {
 				out.write(endBoundaryBytes);
 				rsp = getResponseAsString(conn, false);
 			} catch (IOException e) {
+				e.printStackTrace();
 				throw e;
 			}
 
@@ -454,7 +454,10 @@ public class WebDataManager {
 				conn.disconnect();
 			}
 		}
-
+		if (MyLog.isDEBUG) {
+			MyLog.i(TAG, "do post file url=" + url + " " + conn.getURL()
+					+ "  \r\n  rsp=" + rsp);
+		}
 		return rsp;
 	}
 
@@ -548,10 +551,12 @@ public class WebDataManager {
 				conn.disconnect();
 			}
 		}
-	
+
 		if (MyLog.isDEBUG) {
-			MyLog.i(TAG, "do get url=" + url + " 耗时:"
-					+ (System.currentTimeMillis() - time) + " " + conn.getURL());
+			MyLog.i(TAG,
+					"do get url=" + url + " 耗时:"
+							+ (System.currentTimeMillis() - time) + " "
+							+ conn.getURL());
 		}
 		return rsp;
 	}
@@ -565,7 +570,7 @@ public class WebDataManager {
 		if (conn != null) {
 			try {
 				int responseCode = conn.getResponseCode();
-				MyLog.e(TAG, "responseCode="+responseCode);
+				MyLog.e(TAG, "responseCode=" + responseCode);
 				if (responseCode >= 500) {
 					String msg = "服务器大姨妈，请稍后刷新再试";
 					switch (responseCode) {
@@ -575,7 +580,8 @@ public class WebDataManager {
 					default:
 						break;
 					}
-					return "{\"status\":"+responseCode+",\"msg\":\"" + msg + "\",\"op_status\":\"NG\"}";
+					return "{\"status\":" + responseCode + ",\"msg\":\"" + msg
+							+ "\",\"op_status\":\"NG\"}";
 				}
 
 			} catch (IOException e) {
@@ -652,8 +658,8 @@ public class WebDataManager {
 			// conn = (HttpURLConnection) url.openConnection( proxy );
 			// }
 		}
-//		if (MyLog.isDEBUG)
-//			MyLog.e(TAG, "getConnection url=" + url.toString());
+		// if (MyLog.isDEBUG)
+		// MyLog.e(TAG, "getConnection url=" + url.toString());
 		conn.setRequestMethod(method);
 		conn.setDoInput(true);
 		conn.setDoOutput(WebDataManager.METHOD_POST.equals(method));
@@ -674,7 +680,7 @@ public class WebDataManager {
 	private URL buildGetUrl(String strUrl, String query) throws IOException {
 		URL url = new URL(strUrl.startsWith("http") ? strUrl
 				: (ROOTPATH + strUrl));
-		MyLog.e(TAG, "strUrl"+url);
+		MyLog.e(TAG, "strUrl" + url);
 		if (TextUtils.isEmpty(query)) {
 			return url;
 		}
@@ -712,7 +718,7 @@ public class WebDataManager {
 		for (Entry<String, String> entry : entries) {
 			String name = entry.getKey();
 			String value = entry.getValue();
-			MyLog.e(TAG, "name="+name+" value="+value);
+			MyLog.e(TAG, "name=" + name + " value=" + value);
 			// 忽略参数名或参数值为空的参数
 			if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(value)) {
 				if (hasParam) {

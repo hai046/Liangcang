@@ -16,7 +16,6 @@ import android.widget.ListView;
 import com.liangcang.R;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.base.MyApplication;
-import com.liangcang.stores.Settings;
 import com.liangcang.util.MyLog;
 import com.liangcang.util.Util;
 import com.liangcang.views.CategoryView;
@@ -37,17 +36,17 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	private COSlidingMenu mCOSlidingMenu;
 	private MenuListAdapter mMenuListAdapter;
 	private LinearLayout linearCenter, linearBottomLayout;
-	DyncView mDyncView;
-	MsgView mMsgView;
-	PrivateMsgView mChatView;
-	FansView mFansView;
+	private DyncView mDyncView;
+	private MsgView mMsgView;
+	private PrivateMsgView mChatView;
+	private FansView mFansView;
 	private CategoryView mCategoryView;
-	LikeListView mLikeListView;
+	private LikeListView mLikeListView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		MyLog.e(TAG, "md5="+Util.getMD5Str("2"));
+		MyLog.e(TAG, "md5=" + Util.getMD5Str("2"));
 		setContentView(R.layout.home);
 		initView();
 		linearBottomLayout = (LinearLayout) findViewById(R.id.mainBottomLayout);

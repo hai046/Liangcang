@@ -38,56 +38,6 @@ public class ImageDownloader {
 	private static int MAXDOWNNUM = 2;
 	private static int MAXCANCLE = 50;
 	private static ImageDownloader mImageDownloader;
-	private Quality currentQuality = Quality.LOW;
-
-	/**
-	 * 设置图片的质量
-	 * 
-	 * @param mQuality
-	 */
-	public void setQuality(Quality mQuality) {
-		this.currentQuality = mQuality;
-
-	}
-
-	public enum Quality {
-		/**
-		 * _600x600.jpg
-		 */
-		HIGHT(600), // _600x600.jpg
-		/**
-		 * 480x480.jpg
-		 */
-		MIDDLE(480), // _480x480.jpg
-		/**
-		 * 原始图像
-		 */
-		ORIGINAL(720), //
-		/**
-		 * _240x240.jpg
-		 */
-		LOW(240), // _240x240.jpg
-
-		/**
-		 * _120x120
-		 */
-		LOWEST(120);// 120x120.jpg
-
-		private final int value;
-
-		public String getValue() {
-			return value <= 0 ? "" : ("_" + value + "x" + value + ".jpg");
-		}
-
-		public int getIntValue() {
-			return value;
-		}
-
-		Quality(int value) {
-			this.value = value;
-		}
-
-	}
 
 	/**
 	 * 是否需要缓存
@@ -103,14 +53,15 @@ public class ImageDownloader {
 	/**
 	 * 如果想保持原图请在url后面加上该标示
 	 */
-//	private static final String LOG_TAG = "ImageDownloader";
+	// private static final String LOG_TAG = "ImageDownloader";
 	private static final int HARD_CACHE_CAPACITY = 16;
 	private static final int DELAY_BEFORE_PURGE = 1 * 60 * 1000; // in
 	// milliseconds
 	// Soft cache for bitmaps kicked out of hard cache
 	private final static ConcurrentHashMap<String, SoftReference<Bitmap>> sSoftBitmapCache = new ConcurrentHashMap<String, SoftReference<Bitmap>>(
 			HARD_CACHE_CAPACITY / 2);
-//	private final static ArrayList<BitmapDownloaderTask> currentTasks = new ArrayList<ImageDownloader.BitmapDownloaderTask>();
+	// private final static ArrayList<BitmapDownloaderTask> currentTasks = new
+	// ArrayList<ImageDownloader.BitmapDownloaderTask>();
 	/*
 	 * Cache-related fields and methods.
 	 * 
@@ -241,9 +192,6 @@ public class ImageDownloader {
 				for (BitmapDownloaderTask t : cacheDownLoaders) {
 					if (t.getUrl().equals(task.getUrl())) {
 						temp = t;
-						// MyLog.d( "down",
-						// "addNewTask ====================== removed=" +
-						// t.getUrl( ) );
 						break;
 					}
 				}
@@ -260,11 +208,14 @@ public class ImageDownloader {
 	public void startNewStart() {
 		synchronized (cacheDownLoaders) {
 			AccessNum--;
-			// MyLog.d( "down", "startNewStart  AccessNum=" + AccessNum +
-			// "   cacheDownLoaders=" + cacheDownLoaders.size( ) );
+			MyLog.d("down", "startNewStart  AccessNum=" + AccessNum
+					+ "   cacheDownLoaders=" + cacheDownLoaders.size());
 			if (cacheDownLoaders.size() > 0) {
 				AccessNum++;
-				cacheDownLoaders.remove(cacheDownLoaders.size() - 1).execute();
+				BitmapDownloaderTask task = cacheDownLoaders
+						.remove(cacheDownLoaders.size() - 1);
+				if (!task.isCancelled())
+					task.execute();
 			}
 		}
 	}
@@ -324,7 +275,6 @@ public class ImageDownloader {
 			if ((bitmapUrl == null) || (!bitmapUrl.equals(url))) {
 				bitmapDownloaderTask.cancel(true);
 			} else {
-				// The same URL is already being downloaded.
 				return false;
 			}
 		}
@@ -357,11 +307,8 @@ public class ImageDownloader {
 		final HttpClient client = hasAndroidClinet ? AndroidHttpClient
 				.newInstance("Android") : new DefaultHttpClient();
 		long time = System.currentTimeMillis();
-//		String addStr = "";
-//		addStr = (url.contains("taobaocdn.com") && !isContainScale(url) ? currentQuality
-//				.getValue() : "");
 		// MyLog.i( "downPic", url + addStr );
-		final HttpGet getRequest = new HttpGet(url/* + addStr*/);
+		final HttpGet getRequest = new HttpGet(url/* + addStr */);
 		Bitmap bitmap = null;
 		try {
 			HttpResponse response = client.execute(getRequest);
@@ -417,24 +364,13 @@ public class ImageDownloader {
 		return bitmap;
 	}
 
-	private boolean isContainScale(String url) {
-		return url.endsWith(Quality.HIGHT.getValue())
-				|| url.endsWith(Quality.MIDDLE.getValue())
-				|| url.endsWith(Quality.LOW.getValue())
-				|| url.endsWith(Quality.LOWEST.getValue())
-				|| url.endsWith(Quality.ORIGINAL.getValue());
-	}
-
 	@SuppressLint("NewApi")
-	public String downloadPic(String url, Quality currentQuality) {
+	public String downloadPic(String url) {
 		// MyLog.d( "down", "downloadBitmap start down=" + url );
 		boolean hasAndroidClinet = Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO;
 		final HttpClient client = hasAndroidClinet ? AndroidHttpClient
 				.newInstance("Android") : new DefaultHttpClient();
-		final HttpGet getRequest = new HttpGet(
-				url
-						+ (currentQuality != null && url.contains("taobao") ? currentQuality
-								.getValue() : ""));
+		final HttpGet getRequest = new HttpGet(url);
 		String path = null;
 		try {
 			HttpResponse response = client.execute(getRequest);
@@ -601,60 +537,6 @@ public class ImageDownloader {
 		}
 	}
 
-	// 200
-	public Quality getQuality(int minWH) {
-		int vs[] = new int[] { 120, 240, 480, 600, 720 };
-		for (int i = 0; i < vs.length; i++) {
-			if (minWH <= vs[i]) {
-				// MyLog.e( "down", "minWH====" + minWH + "   index=" + i );
-				switch (i) {
-				case 0:
-					return Quality.LOWEST;
-				case 1:
-					return Quality.LOW;
-				case 2:
-					return Quality.MIDDLE;
-				case 3:
-					return Quality.HIGHT;
-				default:
-					return Quality.ORIGINAL;
-				}
-
-			}
-
-		}
-
-		return Quality.ORIGINAL;
-	}
-
-	/**
-	 * 获取比当前级别大一一级别
-	 * 
-	 * @param minWH
-	 * @return
-	 */
-	public Quality getNextQuality(int minWH) {
-		int vs[] = new int[] { 120, 240, 480, 600, 720 };
-		for (int i = 0; i < vs.length; i++) {
-			if (minWH <= vs[i]) {
-				switch (minWH != vs[i] ? i : (i + 1)) {
-				case 0:
-					return Quality.LOWEST;
-				case 1:
-					return Quality.LOW;
-				case 2:
-					return Quality.MIDDLE;
-				case 3:
-					return Quality.HIGHT;
-				default:
-					return Quality.ORIGINAL;
-				}
-			}
-
-		}
-		return Quality.ORIGINAL;
-	}
-
 	private final Handler purgeHandler = new Handler();
 
 	private final Runnable purger = new Runnable() {
@@ -662,21 +544,6 @@ public class ImageDownloader {
 			clearCache();
 		}
 	};
-
-	/**
-	 * Adds this bitmap to the cache.
-	 * 
-	 * @param bitmap
-	 *            The newly downloaded bitmap.
-	 */
-	private void addBitmapToCache(String url, Bitmap bitmap) {
-		if (bitmap != null) {
-			synchronized (sHardBitmapCache) {
-				sHardBitmapCache.put(url, bitmap);
-
-			}
-		}
-	}
 
 	/**
 	 * @param url
@@ -732,7 +599,7 @@ public class ImageDownloader {
 		sSoftBitmapCache.clear();
 		// sHardBitmapCache.clearAll();
 		// defaultBitmap = null;
-		
+
 	}
 
 	/**

@@ -2,8 +2,8 @@
 <resources>
 
     
-     <string name="choosePhoto">相机</string>
-     <string name="take_photos">相册</string>
+     <string name="choosePhoto">相册</string>
+     <string name="take_photos">相机</string>
      <string name="noSDCard">没有SD卡！</string>
     <string name="app_name">粮仓</string>
     <string name="hello_world">Hello world!</string>

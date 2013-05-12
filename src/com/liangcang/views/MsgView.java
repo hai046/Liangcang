@@ -12,6 +12,7 @@ import com.liangcang.R;
 import com.liangcang.base.MyBasePageAdapter;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.MyLog;
 import com.liangcang.util.RichText;
 import com.liangcang.util.Util;
 import com.liangcang.weigets.LoadMoreListView;
@@ -35,20 +36,14 @@ public class MsgView extends BaseView {
 	}
 
 	private MyBasePageAdapter<Good> adapter;
+	private LoadMoreListView list;
 
 	public MsgView(final Context mContext) {
 		super(mContext);
-		LoadMoreListView list = new LoadMoreListView(mContext);
+		list = new LoadMoreListView(mContext);
 		list.setDividerHeight(0);
 		setContentView(list);
-		list.setOnLoadCallBack(new LoadCallBack() {
 
-			@Override
-			public void onLoading() {
-				adapter.loadMore();
-
-			}
-		});
 		isHadLoad = false;
 		adapter = new MyBasePageAdapter<Good>(mContext) {
 
@@ -59,12 +54,12 @@ public class MsgView extends BaseView {
 
 			@Override
 			public void onReceiveSuccess() {
-
+				list.onStopLoading();
 			}
 
 			@Override
 			public void onReceiveFailure(String msg) {
-
+				
 			}
 
 			@Override
@@ -144,6 +139,15 @@ public class MsgView extends BaseView {
 			}
 		};
 		list.setAdapter(adapter);
+		list.setOnLoadCallBack(new LoadCallBack() {
+
+			@Override
+			public void onLoading() {
+				MyLog.e("MsgView", "onLoading");
+				adapter.loadMore();
+
+			}
+		});
 		// list.setOnItemClickListener(new OnItemClickListener() {
 		//
 		// @Override
@@ -158,15 +162,15 @@ public class MsgView extends BaseView {
 
 		@Override
 		public void onClick(View v) {
-			if(v.getTag()==null)
-			{
+			if (v.getTag() == null) {
 				return;
 			}
-			int position=Integer.parseInt(v.getTag().toString()) ;
-			Good good=adapter.getItem(position);
+			int position = Integer.parseInt(v.getTag().toString());
+			Good good = adapter.getItem(position);
 			switch (v.getId()) {
 			case R.id.msg_userImage:
-				Util.gotoUser(mContext, good.getUser_id(), good.getUser_image(), good.getUser_name());
+				Util.gotoUser(mContext, good.getUser_id(),
+						good.getUser_image(), good.getUser_name());
 				break;
 			case R.id.msg_userGoodImage:
 				Util.gotoItemDetail(mContext, good);

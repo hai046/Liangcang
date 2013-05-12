@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -39,8 +38,13 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		}
 	}
 
+	public void hideTitleBar()
+	{
+		findViewById(R.id.mainTitleLayout).setVisibility(View.GONE);
+	}
+	
 	void initNavigation() {
-		User user = ((MyApplication) getApplication()).getUser();
+		User user = MyApplication.getUser();
 		if (user != null) {
 			btnRight.setVisibility(View.VISIBLE);
 			btnRight2.setVisibility(View.GONE);
@@ -128,7 +132,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	}
 
-	private Animation mRotaAnimation;
+//	private Animation mRotaAnimation;
 
 	//
 	// protected void onRightBtnRota() {

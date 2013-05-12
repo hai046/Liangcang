@@ -35,7 +35,9 @@ public class LoadMoreListView extends ListView {
         footerView.setMinimumWidth(Util.getDisplayWindth(context));
         addFooterView( footerView );
         setOnScrollListener( mOnScrollListener );
-        
+        setDividerHeight(0);
+        setFadingEdgeLength(0);
+        setCacheColorHint(getResources().getColor(R.color.transparent));
     }
 
     private void hideFooterView() {
