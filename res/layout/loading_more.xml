@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="@dimen/size63_33"
     android:gravity="center"
-    android:visibility="gone"
+    android:visibility="visible"
     android:orientation="horizontal"
     android:padding="@dimen/margin5" >
 

@@ -12,6 +12,7 @@ import com.liangcang.base.MyBaseAdapter;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
 import com.liangcang.util.MyLog;
+import com.liangcang.util.MyToast;
 import com.liangcang.util.Util;
 
 public class RecommendActivity extends BaseListActivity<Good> {
@@ -137,12 +138,14 @@ public class RecommendActivity extends BaseListActivity<Good> {
 
 	@Override
 	public void onReceiveFailure(String msg) {
-
+		listview.onStopLoading();
+		MyToast.showMsgLong(this, msg);
 	}
+
 
 	@Override
 	public void onReceiveSuccess() {
-
+		listview.onStopLoading();
 	}
 
 }

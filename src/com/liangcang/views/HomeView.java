@@ -1,7 +1,6 @@
 package com.liangcang.views;
 
 import android.app.Activity;
-import android.content.Context;
 import android.widget.LinearLayout;
 
 import com.liangcang.R;

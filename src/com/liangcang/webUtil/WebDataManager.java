@@ -123,6 +123,13 @@ public class WebDataManager {
 	private static String sin, user_id;
 
 	public void initUser(User user) {
+		if(user==null)
+		{
+			sin = null;
+			user_id = null;
+			
+			return;
+		}
 		sin = user.getSig();
 		user_id = user.getUser_id();
 	}
@@ -528,7 +535,7 @@ public class WebDataManager {
 				if (conn == null)
 					return null;
 				rsp = getResponseAsString(conn, false);
-				
+				MyLog.e(TAG, rsp);
 			} catch (IOException e) {
 				rsp = getResposeMsg(conn, e.getMessage());
 				e.printStackTrace();

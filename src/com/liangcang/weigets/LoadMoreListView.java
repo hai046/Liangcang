@@ -3,10 +3,12 @@ package com.liangcang.weigets;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.liangcang.R;
+import com.liangcang.util.Util;
 
 public class LoadMoreListView extends ListView {
     // String TAG = "LoadMoreListView";
@@ -30,8 +32,10 @@ public class LoadMoreListView extends ListView {
 
     private void init(Context context) {
         footerView = inflate( context, R.layout.loading_more, null );
+        footerView.setMinimumWidth(Util.getDisplayWindth(context));
         addFooterView( footerView );
         setOnScrollListener( mOnScrollListener );
+        
     }
 
     private void hideFooterView() {

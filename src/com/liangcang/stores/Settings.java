@@ -58,6 +58,14 @@ public class Settings {
         editor.putString( key, value );
         editor.commit( );
     }
+    
+    public void clear()
+    {
+    	Editor editor = setting.edit( );
+    	editor.remove("authority");
+    	editor.clear();
+    	editor.commit( );
+    }
 
     public void putBoolean(String key, boolean value) {
         Editor editor = setting.edit( );

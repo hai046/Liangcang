@@ -5,6 +5,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
 import com.liangcang.GoodCommentActivity;
@@ -72,43 +74,41 @@ public class Util {
 	}
 
 	public static String getMD5Str(String str) {
-		MessageDigest digest;
+		// MessageDigest digest;
+		// try {
+		// digest = java.security.MessageDigest.getInstance("MD5");
+		// digest.update(str.getBytes());
+		// byte messageDigest[] = digest.digest();
+		// // Create Hex String
+		// StringBuffer hexString = new StringBuffer();
+		// for (int i = 0; i < messageDigest.length; i++)
+		// hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
+		// return hexString.toString();
+		// } catch (NoSuchAlgorithmException e) {
+		//
+		// e.printStackTrace();
+		// }
+		// return null;
+		MessageDigest messageDigest = null;
 		try {
-			digest = java.security.MessageDigest.getInstance("MD5");
-			digest.update(str.getBytes());
-			byte messageDigest[] = digest.digest();
-			// Create Hex String
-			StringBuffer hexString = new StringBuffer();
-			for (int i = 0; i < messageDigest.length; i++)
-				hexString.append(Integer.toHexString(0xFF & messageDigest[i]));
-			return hexString.toString();
+			messageDigest = MessageDigest.getInstance("MD5");
+			messageDigest.reset();
+			messageDigest.update(str.getBytes("UTF-8"));
 		} catch (NoSuchAlgorithmException e) {
-
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return null;
-		// MessageDigest messageDigest = null;
-		// try {
-		// messageDigest = MessageDigest.getInstance("MD5");
-		// messageDigest.reset();
-		// messageDigest.update(str.getBytes("UTF-8"));
-		// } catch (NoSuchAlgorithmException e) {
-		// } catch (UnsupportedEncodingException e) {
-		// }
-		//
-		// byte[] byteArray = messageDigest.digest();
-		//
-		// StringBuffer md5StrBuff = new StringBuffer();
-		//
-		// for (int i = 0; i < byteArray.length; i++) {
-		// if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
-		// md5StrBuff.append("0").append(
-		// Integer.toHexString(0xFF & byteArray[i]));
-		// else
-		// md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
-		// }
-		// return md5StrBuff.substring(8, 24).toString()
-		// .toUpperCase(Locale.getDefault());
+		byte[] byteArray = messageDigest.digest();
+		StringBuffer md5StrBuff = new StringBuffer();
+
+		for (int i = 0; i < byteArray.length; i++) {
+			if (Integer.toHexString(0xFF & byteArray[i]).length() == 1)
+				md5StrBuff.append("0").append(
+						Integer.toHexString(0xFF & byteArray[i]));
+			else
+				md5StrBuff.append(Integer.toHexString(0xFF & byteArray[i]));
+		}
+		return md5StrBuff.toString();
 	}
 
 	public static boolean isConnectedNetWork(Context mContext) {
@@ -164,6 +164,11 @@ public class Util {
 		// intent.setClass(mContext, BuyWebActivity.class);
 		// intent.putExtra(BuyWebActivity.PATH, buyUrl);
 		// mContext.startActivity(intent);y
+		if (TextUtils.isEmpty(buyUrl)) {
+
+			MyToast.showMsgLong(mContext, "没有购买地址");
+			return;
+		}
 		Uri uri = Uri.parse(buyUrl);
 		Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 		mContext.startActivity(intent);
@@ -182,30 +187,31 @@ public class Util {
 		intent.setClass(mContext, MenuActivity.class);
 		mContext.startActivity(intent);
 	}
-	public static void gotoGoodComment(Context mContext, Good good)
-	{
+
+	public static void gotoGoodComment(Context mContext, Good good) {
 		Intent intent = new Intent();
 		intent.putExtra(GoodCommentActivity.GOODS_ID, good.getGoods_id());
 		intent.putExtra(GoodCommentActivity.GOODS_IMAGE, good.getGoods_image());
 		intent.putExtra(GoodCommentActivity.COMMENT_COUNT, good.getMsg_count());
 		intent.setClass(mContext, GoodCommentActivity.class);
 		mContext.startActivity(intent);
-		
+
 	}
 
 	public static void gotoUser(Context mContext, String user_id,
 			String user_image, String user_name) {
 		Intent intent = new Intent();
-//		intent.setAction(Intent.ACTION_VIEW);intent.setFlags(Intent);
+		// intent.setAction(Intent.ACTION_VIEW);intent.setFlags(Intent);
 		intent.putExtra(UserActivity.USERID, user_id);
 		intent.setClass(mContext, UserActivity.class);
-//		intent.setClassName(mContext, "com.liangcang.menus.UserActivity");
+		// intent.setClassName(mContext, "com.liangcang.menus.UserActivity");
 		mContext.startActivity(intent);
 		MyLog.e("gotoUser", "user_id=" + user_id + "  user_name=" + user_name);
 
 	}
 
-	public static void doLiked(final Context mContext, boolean toLike, String goods_id) {
+	public static void doLiked(final Context mContext, boolean toLike,
+			String goods_id) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("type", toLike ? "1" : "0");
 		params.put("goods_id", goods_id);
@@ -214,7 +220,7 @@ public class Util {
 
 					@Override
 					public void success(String t) {
-						MyLog.d("doLiked", "String t="+t);
+						MyLog.d("doLiked", "String t=" + t);
 					}
 
 					@Override

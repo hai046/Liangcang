@@ -37,7 +37,7 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 
 			@Override
 			public void onReceiveSuccess() {
-
+				moreListView.onStopLoading();
 			}
 
 			@Override
@@ -69,7 +69,7 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 						.findViewById(R.id.privateMsgContent);
 
 				RichText rt = new RichText(mContext);
-				rt.addTextColor("来自" + t.getMsg(), mContext.getResources()
+				rt.addTextColor("来自" , mContext.getResources()
 						.getColor(R.color.white));
 				rt.addTextColor(t.getUser_name(), mContext.getResources()
 						.getColor(R.color.blue));
@@ -97,6 +97,7 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 
 			@Override
 			public void onLoading() {
+				
 				adapter.loadMore();
 
 			}

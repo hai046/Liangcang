@@ -80,10 +80,10 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 			Util.gotoBuy(this, buyUrl);
 			break;
 		case R.id.item_detail_shareTo:
-			
+
 			break;
 		case R.id.item_detail_love:
-			
+
 			break;
 		case R.id.item_detail_msgNum:
 			Util.gotoGoodComment(this, mGood);
@@ -95,7 +95,6 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	private void initView() {
 		tvLiked_count = (TextView) findViewById(R.id.item_detail_likedCount);
-
 		this.tv_goodPrice = (TextView) findViewById(R.id.item_detail_price);
 		this.btnBuy = (ImageButton) findViewById(R.id.item_detail_buy);
 		btnBuy.setOnClickListener(this);
@@ -130,9 +129,10 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	protected void initData(GoodDetail t) {
 		buyUrl = t.getGoods_url();
-		isGalleryClear=true;
-//		list.clear();
-		setDatas(t.getImages_item());
+		isGalleryClear = true;
+		if (t.getImages_item() != null && t.getImages_item().size() > 0) {
+			setDatas(t.getImages_item());
+		}
 		tvLiked_count.setText(t.getLike_count());
 		tv_goodPrice.setText("￥" + t.getPrice());
 		btnMsgNum.setText(t.getComment_count());
@@ -144,9 +144,9 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		this.tvOrderName.setText(t.getOwner_name());
 		this.tvOrderDesc.setText(t.getOwner_desc());
 
-		list.clear();
-		list.add(mGood.getGoods_image());
-		setDatas(list);
+		// list.clear();
+		// list.add(mGood.getGoods_image());
+		// setDatas(list);
 	}
 
 	@Override
@@ -178,10 +178,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	public void setDatas(List<String> list) {
 		if (list != null) {
-			if (isGalleryClear) {
-				this.list.clear();
-				isGalleryClear = false;
-			}
+			
 			this.list.addAll(list);
 			final int width = Util.getDisplayWindth(ItemDetailActivity.this);
 			// mGallery.setLayoutParams(new RelativeLayout.LayoutParams(width,

@@ -16,6 +16,7 @@ import android.widget.ListView;
 import com.liangcang.R;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.base.MyApplication;
+import com.liangcang.stores.Settings;
 import com.liangcang.util.MyLog;
 import com.liangcang.util.Util;
 import com.liangcang.views.CategoryView;
@@ -42,9 +43,11 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	FansView mFansView;
 	private CategoryView mCategoryView;
 	LikeListView mLikeListView;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MyLog.e(TAG, "md5="+Util.getMD5Str("2"));
 		setContentView(R.layout.home);
 		initView();
 		linearBottomLayout = (LinearLayout) findViewById(R.id.mainBottomLayout);
@@ -69,7 +72,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		if (!isLogin()) {
 			linearBottomLayout.setVisibility(View.GONE);
 		}
-		mCategoryView=new CategoryView(this);
+		mCategoryView = new CategoryView(this);
 	}
 
 	private boolean isLogin() {
@@ -108,13 +111,12 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			if (mDaRenView == null) {
 				mDaRenView = new DaRenView(this);
 			}
-			
+
 			linearCenter.addView(mDaRenView.getView());
 			break;
 		case R.id.btn_menuHeart:
-			if(mLikeListView==null)
-			{
-				mLikeListView=new LikeListView(this);
+			if (mLikeListView == null) {
+				mLikeListView = new LikeListView(this);
 			}
 			linearCenter.addView(mLikeListView.getView());
 			break;
@@ -241,8 +243,8 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				if (mMenuListAdapter.getMenuParentIndex() == 1) {
-					//switchIntent(arg2);
-//					s
+					// switchIntent(arg2);
+					// s
 					mCategoryView.setType(mMenuListAdapter.getType(arg2));
 					linearCenter.removeAllViews();
 					linearCenter.addView(mCategoryView.getView());
@@ -262,6 +264,8 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.btn_menuExit:
+			MyApplication.clearUser();
+			Util.gotoLogin(this);
 			finish();
 			break;
 		case R.id.btn_menuSearch:
