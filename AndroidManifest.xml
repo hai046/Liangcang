@@ -47,11 +47,18 @@
         <activity
             android:name="com.liangcang.menus.MenuActivity"
             android:launchMode="singleTask" >
+           
+        </activity>
+        <activity android:name="com.liangcang.activits.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+         <activity
+            android:name="com.liangcang.HomeActivity"
+            android:launchMode="singleTask" >
+             
         </activity>
         <activity
             android:name="com.liangcang.menus.UserActivity"
@@ -67,10 +74,7 @@
             android:name="com.liangcang.BuyWebActivity"
             android:launchMode="singleTask" >
         </activity>
-        <activity
-            android:name="com.liangcang.HomeActivity"
-            android:launchMode="singleTask" >
-        </activity>
+       
         <activity
             android:name="com.liangcang.LoginActivity"
             android:launchMode="singleTask" >

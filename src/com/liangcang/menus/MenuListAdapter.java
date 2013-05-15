@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liangcang.R;
@@ -30,6 +29,7 @@ public class MenuListAdapter extends BaseAdapter {
 	public MenuListAdapter(Context mContext) {
 		this.mContext = mContext;
 		this.inflater = LayoutInflater.from(mContext);
+		
 	}
 
 	private int menuParentsIndex = 0;

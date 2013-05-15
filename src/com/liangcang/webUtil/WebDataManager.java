@@ -48,6 +48,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import android.os.Debug;
 import android.text.TextUtils;
 
 import com.liangcang.mode.User;
@@ -417,6 +418,10 @@ public class WebDataManager {
 				// 组装文本请求参数
 				Set<Entry<String, String>> textEntrySet = params.entrySet();
 				for (Entry<String, String> textEntry : textEntrySet) {
+					if(MyLog.isDEBUG)
+					{
+						MyLog.e(TAG,"key="+ textEntry.getKey()+ "Value="+ textEntry.getValue());
+					}
 					byte[] textBytes = getTextEntry(textEntry.getKey(),
 							textEntry.getValue(), charset);
 					out.write(entryBoundaryBytes);
@@ -427,7 +432,12 @@ public class WebDataManager {
 				Set<Entry<String, FileItem>> fileEntrySet = fileParams
 						.entrySet();
 				for (Entry<String, FileItem> fileEntry : fileEntrySet) {
+					
 					FileItem fileItem = fileEntry.getValue();
+					if(MyLog.isDEBUG)
+					{
+						MyLog.e(TAG,"file key="+ fileEntry.getKey()+ " Value="+ fileEntry.getValue());
+					}
 					byte[] fileBytes = getFileEntry(fileEntry.getKey(),
 							fileItem.getFileName(), fileItem.getMimeType(),
 							charset);
@@ -468,6 +478,7 @@ public class WebDataManager {
 		entry.append(fieldName);
 		entry.append("\"\r\nContent-Type:text/plain\r\n\r\n");
 		entry.append(fieldValue);
+	
 		return entry.toString().getBytes(charset);
 	}
 

@@ -432,7 +432,7 @@ public class BitmapUtil {
         }
 
         String fileName = System.currentTimeMillis( ) + "";
-        fileName = rootSaveMyImagePath + "/" + fileName + ".png";
+        fileName = rootSaveMyImagePath + "/" + fileName + ".jpg";
         File file = new File( fileName );
         if (!file.exists( )) {
             File parentFile = file.getParentFile( );
@@ -446,7 +446,7 @@ public class BitmapUtil {
         }
         try {
             FileOutputStream fos = new FileOutputStream( file );
-            mBitmap.compress( Bitmap.CompressFormat.PNG, 100, fos );
+            mBitmap.compress( Bitmap.CompressFormat.JPEG, 100, fos );
             fos.flush( );
             fos.close( );
             return file.getPath( );
