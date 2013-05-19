@@ -6,6 +6,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.liangcang.R;
@@ -17,12 +18,13 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 	private ImageView btnLeft, btnRight, btnRight2;
 	private TextView tvTitle;
 	private View viewLine;
+	private RelativeLayout contextLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.setContentView(R.layout.base_layout);
-
+		contextLayout = (RelativeLayout) findViewById(R.id.base_layout_mainContent);
 		btnLeft = (ImageView) findViewById(R.id.btn_left_title);
 		btnRight = (ImageView) findViewById(R.id.btn_right_title);
 		btnRight2 = (ImageView) findViewById(R.id.btn_right2_title);
@@ -38,11 +40,10 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		}
 	}
 
-	public void hideTitleBar()
-	{
+	public void hideTitleBar() {
 		findViewById(R.id.mainTitleLayout).setVisibility(View.GONE);
 	}
-	
+
 	void initNavigation() {
 		User user = MyApplication.getUser();
 		if (user != null) {
@@ -99,6 +100,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	public abstract String getNavigationLeftText();
 
+	
 	public abstract boolean isShowRightClose();
 
 	public abstract void onClickRightButton();
@@ -132,7 +134,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	}
 
-//	private Animation mRotaAnimation;
+	// private Animation mRotaAnimation;
 
 	//
 	// protected void onRightBtnRota() {
@@ -213,82 +215,22 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	@Override
 	public void setContentView(View view) {
-		ViewGroup mViewGroup = (ViewGroup) findViewById(R.id.base_layout_mainContent);
-		mViewGroup.removeAllViews();
-		mViewGroup.addView(view, new ViewGroup.LayoutParams(
-				ViewGroup.LayoutParams.FILL_PARENT,
-				ViewGroup.LayoutParams.FILL_PARENT));
+		// ViewGroup mViewGroup = (ViewGroup)
+		// findViewById(R.id.base_layout_mainContent);
+		contextLayout.removeAllViews();
+		contextLayout.addView(view, new RelativeLayout.LayoutParams(
+				ViewGroup.LayoutParams.MATCH_PARENT,
+				ViewGroup.LayoutParams.MATCH_PARENT));
 
 	}
 
 	public void setContentView(View view, LayoutParams params) {
-		ViewGroup mViewGroup = (ViewGroup) findViewById(R.id.base_layout_mainContent);
-		mViewGroup.removeAllViews();
-		mViewGroup.addView(view, params);
+		// ViewGroup mViewGroup = (ViewGroup)
+		// findViewById(R.id.base_layout_mainContent);
+		contextLayout.removeAllViews();
+		contextLayout.addView(view, params);
 	}
 
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	//
-	// MenuItem item = menu.add( 0, 1, 0, R.string.menu_settings );
-	// item.setIcon( R.drawable.menu_szan );
-	// item = menu.add( 0, 2, 0, R.string.menu_suggest );
-	// Intent intent = new Intent( );
-	// intent.setClass( this, SuggestActivity.class );
-	// item.setIntent( intent );
-	// item.setIcon( R.drawable.menu_yjfk );
-	//
-	// item = menu.add( 0, 3, 0, R.string.menu_refresh );
-	// item.setIcon( R.drawable.menu_sxan );
-	//
-	// item = menu.add( 1, 4, 0, R.string.menu_chenckupdata );
-	// item.setIcon( R.drawable.menu_jcgx );
-	//
-	// item = menu.add( 2, 5, 0, R.string.menu_usehelp );
-	// item.setIcon( R.drawable.menu_gmbz );
-	//
-	// item = menu.add( 3, 6, 0, R.string.menu_aboutme );
-	// item.setIcon( R.drawable.menu_gywm );
-	//
-	// return super.onCreateOptionsMenu( menu );
-	// }
-
 	public abstract void onRefresh();
-
-	// @Override
-	// public boolean onMenuItemSelected(int featureId, MenuItem item) {
-	// switch (item.getItemId( )) {
-	// case 1:
-	// Util.gotoSettings( this );
-	// break;
-	// case 2:
-	// Util.gotoSuggest( this );
-	// break;
-	// case 3:
-	// onRefresh( );
-	// break;
-	// case 4:
-	// new CheckUpdataManager( this ).checkAndUpdata( true );
-	// break;
-	// case 5:
-	// Util.gotoBuyHelp( this );
-	// break;
-	// case 6:
-	// Util.gotoAboutMe( this );
-	// break;
-	//
-	// default:
-	// break;
-	// }
-	// return super.onMenuItemSelected( featureId, item );
-	// }
-	// @Override
-	// public View onCreateView(String name, Context context, AttributeSet
-	// attrs) {
-	//
-	// // MyLog.e( "onCreateView", "name=" + name + "attrs=" + attrs );
-	// MyLog.e( "onCreateView", attrs );
-	// return super.onCreateView( name, context, attrs );
-	// }
 
 }

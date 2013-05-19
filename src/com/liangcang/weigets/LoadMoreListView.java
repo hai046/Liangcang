@@ -1,9 +1,9 @@
 package com.liangcang.weigets;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ListView;
 
@@ -31,6 +31,7 @@ public class LoadMoreListView extends ListView {
     }
 
     private void init(Context context) {
+    	setBackgroundColor(Color.BLACK);
         footerView = inflate( context, R.layout.loading_more, null );
         footerView.setMinimumWidth(Util.getDisplayWindth(context));
         addFooterView( footerView );

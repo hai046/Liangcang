@@ -22,15 +22,19 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.alibaba.fastjson.JSON;
 import com.liangcang.GoodCommentActivity;
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
 import com.liangcang.RecommendActivity;
+import com.liangcang.activits.UserActivity;
+import com.liangcang.base.ModeCallBack;
+import com.liangcang.base.MyApplication;
 import com.liangcang.managers.DataCallBack;
 import com.liangcang.managers.DataManager;
 import com.liangcang.menus.MenuActivity;
-import com.liangcang.menus.UserActivity;
 import com.liangcang.mode.Good;
+import com.liangcang.mode.MessageNum;
 
 public class Util {
 
@@ -229,5 +233,30 @@ public class Util {
 
 					}
 				});
+	}
+
+	public static void getMessageNum(Context mContext,
+			final ModeCallBack<MessageNum> callBack) {
+		DataManager.getInstance(mContext).getData("notificationcount", null,
+				true, new DataCallBack<String>() {
+
+					@Override
+					public void success(String t) {
+						if (TextUtils.isEmpty(t) == false) {
+							MessageNum messageNum = JSON.parseObject(t,
+									MessageNum.class);
+							MyApplication.setMessageNum(messageNum);
+							if (callBack != null) {
+								callBack.onCallBack(messageNum);
+							}
+						}
+					}
+
+					@Override
+					public void failure(String msg) {
+
+					}
+				});
+
 	}
 }

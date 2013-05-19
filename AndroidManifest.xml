@@ -47,26 +47,31 @@
         <activity
             android:name="com.liangcang.menus.MenuActivity"
             android:launchMode="singleTask" >
-           
-        </activity>
-        <activity android:name="com.liangcang.activits.HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity
-            android:name="com.liangcang.HomeActivity"
-            android:launchMode="singleTask" >
-             
+        <activity android:name="com.liangcang.activits.HomeActivity" >
+        </activity>
+        <activity android:name="com.liangcang.activits.DaRenActivity" >
+        </activity>
+        <activity android:name="com.liangcang.activits.MySelfActivity" >
+        </activity>
+        <activity android:name="com.liangcang.activits.MessageActivity" >
+        </activity>
+        <activity android:name="com.liangcang.activits.ColorModeActivity" >
         </activity>
         <activity
-            android:name="com.liangcang.menus.UserActivity"
+            android:name="com.liangcang.activits.UserActivity"
             android:launchMode="singleTask" >
-            
         </activity>
-        
-         <activity android:name="com.liangcang.GoodCommentActivity" >
+        <activity
+            android:name="com.liangcang.HomeActivity"
+            android:launchMode="singleTask" >
+        </activity>
+        <activity android:name="com.liangcang.GoodCommentActivity" >
         </activity>
         <activity android:name="com.liangcang.RegisterActivity" >
         </activity>
@@ -74,7 +79,6 @@
             android:name="com.liangcang.BuyWebActivity"
             android:launchMode="singleTask" >
         </activity>
-       
         <activity
             android:name="com.liangcang.LoginActivity"
             android:launchMode="singleTask" >

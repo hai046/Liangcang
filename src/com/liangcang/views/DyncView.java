@@ -33,18 +33,18 @@ public class DyncView extends BaseView {
 		final LinearLayout.LayoutParams leftParams;
 		final LinearLayout.LayoutParams rightParams;
 		int width = Util.getDisplayWindth(mContext) / 3;
-//		int mar=(int) (widht*0.1);
-//		int leftWidth = widht * 3;
-//		int rightWidth = widht * 5;
-		int pix=mContext.getResources().getDimensionPixelSize(
+		// int mar=(int) (widht*0.1);
+		// int leftWidth = widht * 3;
+		// int rightWidth = widht * 5;
+		int pix = mContext.getResources().getDimensionPixelSize(
 				R.dimen.margin10);
-		leftParams = new LayoutParams(width-pix, width-pix);
-//		
-//		leftParams.leftMargin=pix;
-//		leftParams.rightMargin=2*pix;
-		rightParams = new LayoutParams(width*2-pix, width*2-pix);
-//		rightParams.leftMargin = 2*pix;;
-//		rightParams.rightMargin=pix;
+		leftParams = new LayoutParams(width - pix, width - pix);
+		//
+		// leftParams.leftMargin=pix;
+		// leftParams.rightMargin=2*pix;
+		rightParams = new LayoutParams(width * 2 - pix, width * 2 - pix);
+		// rightParams.leftMargin = 2*pix;;
+		// rightParams.rightMargin=pix;
 		adapter = new MyBasePageAdapter<Good>(mContext) {
 
 			@Override
@@ -116,14 +116,14 @@ public class DyncView extends BaseView {
 
 				@Override
 				public void onClick(View v) {
-					if(v.getTag()==null)
+					if (v.getTag() == null)
 						return;
 					int index = Integer.parseInt(v.getTag().toString());
 					Good good = getItem(index);
 					switch (v.getId()) {
 					case R.id.userName:
 					case R.id.dync_img_user:
-						
+
 						Util.gotoUser(mContext, good.getOwner_id(),
 								good.getOwner_image(), good.getOwner_name());
 						break;
@@ -147,22 +147,23 @@ public class DyncView extends BaseView {
 		});
 		listView.setAdapter(adapter);
 		setContentView(listView);
-		hadLoadData = false;
+		adapter.onRefresh();
+		// hadLoadData = false;
 	}
 
-	public void ifLoadMoreNotData() {
-		if (hadLoadData == false) {
-			onRefresh();
-		}
+	// public void ifLoadMoreNotData() {
+	// if (hadLoadData == false) {
+	// onRefresh();
+	// }
+	//
+	// }
 
-	}
-
-	private boolean hadLoadData = false;
+	// private boolean hadLoadData = false;
 
 	@Override
 	public void onRefresh() {
 		// getData(0);
-		hadLoadData = true;
+		// hadLoadData = true;
 		adapter.onRefresh();
 		super.onRefresh();
 	}

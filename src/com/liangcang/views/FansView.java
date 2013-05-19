@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.liangcang.base.BaseThrAdapter;
 import com.liangcang.base.BaseThrAdapter.Type;
-import com.liangcang.base.MyApplication;
 import com.liangcang.weigets.LoadMoreListView;
 import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
 
@@ -38,19 +37,9 @@ public class FansView extends BaseView {
 		});
 		setContentView(listView);
 		adapter.setType(Type.Followed);
-		isLoad = false;
-	}
-
-	private boolean isLoad = false;
-
-	public void ifLoadMoreNotData() {
-		if (isLoad) {
-			return;
-		}
-		adapter.setUserId(MyApplication.getUser().getUser_id());
-		isLoad = true;
 		adapter.onRefresh();
-
 	}
+
+	
 
 }

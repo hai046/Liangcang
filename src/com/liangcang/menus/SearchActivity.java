@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
 import com.liangcang.R;
+import com.liangcang.base.BaseActivity;
 import com.liangcang.base.BaseThrAdapter;
 import com.liangcang.base.BaseThrAdapter.Type;
 import com.liangcang.base.IActivity;
@@ -22,7 +23,7 @@ import com.liangcang.util.MyToast;
 import com.liangcang.util.Util;
 import com.liangcang.weigets.LoadMoreListView;
 
-public class SearchActivity extends IActivity {
+public class SearchActivity extends BaseActivity {
 	private TwoBaseAdapter<Good>liangPinAdapter;
 	private BaseThrAdapter userAdapter;
 	private EditText etsearch_Context;
@@ -123,4 +124,33 @@ public class SearchActivity extends IActivity {
 
 		}
 	};
+	@Override
+	public String getNavigationLeftText() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean isShowRightClose() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void onClickRightButton() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onClickLeftButton() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRefresh() {
+		// TODO Auto-generated method stub
+		
+	}
 }

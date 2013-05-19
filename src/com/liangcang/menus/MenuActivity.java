@@ -1,53 +1,33 @@
 package com.liangcang.menus;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
 import com.liangcang.R;
+import com.liangcang.activits.DaRenActivity;
+import com.liangcang.activits.HomeActivity;
+import com.liangcang.activits.MessageActivity;
+import com.liangcang.activits.MySelfActivity;
 import com.liangcang.base.IActivityGroup;
 import com.liangcang.base.MyApplication;
 import com.liangcang.util.MyLog;
+import com.liangcang.util.MyToast;
 import com.liangcang.util.Util;
-import com.liangcang.views.CategoryView;
-import com.liangcang.views.DaRenView;
-import com.liangcang.views.DyncView;
-import com.liangcang.views.FansView;
-import com.liangcang.views.LikeListView;
-import com.liangcang.views.MsgView;
-import com.liangcang.views.PrivateMsgView;
-import com.liangcang.weigets.COFixListViewBugLinearLayout;
-import com.liangcang.weigets.COSlidingMenu;
-import com.liangcang.weigets.COSlidingState;
 import com.umeng.analytics.MobclickAgent;
 
 public class MenuActivity extends IActivityGroup implements OnClickListener {
-
 	private String TAG = "MenuActivity";
-	private COSlidingMenu mCOSlidingMenu;
-	private MenuListAdapter mMenuListAdapter;
-	private LinearLayout linearCenter, linearBottomLayout;
-	private DyncView mDyncView;
-	private MsgView mMsgView;
-	private PrivateMsgView mChatView;
-	private FansView mFansView;
-	private CategoryView mCategoryView;
-	private LikeListView mLikeListView;
+	private LinearLayout /* linearCenter, */linearBottomLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		MyLog.e(TAG, "md5=" + Util.getMD5Str("2"));
-		setContentView(R.layout.home);
 		initView();
 		linearBottomLayout = (LinearLayout) findViewById(R.id.mainBottomLayout);
 		linearBottomLayout.removeAllViews();
@@ -63,15 +43,6 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 				view.setOnClickListener(this);
 			}
 		}
-		// switchMenuBg(0);
-		mDyncView = new DyncView(this);
-		mMsgView = new MsgView(this);
-		mChatView = new PrivateMsgView(this);
-		mFansView = new FansView(this);
-		if (!isLogin()) {
-			linearBottomLayout.setVisibility(View.GONE);
-		}
-		mCategoryView = new CategoryView(this);
 	}
 
 	private boolean isLogin() {
@@ -80,7 +51,6 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	}
 
 	private static int currentIndex = 0;
-	private DaRenView mDaRenView;
 
 	protected void switchView(int position) {
 		currentIndex = position;
@@ -88,40 +58,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		if (position >= 0 && position < 5) {
 			switchMenuBg(position);
 		}
-
-		linearCenter.removeAllViews();
-		switch (position) {
-		case 0:
-			linearCenter.addView(mDyncView.getView());
-			break;
-		case 1:
-			linearCenter.addView(mMsgView.getView());
-			break;
-		case 2:
-			linearCenter.addView(mChatView.getView());
-			break;
-		case 3:
-			linearCenter.addView(mFansView.getView());
-			break;
-
-		case 4:
-			switchIntent(-1);
-		case R.id.btn_menudaren:
-			if (mDaRenView == null) {
-				mDaRenView = new DaRenView(this);
-			}
-
-			linearCenter.addView(mDaRenView.getView());
-			break;
-		case R.id.btn_menuHeart:
-			if (mLikeListView == null) {
-				mLikeListView = new LikeListView(this);
-			}
-			linearCenter.addView(mLikeListView.getView());
-			break;
-		default:
-			break;
-		}
+		switchIntent(position);
 
 	}
 
@@ -154,14 +91,11 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	}
 
 	private void switchMenuBg(int position) {
-		// MyLog.e( "base", "positon=" + position );
 		for (int i = 0; i < 5; i++) {
 			if (position == i)
 				continue;
 			// MyLog.e( "base", "iiiiiiiiiiiiiiii=" + i );
 			View v = linearBottomLayout.getChildAt(i);
-			// TextView tv = (TextView) v.findViewById(R.id.menu_title);
-			// tv.setTextColor(getResources().getColor(R.color.black_98));
 			ImageView btn = (ImageView) v.findViewById(R.id.menu_btn);
 			switch (i) {
 			case 0:
@@ -211,46 +145,8 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	}
 
 	void initView() {
-		mCOSlidingMenu = (COSlidingMenu) findViewById(R.id.slidingMenu);
-		ViewGroup leftView = (ViewGroup) getLayoutInflater().inflate(
-				R.layout.left_v, null);
-		COFixListViewBugLinearLayout linearLayout = (COFixListViewBugLinearLayout) leftView
-				.findViewById(R.id.meau_LinearLayout);
-		ListView listView = new ListView(this);
-		listView.setCacheColorHint(Color.TRANSPARENT);
-		mMenuListAdapter = new MenuListAdapter(this);
-		mMenuListAdapter.switchToSon(1);
-		listView.setAdapter(mMenuListAdapter);
-		linearLayout.addView(listView);
 
-		leftView.findViewById(R.id.btn_menuSearch).setOnClickListener(this);
-		leftView.findViewById(R.id.btn_menuHeart).setOnClickListener(this);
-		leftView.findViewById(R.id.btn_menuSetting).setOnClickListener(this);
-		leftView.findViewById(R.id.btn_menuExit).setOnClickListener(this);
-		leftView.findViewById(R.id.btn_menudaren).setOnClickListener(this);
-		int w = (int) (Util.getDisplayWindth(this) * 0.33);
-		if (w < 0)
-			w = 200;
-		mCOSlidingMenu.setLeftView(leftView, w);
-		linearCenter = new LinearLayout(this);
-		mCOSlidingMenu.setCenterView(linearCenter);
-		switchIntent(-1);
-
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-				if (mMenuListAdapter.getMenuParentIndex() == 1) {
-					// switchIntent(arg2);
-					// s
-					mCategoryView.setType(mMenuListAdapter.getType(arg2));
-					linearCenter.removeAllViews();
-					linearCenter.addView(mCategoryView.getView());
-				}
-
-			}
-		});
+		switchIntent(0);
 
 	}
 
@@ -287,72 +183,57 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 
 	@Override
 	protected void onResume() {
-		if (!isLogin() && linearBottomLayout.getVisibility() == View.VISIBLE) {
-			linearBottomLayout.setVisibility(View.GONE);
-		} else if (isLogin()
-				&& linearBottomLayout.getVisibility() != View.VISIBLE) {
-			linearBottomLayout.setVisibility(View.VISIBLE);
-		}
-		if (isLogin()) {
-			mDyncView.ifLoadMoreNotData();
-			mMsgView.ifLoadMoreNotData();
-			mChatView.ifLoadMoreNotData();
-			mFansView.ifLoadMoreNotData();
-		}
 
 		super.onResume();
 	}
 
 	void switchIntent(int i) {
 		Intent intent = new Intent();
-		// mLinear.removeAllViews();
 		switch (i) {
 
+		case 0:
+			intent.setClass(this, HomeActivity.class);
+			MobclickAgent.onEvent(this, "HomeActivity");
+			setLeftImage(R.drawable.navigation_menu);
+			break;
 		case 1:
 
+			MyToast.showMsgLong(this, "没有专题");
+			return;
+		case 2:
+			intent.setClass(this, DaRenActivity.class);
+			MobclickAgent.onEvent(this, "DaRenActivity");
+			setLeftImage(R.drawable.navigation_menu);
 			break;
-		/*
-		 * case 0: intent.setClass(this, MenuCagegoryActivity.class);
-		 * startActivity(intent); MobclickAgent.onEvent(this,
-		 * "FirstTwoColumnPicActivity"); return; case 1: intent.setClass(this,
-		 * RecommendActivity.class); MobclickAgent.onEvent(this,
-		 * "FirstTwoColumnPicActivity"); break;
-		 */
-		case R.id.btn_menuSearch:
-			intent.setClass(this, SearchActivity.class);
-			MobclickAgent.onEvent(this, "SearchActivity");
+		case 3:
+			setLeftImage(-1);
+			intent.setClass(this, MessageActivity.class);
+			MobclickAgent.onEvent(this, "MessageActivity");
 			break;
-		case R.id.btn_menuSetting:
-			intent.setClass(this, SettingActivity.class);
-			MobclickAgent.onEvent(this, "FirstTwoColumnPicActivity");
+		case 4:
+			setLeftImage(-1);
+			intent.setClass(this, MySelfActivity.class);
+			MobclickAgent.onEvent(this, "MySelfActivity");
 			break;
-		case -1:
 		default:
+			setLeftImage(-1);
 			intent.setClass(this, RecommendActivity.class);
 			MobclickAgent.onEvent(this, "RecommendActivity");
 			break;
 		}
-		getLocalActivityManager().getActivity("subActivity" + i);
 
+		// getLocalActivityManager().getActivity("subActivity" + i);
 		Window subActivity = getLocalActivityManager().startActivity(
 				"subActivity" + i, intent);
-
-		linearCenter.removeAllViews();
-		linearCenter.addView(subActivity.getDecorView());
-	}
-
-	@Override
-	public void onClickLeftButton() {
-		if (mCOSlidingMenu.getCurrentUIState() == COSlidingState.SHOWCENTER) {
-			mCOSlidingMenu.showViewState(COSlidingState.SHOWLEFT);
-		} else {
-			mCOSlidingMenu.showViewState(COSlidingState.SHOWCENTER);
-		}
+		// linearCenter.removeAllViews();
+		setContentView(subActivity.getDecorView());
 	}
 
 	@Override
 	public void onClickRightButton() {
-
+		Intent intent = new Intent();
+		intent.setClass(this, SettingActivity.class);
+		startActivity(intent);
 	}
 
 	public void onClickRightTwoButton() {
@@ -362,6 +243,16 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 	@Override
 	public void setCurrentTitleString() {
 		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void onClickLeftButton() {
+		if (currentIndex == 0) {
+
+		} else if (currentIndex == 3) {
+
+		}
 
 	}
 

@@ -102,7 +102,7 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 
 			}
 		});
-		isFirstLoad = true;
+		adapter.onRefresh();
 	}
 
 	@Override
@@ -130,16 +130,6 @@ public class PrivateMsgView extends BaseView implements OnClickListener {
 			break;
 		default:
 			break;
-		}
-
-	}
-
-	private boolean isFirstLoad;
-
-	public void ifLoadMoreNotData() {
-		if (isFirstLoad) {
-			onRefresh();
-			isFirstLoad = false;
 		}
 
 	}

@@ -20,21 +20,6 @@ import com.liangcang.weigets.LoadMoreListView.LoadCallBack;
 
 public class MsgView extends BaseView {
 
-	private boolean isHadLoad = false;
-
-	public void ifLoadMoreNotData() {
-		if (!isHadLoad) {
-			onRefresh();
-		}
-
-	}
-
-	@Override
-	public void onRefresh() {
-		isHadLoad = true;
-		adapter.onRefresh();
-	}
-
 	private MyBasePageAdapter<Good> adapter;
 	private LoadMoreListView list;
 
@@ -44,7 +29,6 @@ public class MsgView extends BaseView {
 		list.setDividerHeight(0);
 		setContentView(list);
 
-		isHadLoad = false;
 		adapter = new MyBasePageAdapter<Good>(mContext) {
 
 			@Override
@@ -59,7 +43,7 @@ public class MsgView extends BaseView {
 
 			@Override
 			public void onReceiveFailure(String msg) {
-				
+
 			}
 
 			@Override
@@ -148,6 +132,7 @@ public class MsgView extends BaseView {
 
 			}
 		});
+		adapter.onRefresh();
 		// list.setOnItemClickListener(new OnItemClickListener() {
 		//
 		// @Override

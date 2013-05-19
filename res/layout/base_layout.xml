@@ -8,61 +8,23 @@
         android:id="@+id/mainTitleLayout"
         layout="@layout/include_anctionbar" />
 
+    <LinearLayout
+        android:id="@+id/mainBottomLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/menu_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/black_11"
+        android:fadingEdgeLength="0dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal" >
+    </LinearLayout>
+
     <RelativeLayout
         android:id="@+id/base_layout_mainContent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@id/mainBottomLayout"
         android:layout_below="@id/mainTitleLayout" >
     </RelativeLayout>
-
-    <!-- <RelativeLayout -->
-    <!-- android:layout_width="fill_parent" -->
-    <!-- android:layout_height="50dip" -->
-    <!-- android:layout_alignParentBottom="true" > -->
-
-<!--     <SlidingDrawer -->
-<!--         android:layout_width="fill_parent" -->
-<!--         android:layout_height="120dip" -->
-<!--         android:layout_alignParentBottom="true" -->
-<!--         android:content="@+id/base_contentLayout" -->
-<!--         android:handle="@+id/base_tip" > -->
-
-<!--         <ImageButton -->
-<!--             android:id="@id/base_tip" -->
-<!--             android:layout_width="wrap_content" -->
-<!--             android:layout_height="wrap_content" -->
-<!--             android:src="@drawable/red_start" /> -->
-
-<!--         <LinearLayout -->
-<!--             android:id="@id/base_contentLayout" -->
-<!--             android:layout_width="50dip" -->
-<!--             android:layout_height="30dip" > -->
-
-<!--             <Button -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:text="btn1" /> -->
-
-<!--             <Button -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:text="btn1" /> -->
-
-<!--             <Button -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:text="btn1" /> -->
-
-<!--             <Button -->
-<!--                 android:layout_width="wrap_content" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_weight="1" -->
-<!--                 android:text="btn1" /> -->
-<!--         </LinearLayout> -->
-<!--     </SlidingDrawer> -->
-    <!-- </RelativeLayout> -->
 
 </RelativeLayout>

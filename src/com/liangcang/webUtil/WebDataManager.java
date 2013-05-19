@@ -48,7 +48,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import android.os.Debug;
 import android.text.TextUtils;
 
 import com.liangcang.mode.User;
@@ -418,9 +417,9 @@ public class WebDataManager {
 				// 组装文本请求参数
 				Set<Entry<String, String>> textEntrySet = params.entrySet();
 				for (Entry<String, String> textEntry : textEntrySet) {
-					if(MyLog.isDEBUG)
-					{
-						MyLog.e(TAG,"key="+ textEntry.getKey()+ "Value="+ textEntry.getValue());
+					if (MyLog.isDEBUG) {
+						MyLog.e(TAG, "key=" + textEntry.getKey() + "Value="
+								+ textEntry.getValue());
 					}
 					byte[] textBytes = getTextEntry(textEntry.getKey(),
 							textEntry.getValue(), charset);
@@ -432,11 +431,11 @@ public class WebDataManager {
 				Set<Entry<String, FileItem>> fileEntrySet = fileParams
 						.entrySet();
 				for (Entry<String, FileItem> fileEntry : fileEntrySet) {
-					
+
 					FileItem fileItem = fileEntry.getValue();
-					if(MyLog.isDEBUG)
-					{
-						MyLog.e(TAG,"file key="+ fileEntry.getKey()+ " Value="+ fileEntry.getValue());
+					if (MyLog.isDEBUG) {
+						MyLog.e(TAG, "file key=" + fileEntry.getKey()
+								+ " Value=" + fileEntry.getValue());
 					}
 					byte[] fileBytes = getFileEntry(fileEntry.getKey(),
 							fileItem.getFileName(), fileItem.getMimeType(),
@@ -478,7 +477,7 @@ public class WebDataManager {
 		entry.append(fieldName);
 		entry.append("\"\r\nContent-Type:text/plain\r\n\r\n");
 		entry.append(fieldValue);
-	
+
 		return entry.toString().getBytes(charset);
 	}
 
@@ -549,7 +548,6 @@ public class WebDataManager {
 				if (conn == null)
 					return null;
 				rsp = getResponseAsString(conn, false);
-				MyLog.e(TAG, rsp);
 			} catch (IOException e) {
 				rsp = getResposeMsg(conn, e.getMessage());
 				e.printStackTrace();
@@ -691,7 +689,7 @@ public class WebDataManager {
 	private URL buildGetUrl(String strUrl, String query) throws IOException {
 		URL url = new URL(strUrl.startsWith("http") ? strUrl
 				: (ROOTPATH + strUrl));
-		MyLog.e(TAG, "strUrl" + url);
+
 		if (TextUtils.isEmpty(query)) {
 			return url;
 		}
@@ -709,7 +707,11 @@ public class WebDataManager {
 				strUrl = strUrl + "&" + query;
 			}
 		}
-
+		if (MyLog.isDEBUG)
+			MyLog.e(TAG,
+					"strUrl"
+							+ (strUrl.startsWith("http") ? strUrl
+									: (ROOTPATH + strUrl)));
 		return new URL(strUrl.startsWith("http") ? strUrl : (ROOTPATH + strUrl));
 	}
 
@@ -729,7 +731,7 @@ public class WebDataManager {
 		for (Entry<String, String> entry : entries) {
 			String name = entry.getKey();
 			String value = entry.getValue();
-			MyLog.e(TAG, "name=" + name + " value=" + value);
+			// MyLog.e(TAG, "name=" + name + " value=" + value);
 			// 忽略参数名或参数值为空的参数
 			if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(value)) {
 				if (hasParam) {
