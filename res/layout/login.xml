@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/margin10" >
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/size32"
+        android:src="@drawable/icon_large" />
+
+    <EditText
+        android:id="@+id/userName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@drawable/input_bg"
+        android:hint="注册时的邮箱/有户名"
+        android:paddingLeft="@dimen/margin8"
+        android:text="likeakid" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@drawable/input_bg"
+        android:hint="请输入密码"
+        android:paddingLeft="@dimen/margin8"
+        android:text="62774714" />
+
+    <Button
+        android:id="@+id/forgetPassword"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin5"
+        android:background="@null"
+        android:gravity="right"
+        android:text="忘记密码？别慌！"
+        android:textColor="@color/blue" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin10"
+        android:background="@drawable/bg_loginbtn" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/size20" >
+
+        <ImageButton
+            android:id="@+id/loginApp_weibo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="center"
+            android:src="@drawable/app_weibo" />
+
+        <ImageButton
+            android:id="@+id/loginApp_tencentQQ"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="center"
+            android:src="@drawable/app_tencent_qq" />
+
+        <ImageButton
+            android:id="@+id/loginApp_tecentWeibo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="center"
+            android:src="@drawable/app_tencent_weibo" />
+
+        <ImageButton
+            android:id="@+id/loginApp_Douban"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin10"
+            android:layout_weight="1"
+            android:background="@null"
+            android:scaleType="center"
+            android:src="@drawable/app_douban" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+     android:background="@color/white"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/margin12" >
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="@dimen/size100"
+            android:layout_height="@dimen/size100"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/margin15"
+            android:layout_marginTop="@dimen/size38"
+            android:src="@drawable/upload" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/userImage"
+            android:orientation="vertical" >
+
+            <EditText
+                android:id="@+id/userName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin15"
+                android:background="@drawable/input_bg"
+                android:hint="请输入您的常用邮箱"
+                android:paddingLeft="@dimen/margin8"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/passwordOne"
+                android:layout_width="fill_parent"
+                android:password="true"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin15"
+                android:background="@drawable/input_bg"
+                android:hint="密码：由6-16位字符组成，区分大小写"
+                android:paddingLeft="@dimen/margin8"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/passwordTwo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:password="true"
+                android:layout_marginTop="@dimen/margin15"
+                android:background="@drawable/input_bg"
+                android:hint="确认密码"
+                android:paddingLeft="@dimen/margin8"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/liangcangName"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin15"
+                android:background="@drawable/input_bg"
+                android:hint="给你在良仓起个名字吧"
+                android:paddingLeft="@dimen/margin8"
+                android:singleLine="true" />
+             <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin15"
+                android:background="@drawable/register"
+                android:paddingLeft="@dimen/margin8"
+                android:singleLine="true" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</ScrollView>

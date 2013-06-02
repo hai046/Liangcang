@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/margin8" >
+
+    <View
+        android:id="@+id/comment_tempLeft"
+        android:layout_width="@dimen/size44"
+        android:visibility="gone"
+        android:layout_height="@dimen/size44"
+        android:layout_marginRight="@dimen/margin5" />
+
+    <ImageView
+        android:id="@+id/comment_userImage"
+        android:layout_width="@dimen/size44"
+        android:layout_height="@dimen/size44"
+        android:layout_marginRight="@dimen/margin5"
+        android:layout_toRightOf="@id/comment_tempLeft" />
+
+    <Button
+        android:id="@+id/comment_userReplyOrDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/margin5"
+        android:background="@null"
+        android:text="回复" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/comment_userReplyOrDelete"
+        android:layout_toRightOf="@id/comment_userImage"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/comment_userName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="鲤鱼"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/title_14" />
+
+        <TextView
+            android:id="@+id/comment_Context"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="是一代的我想对你说撒浪费，我能都是垃圾你说捏，哈哈哈 我感觉不错你绝的拉沙德我"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_14" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -8,95 +8,110 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.liangcang.R;
+import com.liangcang.util.MyLog;
 import com.liangcang.util.Util;
 
 public class LoadMoreListView extends ListView {
-    // String TAG = "LoadMoreListView";
-    private View footerView;
+	// String TAG = "LoadMoreListView";
+	private View footerView;
 
-    public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
-        super( context, attrs, defStyle );
-        init( context );
-        
-    }
+	public LoadMoreListView(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		init(context);
 
-    public LoadMoreListView(Context context, AttributeSet attrs) {
-        super( context, attrs );
-        init( context );
-    }
+	}
 
-    public LoadMoreListView(Context mContext) {
-        super( mContext );
-        init( mContext );
-    }
+	public LoadMoreListView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		init(context);
+	}
 
-    private void init(Context context) {
-    	setBackgroundColor(Color.BLACK);
-        footerView = inflate( context, R.layout.loading_more, null );
-        footerView.setMinimumWidth(Util.getDisplayWindth(context));
-        addFooterView( footerView );
-        setOnScrollListener( mOnScrollListener );
-        setDividerHeight(0);
-        setFadingEdgeLength(0);
-        setCacheColorHint(getResources().getColor(R.color.transparent));
-    }
+	public LoadMoreListView(Context mContext) {
+		super(mContext);
+		init(mContext);
+	}
 
-    private void hideFooterView() {
-        footerView.setVisibility( View.GONE );
-    }
+	private void init(Context context) {
+		offsetItem = 0;
+		setBackgroundColor(Color.BLACK);
+		footerView = inflate(context, R.layout.loading_more, null);
+		footerView.setMinimumWidth(Util.getDisplayWindth(context));
+		addFooterView(footerView);
+		setOnScrollListener(mOnScrollListener);
+		setDividerHeight(0);
+		setFadingEdgeLength(0);
+		setCacheColorHint(getResources().getColor(R.color.transparent));
+	}
 
-    public void showFooterView() {
-        footerView.setVisibility( View.VISIBLE );
-    }
+	private void hideFooterView() {
+		footerView.setVisibility(View.GONE);
+	}
 
-    private OnScrollListener mOnScrollListener = new OnScrollListener( ) {
+	public void onShowLoadMore() {
+		footerView.setVisibility(View.VISIBLE);
+	}
 
-        @Override
-        public void onScrollStateChanged(AbsListView view, int scrollState) {
-            // MyLog.e( TAG, "scrollState=" + scrollState );
-            // MyLog.e( TAG, "view.getLastVisiblePosition( )=" +
-            // view.getLastVisiblePosition( ) );
+	private OnScrollListener mOnScrollListener = new OnScrollListener() {
 
-            // // MyLog.e(TAG, " LoadMoreListView.this.getCount( )="
-            // + LoadMoreListView.this.getCount());
-            if (enable && scrollState == SCROLL_STATE_IDLE && (view.getLastVisiblePosition( ) != 0 && view.getLastVisiblePosition( ) == LoadMoreListView.this.getCount( ) - 1)) {
-                // MyLog.e( TAG, "scrollState=" + scrollState );
-                showFooterView( );
-                onLoading( );
-            }
-        }
+		@Override
+		public void onScrollStateChanged(AbsListView view, int scrollState) {
+			// MyLog.e( TAG, "scrollState=" + scrollState );
+			// MyLog.e( TAG, "view.getLastVisiblePosition( )=" +
+			// view.getLastVisiblePosition( ) );
 
-        @Override
-        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+			MyLog.e("loadMoreListView",
+					" LoadMoreListView.this.getCount( )="
+							+ LoadMoreListView.this.getCount()
+							+ "   view.getLastVisiblePosition()="
+							+ view.getLastVisiblePosition());
+			if (scrollState == SCROLL_STATE_IDLE
+					&& (view.getLastVisiblePosition() != 0 && view
+							.getLastVisiblePosition() == LoadMoreListView.this
+							.getCount() - 1)) {
+				// MyLog.e( TAG, "scrollState=" + scrollState );
+				onShowLoadMore();
+				onLoading();
+			}
+		}
 
-        }
-    };
-    private boolean enable = true;
+		@Override
+		public void onScroll(AbsListView view, int firstVisibleItem,
+				int visibleItemCount, int totalItemCount) {
 
-    public void setMyEnabel(boolean enable) {
+		}
+	};
+	private int offsetItem = 0;
 
-        this.enable = enable;
-    }
+	public void addHeaderView(View v) {
+		super.addHeaderView(v);
+		offsetItem++;
+	}
 
-    public void onStopLoading() {
-        hideFooterView( );
-    }
+	@Override
+	public void addFooterView(View v) {
+		super.addFooterView(v);
+		offsetItem++;
+	}
 
-    public void onLoading() {
-        if(mLoadCallBack!=null)
-        {
-            mLoadCallBack.onLoading( );
-        }
-    }
+	public void onStopLoading() {
+		hideFooterView();
 
-    private LoadCallBack mLoadCallBack;
+	}
 
-    public void setOnLoadCallBack(LoadCallBack mLoadCallBack) {
-        this.mLoadCallBack = mLoadCallBack;
-    }
+	public void onLoading() {
+		if (mLoadCallBack != null) {
+			mLoadCallBack.onLoading();
+		}
+	}
 
-    public interface LoadCallBack {
-        void onLoading();
-    }
+	private LoadCallBack mLoadCallBack;
+
+	public void setOnLoadCallBack(LoadCallBack mLoadCallBack) {
+		this.mLoadCallBack = mLoadCallBack;
+	}
+
+	public interface LoadCallBack {
+		void onLoading();
+	}
 
 }

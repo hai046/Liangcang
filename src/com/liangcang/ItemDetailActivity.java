@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.liangcang.base.BaseActivity;
+import com.liangcang.managers.ColorManager;
 import com.liangcang.managers.DataCallBack;
 import com.liangcang.managers.DataManager;
 import com.liangcang.mode.Good;
@@ -93,8 +94,11 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		}
 	}
 
+	private int templete_id = 1;
+
 	private void initView() {
 		tvLiked_count = (TextView) findViewById(R.id.item_detail_likedCount);
+
 		this.tv_goodPrice = (TextView) findViewById(R.id.item_detail_price);
 		this.btnBuy = (ImageButton) findViewById(R.id.item_detail_buy);
 		btnBuy.setOnClickListener(this);
@@ -110,8 +114,14 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 		this.tvProgress = (TextView) findViewById(R.id.item_detail_tvprogress);
 		this.tvOrderName = (TextView) findViewById(R.id.item_detail_userName);
 		tvOrderDesc = (TextView) findViewById(R.id.item_detail_Userdesc);
+
 		tvGoodName = (TextView) findViewById(R.id.item_detail_goodsName);
 		tvGoodsDesc = (TextView) findViewById(R.id.item_detail_goodsDesc);
+
+		tvGoodName.setTextColor(ColorManager.getInsance().getDefaltColor(
+				templete_id));
+		tvLiked_count.setTextColor(ColorManager.getInsance().getDefaltColor(
+				templete_id));
 		initData();
 
 	}
@@ -178,7 +188,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 
 	public void setDatas(List<String> list) {
 		if (list != null) {
-			
+
 			this.list.addAll(list);
 			final int width = Util.getDisplayWindth(ItemDetailActivity.this);
 			// mGallery.setLayoutParams(new RelativeLayout.LayoutParams(width,

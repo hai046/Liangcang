@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/black"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/gComment_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin5"
+            android:background="@null"
+            android:text="……"
+            android:textColor="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/gComment_layoutTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="他们也喜欢："
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_12" />
+
+            <ImageView
+                android:id="@+id/gComment_like0"
+                android:layout_width="@dimen/size32"
+                android:layout_height="@dimen/size32"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/gComment_like1"
+                android:layout_width="@dimen/size32"
+                android:layout_height="@dimen/size32"
+                android:layout_marginLeft="@dimen/margin8"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/gComment_like2"
+                android:layout_width="@dimen/size32"
+                android:layout_height="@dimen/size32"
+                android:layout_marginLeft="@dimen/margin8"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/gComment_like3"
+                android:layout_width="@dimen/size32"
+                android:layout_height="@dimen/size32"
+                android:layout_marginLeft="@dimen/margin8"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/gComment_like4"
+                android:layout_width="@dimen/size32"
+                android:layout_height="@dimen/size32"
+                android:layout_marginLeft="@dimen/margin8"
+                android:visibility="gone" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:id="@+id/gCommentHScollLinearLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/gComment_goodImage"
+                android:layout_width="@dimen/size160"
+                android:layout_height="@dimen/size160" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+</LinearLayout>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.liangcang.R;
 import com.liangcang.mode.User;
 import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.Util;
 
 public abstract class BaseActivity extends IActivity implements OnClickListener {
 
@@ -34,12 +35,16 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		// btnLeft.setText(getNavigationLeftText());
 		viewLine = findViewById(R.id.navigation_line);
+		
+	}
+	@Override
+	protected void onResume() {
 		initNavigation();
 		if (isShowRightClose()) {
 			setRightImage(R.drawable.nav_close);
 		}
+		super.onResume();
 	}
-
 	public void hideTitleBar() {
 		findViewById(R.id.mainTitleLayout).setVisibility(View.GONE);
 	}
@@ -109,20 +114,29 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	@Override
 	public void onClick(View v) {
-
+		User user = MyApplication.getUser();
 		switch (v.getId()) {
 		case R.id.btn_left_title:
 			onClickLeftButton();
 			break;
 		case R.id.btn_right_title:
-
-			if (!isShowRightClose()) {
+			if(user==null)
+			{
+				Util.gotoLogin(this);
+				return;
+			}
+			if (isShowRightClose()) {
 				finish();
 			} else {
 				onClickRightButton();
 			}
 			break;
 		case R.id.btn_right2_title:
+			if(user==null)
+			{
+				Util.gotoRegister(this);
+				return;
+			}
 			onClickRight2Btn();
 			break;
 		default:

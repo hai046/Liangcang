@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="xlistview_header_hint_normal">下拉可以刷新</string>
+    <string name="lastUpdataTime">上次更新时间：</string>
+    <string name="xlistview_header_hint_ready">松开即可刷新</string>
+    <string name="xlistview_header_hint_loading">正在努力为您加载…</string>
+    <string name="xlistview_footer_hint_loading">上拉加载更多</string>
+    <string name="xlistview_header_last_time">上次更新于：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    
     <string name="choosePhoto">相册</string>
     <string name="take_photos">相机</string>
     <string name="noSDCard">没有SD卡！</string>
@@ -38,7 +47,7 @@
         <item>邀请好友</item>
         <item>选择模板</item>
     </string-array>
-     <string-array name="messageHeaderMenu">
+    <string-array name="messageHeaderMenu">
         <item>动态</item>
         <item>消息</item>
         <item>私信</item>

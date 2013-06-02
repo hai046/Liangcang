@@ -108,6 +108,28 @@
             android:launchMode="singleTask" >
         </activity>
 
+        <!-- 分享微博 -->
+        <activity
+            android:name="cn.sharesdk.framework.AuthorizeActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+
+            <!--
+            	Adapter表示一个继承自cn.sharesdk.framework.AuthorizeAdapter的类，
+            	这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。 
+            	开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
+            -->
+            <meta-data
+                android:name="Adapter"
+                android:value="cn.sharesdk.demo.MyAdapter" />
+        </activity>
+        <activity
+            android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
         <!-- 个推 -->
 
 

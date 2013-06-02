@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.liangcang.R;
 import com.liangcang.base.MyBasePageAdapter;
+import com.liangcang.managers.ColorManager;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
 import com.liangcang.util.Util;
@@ -98,7 +99,7 @@ public class DyncView extends BaseView {
 				TextView tvUserName, tvUserDesc;
 				tvUserName = (TextView) view.findViewById(R.id.userName);
 				tvUserDesc = (TextView) view.findViewById(R.id.userDesc);
-
+				tvUserDesc.setTextColor(ColorManager.getInsance().getDefaltColor());
 				tvUserName.setText(t.getOwner_name());
 				tvUserDesc.setText(t.getOwner_desc());
 				ImageDownloader.getInstance().download(t.getOwner_image(),

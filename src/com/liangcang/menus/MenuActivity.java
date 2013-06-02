@@ -2,6 +2,7 @@ package com.liangcang.menus;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -43,6 +44,22 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 				view.setOnClickListener(this);
 			}
 		}
+	}
+	
+	@Override
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		
+		switch (event.getKeyCode()) {
+		case KeyEvent.KEYCODE_BACK:
+			
+			
+			break;
+
+		default:
+			break;
+		}
+		
+		return super.dispatchKeyEvent(event);
 	}
 
 	private boolean isLogin() {
@@ -159,7 +176,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.btn_menuExit:
-			MyApplication.clearUser();
+//			MyApplication.clearUser(this);
 			Util.gotoLogin(this);
 			finish();
 			break;
@@ -186,7 +203,11 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 
 		super.onResume();
 	}
-
+	//TODO 
+	private void setLeftImage(int id)
+	{
+		
+	}
 	void switchIntent(int i) {
 		Intent intent = new Intent();
 		switch (i) {
@@ -206,11 +227,21 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			setLeftImage(R.drawable.navigation_menu);
 			break;
 		case 3:
+			if(!MyApplication.isLogin())
+			{
+				Util.gotoLogin(this);
+				return;
+			}
 			setLeftImage(-1);
 			intent.setClass(this, MessageActivity.class);
 			MobclickAgent.onEvent(this, "MessageActivity");
 			break;
 		case 4:
+			if(!MyApplication.isLogin())
+			{
+				Util.gotoLogin(this);
+				return;
+			}
 			setLeftImage(-1);
 			intent.setClass(this, MySelfActivity.class);
 			MobclickAgent.onEvent(this, "MySelfActivity");

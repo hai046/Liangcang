@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flyinmenu="http://schemas.android.com/apk/res/com.liangcang"
+    android:id="@+id/linearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <com.liangcang.weigets.FlyInMenu
+        android:id="@+id/leftFlyInMenu"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/navigation_list_background"
+        flyinmenu:content="@+id/rightcontent"
+        flyinmenu:menu="@+id/menu" >
+
+        <LinearLayout
+            android:id="@+id/menu"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <include layout="@layout/menu_search_header" />
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@color/transparent"
+                android:divider="#ff555555"
+                android:dividerHeight="1.0px" >
+            </ListView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/rightcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+<!-- 			<include layout="@layout/include_anctionbar"/> -->
+<!--             <LinearLayout -->
+<!--                 android:id="@+id/rightcontent" -->
+<!--                 android:layout_width="fill_parent" -->
+<!--                 android:layout_height="fill_parent" -->
+<!--                 android:background="@android:color/white" -->
+<!--                 android:orientation="vertical" > -->
+<!--             </LinearLayout> -->
+        </LinearLayout>
+    </com.liangcang.weigets.FlyInMenu>
+
+</RelativeLayout>

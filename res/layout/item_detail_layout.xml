@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin10"
+                android:layout_marginLeft="@dimen/margin5"
                 android:layout_marginTop="@dimen/margin10"
                 android:background="@drawable/heart" />
 

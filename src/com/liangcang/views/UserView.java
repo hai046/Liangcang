@@ -13,6 +13,7 @@ import com.liangcang.R;
 import com.liangcang.base.BaseThrAdapter;
 import com.liangcang.base.BaseThrAdapter.Type;
 import com.liangcang.base.TwoBaseAdapter;
+import com.liangcang.managers.ColorManager;
 import com.liangcang.managers.DataCallBack;
 import com.liangcang.mode.DetailUser;
 import com.liangcang.mode.Good;
@@ -25,6 +26,7 @@ public class UserView extends BaseView {
 	private LoadMoreListView mListView;
 	private TwoBaseAdapter<Good> likeAdapter, recommendAdapter;
 	private BaseThrAdapter followAdapter, fanAdaper;
+	private int template_id = 1;
 
 	public void setUser(String userId) {
 		likeAdapter.setUserId(userId);
@@ -108,7 +110,7 @@ public class UserView extends BaseView {
 	}
 
 	private void initAdapter() {
-		
+
 		likeAdapter = new TwoBaseAdapter<Good>(mContext) {
 
 			private DataCallBack<String> mCallBack = new DataCallBack<String>() {
@@ -119,7 +121,7 @@ public class UserView extends BaseView {
 						user.getGoods().clear();
 						notifyDataSetChanged();
 					} else {
-						
+
 					}
 
 				}
@@ -143,12 +145,11 @@ public class UserView extends BaseView {
 			}
 
 			@Override
-			public void bindViewAndListener(int position,Good item, ImageView img,
-					ImageButton btnHeart, ImageButton btnShare) {
+			public void bindViewAndListener(int position, Good item,
+					ImageView img, ImageButton btnHeart, ImageButton btnShare) {
 				ImageDownloader.getInstance().download(item.getGoods_image(),
 						img);
 
-				
 				img.setTag(position);
 				btnHeart.setTag(position);
 				btnShare.setTag(position);
@@ -209,8 +210,8 @@ public class UserView extends BaseView {
 			}
 
 			@Override
-			public void bindViewAndListener(int position ,Good item, ImageView img,
-					ImageButton btnHeart, ImageButton btnShare) {
+			public void bindViewAndListener(int position, Good item,
+					ImageView img, ImageButton btnHeart, ImageButton btnShare) {
 				ImageDownloader.getInstance().download(item.getGoods_image(),
 						img);
 
@@ -243,11 +244,11 @@ public class UserView extends BaseView {
 			};
 		};
 
-//		 recommendAdapter = new BaseThrAdapter(mContext);
-//		 recommendAdapter.setType(Type.Recommendation);
-//		
-//		 likeAdapter = new BaseThrAdapter(mContext);
-//		 likeAdapter.setType(Type.Like);
+		// recommendAdapter = new BaseThrAdapter(mContext);
+		// recommendAdapter.setType(Type.Recommendation);
+		//
+		// likeAdapter = new BaseThrAdapter(mContext);
+		// likeAdapter.setType(Type.Like);
 	}
 
 	TextView user_name, user_desc, tvLikeNum, tvRecommendNum, tvAttention,
@@ -288,14 +289,23 @@ public class UserView extends BaseView {
 	};
 
 	private void initTop(View viewTop) {
-		viewTop.findViewById(R.id.user_menu_likeLayout).setOnClickListener(
-				mClickListener);
-		viewTop.findViewById(R.id.user_menu_recommendLayout)
-				.setOnClickListener(mClickListener);
-		viewTop.findViewById(R.id.user_menu_attentionLayout)
-				.setOnClickListener(mClickListener);
-		viewTop.findViewById(R.id.user_menu_fansLayout).setOnClickListener(
-				mClickListener);
+		View top1, top2, top3, top4;
+		top1 = viewTop.findViewById(R.id.user_menu_likeLayout);
+		top1.setOnClickListener(mClickListener);
+		top2 = viewTop.findViewById(R.id.user_menu_recommendLayout);
+		top2.setOnClickListener(mClickListener);
+		top3 = viewTop.findViewById(R.id.user_menu_attentionLayout);
+		top3.setOnClickListener(mClickListener);
+		top4 = viewTop.findViewById(R.id.user_menu_fansLayout);
+		top4.setOnClickListener(mClickListener);
+		top1.setBackgroundColor(ColorManager.getInsance().getColor(template_id,
+				0));
+		top2.setBackgroundColor(ColorManager.getInsance().getColor(template_id,
+				1));
+		top3.setBackgroundColor(ColorManager.getInsance().getColor(template_id,
+				2));
+		top4.setBackgroundColor(ColorManager.getInsance().getColor(template_id,
+				3));
 
 		tvLikeNum = (TextView) viewTop.findViewById(R.id.user_menu_likeNum);
 		tvRecommendNum = (TextView) viewTop

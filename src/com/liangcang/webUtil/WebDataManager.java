@@ -404,6 +404,8 @@ public class WebDataManager {
 				// Map<String, String> map = getParamsFromUrl(url);
 				// TaobaoLogger.logCommError(e,
 				// url,map.get("app_key"),map.get("method"), params);
+				MyLog.e(TAG, "url="+url);
+				MyLog.e(TAG, "Exception  ex="+e.getMessage());
 				e.printStackTrace();
 				throw new IOException(getResposeMsg(conn, e.getMessage()));
 			}
@@ -434,7 +436,7 @@ public class WebDataManager {
 
 					FileItem fileItem = fileEntry.getValue();
 					if (MyLog.isDEBUG) {
-						MyLog.e(TAG, "file key=" + fileEntry.getKey()
+						MyLog.e(TAG, "upLoad===============file key=" + fileEntry.getKey()
 								+ " Value=" + fileEntry.getValue());
 					}
 					byte[] fileBytes = getFileEntry(fileEntry.getKey(),

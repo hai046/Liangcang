@@ -27,6 +27,7 @@ import com.liangcang.GoodCommentActivity;
 import com.liangcang.ItemDetailActivity;
 import com.liangcang.LoginActivity;
 import com.liangcang.RecommendActivity;
+import com.liangcang.RegisterActivity;
 import com.liangcang.activits.UserActivity;
 import com.liangcang.base.ModeCallBack;
 import com.liangcang.base.MyApplication;
@@ -150,6 +151,13 @@ public class Util {
 
 	}
 
+	public static void gotoRegister(Context mContext) {
+		Intent intent = new Intent();
+		intent.setClass(mContext, RegisterActivity.class);
+		mContext.startActivity(intent);
+
+	}
+
 	public static void gotoComment(Context mContext, String string) {
 		Intent intent = new Intent();
 		intent.setClass(mContext, RecommendActivity.class);
@@ -259,4 +267,5 @@ public class Util {
 				});
 
 	}
+
 }
