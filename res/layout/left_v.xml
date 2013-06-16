@@ -41,7 +41,7 @@
             android:background="@null"
             android:paddingBottom="@dimen/margin10"
             android:paddingTop="@dimen/margin10"
-            android:src="@drawable/menu_heart" />
+            android:src="@drawable/heart1" />
 
         <Button
             android:id="@+id/btn_menuSetting"

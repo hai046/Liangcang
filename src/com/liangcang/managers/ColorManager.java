@@ -3,9 +3,12 @@ package com.liangcang.managers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.liangcang.R;
 import com.liangcang.util.MyLog;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 
 public class ColorManager {
 	private static ColorManager mColorManager;
@@ -15,6 +18,12 @@ public class ColorManager {
 			mColorManager = new ColorManager();
 		}
 		return mColorManager;
+	}
+
+	private Context mContext;
+
+	public void init(Context mContext) {
+		this.mContext = mContext;
 	}
 
 	private HashMap<Integer, ArrayList<Integer>> allColors = new HashMap<Integer, ArrayList<Integer>>();
@@ -47,6 +56,10 @@ public class ColorManager {
 	public void setTemplate_id(int template_id) {
 		this.template_id = template_id;
 
+	}
+
+	public int getOffset() {
+		return this.template_id - 1;
 	}
 
 	public int getColor(int index) {
@@ -89,6 +102,27 @@ public class ColorManager {
 		colors.add(rgb5);
 		allColors.put(index, colors);
 
+	}
+
+	/**
+	 * 
+	 * @param resId
+	 * @return
+	 */
+	public Drawable getDrawableByID(int resId) {
+		try {
+			return mContext.getResources().getDrawable(resId + getOffset());
+		} catch (Exception e) {
+			return mContext.getResources().getDrawable(resId);
+		}
+	}
+
+	public int getDrawableIDByID(int resId) {
+		try {
+			return resId + getOffset();
+		} catch (Exception e) {
+			return resId;
+		}
 	}
 
 }

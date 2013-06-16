@@ -18,6 +18,7 @@ import com.liangcang.managers.DataCallBack;
 import com.liangcang.managers.DataManager;
 import com.liangcang.mode.Good;
 import com.liangcang.util.ImageDownloader;
+import com.liangcang.util.ShareUtil;
 import com.liangcang.util.Util;
 
 /**
@@ -113,11 +114,18 @@ public class BaseGoodAdapter extends MyBaseAdapter<Good> {
 		ImageDownloader.getInstance().download(item.getGoods_image(), img);
 		img.setTag(position);
 		btnHeart.setTag(position);
-		btnShare.setTag(position);
-		img.setOnClickListener(mClickListener);
 		btnHeart.setOnClickListener(mClickListener);
-		btnShare.setOnClickListener(mClickListener);
 
+		img.setOnClickListener(mClickListener);
+		btnShare.setTag(position);
+		btnShare.setOnClickListener(mClickListener);
+		if (showShareBtn) {
+			btnShare.setTag(position);
+			btnShare.setOnClickListener(mClickListener);
+			btnShare.setVisibility(View.VISIBLE);
+		} else {
+			btnShare.setVisibility(View.GONE);
+		}
 		// bindViewAndListener(item,img, btnHeart, btnShare);
 		return convertView;
 	}
@@ -134,7 +142,10 @@ public class BaseGoodAdapter extends MyBaseAdapter<Good> {
 			case R.id.category_grid_img:
 				Util.gotoItemDetail(mContext, good);
 				break;
-
+			case R.id.catetory_grid_share:
+				
+				ShareUtil.showGrid(mContext, good);
+				break;
 			default:
 				break;
 			}
@@ -215,4 +226,10 @@ public class BaseGoodAdapter extends MyBaseAdapter<Good> {
 			BaseGoodAdapter.this.failure(msg);
 		}
 	};
+	private boolean showShareBtn = false;
+
+	public void showShareButton(boolean value) {
+
+		showShareBtn = value;
+	}
 }

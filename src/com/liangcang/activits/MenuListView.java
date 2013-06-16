@@ -112,7 +112,7 @@ public abstract class MenuListView extends ListView {
 				true, false, 1));
 		categorys.add(new Item("3000以上", "orderby=price&min=3000", true, false,
 				1));
-		categorys.add(new Item("❤喜欢", "like/list", true, true, 0));
+		categorys.add(new Item("喜欢", "like/list", true, true, 0));
 		adapter.addAll(categorys);
 		adapter.notifyDataSetChanged();
 	}

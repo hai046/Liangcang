@@ -1,5 +1,6 @@
 package com.liangcang.base;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.liangcang.R;
+import com.liangcang.managers.ColorManager;
 import com.liangcang.mode.User;
 import com.liangcang.util.ImageDownloader;
 import com.liangcang.util.Util;
@@ -35,8 +37,9 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		tvTitle = (TextView) findViewById(R.id.tv_title);
 		// btnLeft.setText(getNavigationLeftText());
 		viewLine = findViewById(R.id.navigation_line);
-		
+
 	}
+
 	@Override
 	protected void onResume() {
 		initNavigation();
@@ -45,6 +48,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		}
 		super.onResume();
 	}
+
 	public void hideTitleBar() {
 		findViewById(R.id.mainTitleLayout).setVisibility(View.GONE);
 	}
@@ -81,9 +85,9 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 		if (resId < 0) {
 			btnLeft.setVisibility(View.GONE);
 			return;
-
 		}
-		btnLeft.setImageResource(resId);
+		btnLeft.setImageResource(ColorManager.getInsance().getDrawableIDByID(
+				resId));
 		btnLeft.setVisibility(View.VISIBLE);
 
 	}
@@ -105,7 +109,6 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 
 	public abstract String getNavigationLeftText();
 
-	
 	public abstract boolean isShowRightClose();
 
 	public abstract void onClickRightButton();
@@ -120,8 +123,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 			onClickLeftButton();
 			break;
 		case R.id.btn_right_title:
-			if(user==null)
-			{
+			if (user == null) {
 				Util.gotoLogin(this);
 				return;
 			}
@@ -132,8 +134,7 @@ public abstract class BaseActivity extends IActivity implements OnClickListener 
 			}
 			break;
 		case R.id.btn_right2_title:
-			if(user==null)
-			{
+			if (user == null) {
 				Util.gotoRegister(this);
 				return;
 			}

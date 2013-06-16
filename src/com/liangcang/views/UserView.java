@@ -1,6 +1,7 @@
 package com.liangcang.views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -115,6 +116,10 @@ public class UserView extends BaseView {
 
 			private DataCallBack<String> mCallBack = new DataCallBack<String>() {
 				public void success(String t) {
+					if(TextUtils.isEmpty(t))
+					{
+						
+					}
 					DetailUser user = JSON.parseObject(t, DetailUser.class);
 					if (user.getGoods() != null) {
 						addAll(user.getGoods());

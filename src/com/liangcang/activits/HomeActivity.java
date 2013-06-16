@@ -42,11 +42,12 @@ public class HomeActivity extends SlidingActivity {
 		initMenu();
 		initContent();
 		switchToView("recommendation");
-		setLeftImage(R.drawable.navigation_menu);
+		setLeftImage(R.drawable.left_menu1);
 	}
 
 	protected void switchToView(String value) {
 		adapter.setPath(value);
+		adapter.showShareButton("like/list".equals(value));
 		adapter.onRefresh();
 		listview.stopRefresh();
 		listview.setSelection(0);

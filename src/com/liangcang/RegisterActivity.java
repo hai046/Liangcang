@@ -39,8 +39,24 @@ public class RegisterActivity extends PhotoBaseActivity {
 				regist();
 			}
 		});
+		userImage.setOnClickListener(mClickListener);
 	}
+	private OnClickListener mClickListener=new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.userImage:
+				doPickPhotoAction();
+				
+				break;
 
+			default:
+				break;
+			}
+			
+		}
+	};
 	private void regist() {
 		String email = userName.getText().toString().trim();
 		if (Util.checkEmail(email) == false) {
@@ -67,7 +83,7 @@ public class RegisterActivity extends PhotoBaseActivity {
 			return;
 		}
 		DataManager.getInstance(this).doRegister(email, pass1, name,
-				null, new DataCallBack<User>() {
+				user_image, new DataCallBack<User>() {
 					@Override
 					public void success(User t) {
 						MyLog.e("register", "doRegister="+t);
@@ -119,11 +135,11 @@ public class RegisterActivity extends PhotoBaseActivity {
 		// TODO Auto-generated method stub
 
 	}
-	
+	private String user_image;
 	@Override
 	public void callBackPath(String path) {
 		MyLog.e("photo", "path="+path);
-		
+		user_image=path;
 	}
 
 	@Override

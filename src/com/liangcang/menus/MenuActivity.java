@@ -45,20 +45,19 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			}
 		}
 	}
-	
+
 	@Override
 	public boolean dispatchKeyEvent(KeyEvent event) {
-		
+
 		switch (event.getKeyCode()) {
 		case KeyEvent.KEYCODE_BACK:
-			
-			
+
 			break;
 
 		default:
 			break;
 		}
-		
+
 		return super.dispatchKeyEvent(event);
 	}
 
@@ -84,19 +83,19 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		ImageView btn = (ImageView) view.findViewById(R.id.menu_btn);
 		switch (position) {
 		case 0:
-			btn.setImageResource(R.drawable.menu_dync);
+			btn.setImageResource(R.drawable.menu1);
 			break;
 		case 1:
-			btn.setImageResource(R.drawable.menu_msg);
+			btn.setImageResource(R.drawable.menu2);
 			break;
 		case 2:
-			btn.setImageResource(R.drawable.menu_privatemsg);
+			btn.setImageResource(R.drawable.menu3);
 			break;
 		case 3:
-			btn.setImageResource(R.drawable.menu_fan);
+			btn.setImageResource(R.drawable.menu4);
 			break;
 		case 4:
-			btn.setImageResource(R.drawable.menu_home);
+			btn.setImageResource(R.drawable.menu5);
 			break;
 		default:
 			break;
@@ -111,24 +110,23 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		for (int i = 0; i < 5; i++) {
 			if (position == i)
 				continue;
-			// MyLog.e( "base", "iiiiiiiiiiiiiiii=" + i );
 			View v = linearBottomLayout.getChildAt(i);
 			ImageView btn = (ImageView) v.findViewById(R.id.menu_btn);
 			switch (i) {
 			case 0:
-				btn.setImageResource(R.drawable.menu_dync);
+				btn.setImageResource(R.drawable.menu1);
 				break;
 			case 1:
-				btn.setImageResource(R.drawable.menu_msg);
+				btn.setImageResource(R.drawable.menu2);
 				break;
 			case 2:
-				btn.setImageResource(R.drawable.menu_privatemsg);
+				btn.setImageResource(R.drawable.menu3);
 				break;
 			case 3:
-				btn.setImageResource(R.drawable.menu_fan);
+				btn.setImageResource(R.drawable.menu4);
 				break;
 			case 4:
-				btn.setImageResource(R.drawable.menu_home);
+				btn.setImageResource(R.drawable.menu5);
 				break;
 			default:
 				break;
@@ -138,27 +136,23 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 				.findViewById(R.id.menu_btn);
 		switch (position) {
 		case 0:
-			btn.setImageResource(R.drawable.menu_dync_on);
+			btn.setImageResource(R.drawable.menu1_selected);
 			break;
 		case 1:
-			btn.setImageResource(R.drawable.menu_msg_on);
+			btn.setImageResource(R.drawable.menu2_selected);
 			break;
 		case 2:
-			btn.setImageResource(R.drawable.menu_privatemsg_on);
+			btn.setImageResource(R.drawable.menu3_selected);
 			break;
 		case 3:
-			btn.setImageResource(R.drawable.menu_fan_on);
+			btn.setImageResource(R.drawable.menu4_selected);
 			break;
 		case 4:
-			btn.setImageResource(R.drawable.menu_home_on);
+			btn.setImageResource(R.drawable.menu5_selected);
 			break;
 		default:
 			break;
 		}
-		// btn.setImageResource(R.drawable.tuijian_on);
-		// TextView tv = (TextView) linearBottomLayout.getChildAt(position)
-		// .findViewById(R.id.menu_title);
-		// tv.setTextColor(getResources().getColor(R.color.bg));
 	}
 
 	void initView() {
@@ -176,7 +170,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.btn_menuExit:
-//			MyApplication.clearUser(this);
+			// MyApplication.clearUser(this);
 			Util.gotoLogin(this);
 			finish();
 			break;
@@ -203,11 +197,12 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 
 		super.onResume();
 	}
-	//TODO 
-	private void setLeftImage(int id)
-	{
-		
+
+	// TODO
+	private void setLeftImage(int id) {
+
 	}
+
 	void switchIntent(int i) {
 		Intent intent = new Intent();
 		switch (i) {
@@ -215,7 +210,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		case 0:
 			intent.setClass(this, HomeActivity.class);
 			MobclickAgent.onEvent(this, "HomeActivity");
-			setLeftImage(R.drawable.navigation_menu);
+			setLeftImage(R.drawable.left_menu1);
 			break;
 		case 1:
 
@@ -224,11 +219,10 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 		case 2:
 			intent.setClass(this, DaRenActivity.class);
 			MobclickAgent.onEvent(this, "DaRenActivity");
-			setLeftImage(R.drawable.navigation_menu);
+			setLeftImage(R.drawable.left_menu1);
 			break;
 		case 3:
-			if(!MyApplication.isLogin())
-			{
+			if (!MyApplication.isLogin()) {
 				Util.gotoLogin(this);
 				return;
 			}
@@ -237,8 +231,7 @@ public class MenuActivity extends IActivityGroup implements OnClickListener {
 			MobclickAgent.onEvent(this, "MessageActivity");
 			break;
 		case 4:
-			if(!MyApplication.isLogin())
-			{
+			if (!MyApplication.isLogin()) {
 				Util.gotoLogin(this);
 				return;
 			}

@@ -212,10 +212,10 @@ public class Util {
 
 	public static void gotoUser(Context mContext, String user_id,
 			String user_image, String user_name) {
-		Intent intent = new Intent();
+		Intent intent = new Intent(mContext, UserActivity.class);
 		// intent.setAction(Intent.ACTION_VIEW);intent.setFlags(Intent);
 		intent.putExtra(UserActivity.USERID, user_id);
-		intent.setClass(mContext, UserActivity.class);
+		// intent.setClass(mContext, UserActivity.class);
 		// intent.setClassName(mContext, "com.liangcang.menus.UserActivity");
 		mContext.startActivity(intent);
 		MyLog.e("gotoUser", "user_id=" + user_id + "  user_name=" + user_name);

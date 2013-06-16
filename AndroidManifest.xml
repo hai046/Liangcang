@@ -110,6 +110,17 @@
 
         <!-- 分享微博 -->
         <activity
+            android:name="cn.sharesdk.onekeyshare.ShareAllGird"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name="cn.sharesdk.onekeyshare.SharePage"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name="cn.sharesdk.framework.AuthorizeActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"

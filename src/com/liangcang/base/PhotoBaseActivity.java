@@ -204,7 +204,7 @@ public abstract class PhotoBaseActivity extends BaseActivity {
 		switch (requestCode) {
 		case PHOTO_PICKED_WITH_DATA:
 			Uri uri = data.getData();
-			selectedImagePath = getPath(uri);
+			selectedImagePath = getPath(uri);//getPath(uri);
 			MyLog.E(TAG, "selectedImagePath=" + selectedImagePath);
 
 			break;
@@ -232,7 +232,7 @@ public abstract class PhotoBaseActivity extends BaseActivity {
 				.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 		cursor.moveToFirst();
 		String name = cursor.getString(column_index);
-		cursor.close();
+//		cursor.close();
 		return name;
 	}
 

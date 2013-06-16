@@ -27,6 +27,7 @@ import com.liangcang.util.MyHandler;
 import com.liangcang.util.MyHandler.HandlerCallBack;
 import com.liangcang.util.MyLog;
 import com.liangcang.util.RichText;
+import com.liangcang.util.ShareUtil;
 import com.liangcang.util.Util;
 import com.liangcang.weigets.MyGallery;
 
@@ -81,7 +82,7 @@ public class ItemDetailActivity extends BaseActivity implements OnClickListener 
 			Util.gotoBuy(this, buyUrl);
 			break;
 		case R.id.item_detail_shareTo:
-
+			ShareUtil.showGrid(this, mGood);
 			break;
 		case R.id.item_detail_love:
 

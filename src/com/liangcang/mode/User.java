@@ -7,11 +7,57 @@ public class User implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	private String user_id,user_name,user_image,user_desc,sig;
+	private String followed_count;
+	private String following_count;
+	private String friend;
+	private String is_success;
+	private String like_count;
+	private String recommendation;
+
 	private byte template_id;
 	private Platform platform;
 	private String email;
 	
 	
+	public String getFollowed_count() {
+		return followed_count;
+	}
+	public void setFollowed_count(String followed_count) {
+		this.followed_count = followed_count;
+	}
+	public String getFollowing_count() {
+		return following_count;
+	}
+	public void setFollowing_count(String following_count) {
+		this.following_count = following_count;
+	}
+	public String getFriend() {
+		return friend;
+	}
+	public void setFriend(String friend) {
+		this.friend = friend;
+	}
+	public String getIs_success() {
+		return is_success;
+	}
+	public void setIs_success(String is_success) {
+		this.is_success = is_success;
+	}
+	public String getLike_count() {
+		return like_count;
+	}
+	public void setLike_count(String like_count) {
+		this.like_count = like_count;
+	}
+	public String getRecommendation() {
+		return recommendation;
+	}
+	public void setRecommendation(String recommendation) {
+		this.recommendation = recommendation;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	public String getEmail() {
 		return email;
 	}

@@ -9,9 +9,12 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.text.TextUtils;
 
+import cn.sharesdk.framework.AbstractWeibo;
+
 import com.alibaba.fastjson.JSON;
 import com.igexin.slavesdk.MessageManager;
 import com.igexin.slavesdk.MessageManagerObserver;
+import com.liangcang.managers.ColorManager;
 import com.liangcang.managers.DataManager;
 import com.liangcang.mode.MessageNum;
 import com.liangcang.mode.User;
@@ -20,14 +23,13 @@ import com.liangcang.util.MyLog;
 import com.liangcang.webUtil.WebDataManager;
 
 public class MyApplication extends Application {
-	
+
 	@Override
 	public Resources getResources() {
-		
+
 		return super.getResources();
 	}
-	
-	
+
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -40,7 +42,8 @@ public class MyApplication extends Application {
 				MyLog.e("hhh", "setObserver=" + new String(arg0));
 			}
 		});
-		
+		AbstractWeibo.initSDK(this, "3e9472cd844");
+		ColorManager.getInsance().init(this);
 	}
 
 	public boolean isLogined() {
@@ -54,6 +57,8 @@ public class MyApplication extends Application {
 	}
 
 	public static String storeAuthority = "authority";
+
+	
 
 	public void setUser(User t) {
 		MyApplication.user = t;
@@ -95,7 +100,8 @@ public class MyApplication extends Application {
 	public static void clearUser(Context mContext) {
 		user = null;
 		WebDataManager.getInsance().initUser(null);
-		Settings.getInstance(mContext).putString(storeAuthority, null);;//.getString(storeAuthority, null);
+		Settings.getInstance(mContext).putString(storeAuthority, null);
+		;// .getString(storeAuthority, null);
 		Settings.getInstance(mContext).clear();
 	}
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import cn.sharesdk.framework.AbstractWeibo;
 import cn.sharesdk.framework.WeiboActionListener;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 
+import com.alibaba.fastjson.JSON;
 import com.liangcang.base.BaseActivity;
 import com.liangcang.base.MyApplication;
 import com.liangcang.managers.DataCallBack;
@@ -42,7 +44,7 @@ public class LoginActivity extends BaseActivity implements Callback,
 		setRightImage(R.drawable.selector_back);
 		hideRightBtn2();
 		findViewById(R.id.loginApp_weibo).setOnClickListener(mOnClickListener);
-		AbstractWeibo.initSDK(this, "3e9472cd844");
+
 	}
 
 	private OnClickListener mOnClickListener = new OnClickListener() {
@@ -95,7 +97,6 @@ public class LoginActivity extends BaseActivity implements Callback,
 
 	}
 
-
 	protected void loginSinaWeibo() {
 		AbstractWeibo weibo = AbstractWeibo.getWeibo(this, SinaWeibo.NAME);
 		weibo.setWeiboActionListener(this);
@@ -128,11 +129,7 @@ public class LoginActivity extends BaseActivity implements Callback,
 		msg.obj = weibo;
 		handler.sendMessage(msg);
 	}
-	@Override
-	protected void onDestroy() {
-		AbstractWeibo.stopSDK(this);
-		super.onDestroy();
-	}
+
 	/** 通过Toast显示操作结果 */
 	public boolean handleMessage(Message msg) {
 		AbstractWeibo weibo = (AbstractWeibo) msg.obj;
@@ -142,7 +139,7 @@ public class LoginActivity extends BaseActivity implements Callback,
 		case 1: { // 成功
 			// text = weibo.getName() + " get token: " +
 			// weibo.getDb().getToken();
-			
+
 			// String token = weibo.getDb().getToken();
 			loginToSinaServe(weibo);
 		}
@@ -168,24 +165,48 @@ public class LoginActivity extends BaseActivity implements Callback,
 		HashMap<String, String> params = new HashMap<String, String>();
 		params.put("access_token", weibo.getDb().getToken());
 		params.put("expire_time", weibo.getDb().getExpiresIn() + "");
-		params.put("3rd_type", weibo.getId()+"");
-		params.put("3rd_uid", weibo.getDb().getWeiboId()+"");
-		
+		params.put("3rd_type", weibo.getId() + "");
+		params.put("3rd_uid", weibo.getDb().getWeiboId() + "");
+
 		DataManager.getInstance(this).doPost("user/openplatform", params,
 				new DataCallBack<String>() {
 
 					@Override
 					public void success(String t) {
 						MyLog.e("sina", "success=" + t);
-						super.success(t);
+						tryLogin(t);
 					}
 
 					@Override
 					public void failure(String msg) {
 						MyLog.e("sina", "failure=" + msg);
-						MyToast.showMsgShort(LoginActivity.this, "failure="+msg);
+						MyToast.showMsgShort(LoginActivity.this, "failure="
+								+ msg);
 					}
 				});
+	}
+
+	protected void tryLogin(String t) {
+		User user = getUser(t);
+		if (user != null) {
+			MyApplication mMyApplication = (MyApplication) getApplication();
+			mMyApplication.setUser(user);
+			Util.gotoMain(LoginActivity.this);
+			finish();
+		}
+
+	}
+
+	public User getUser(String t) {
+		if (TextUtils.isEmpty(t) == false) {
+			try {
+				User user = JSON.parseObject(t, User.class);
+
+				return user;
+			} catch (Exception e) {
+			}
+		}
+		return null;
 	}
 
 	@Override

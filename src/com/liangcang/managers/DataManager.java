@@ -266,7 +266,7 @@ public class DataManager {
 					} else {
 						Map<String, FileItem> fileParams = new HashMap<String, FileItem>();
 						FileItem item = new FileItem(user_image);
-						fileParams.put("email", item);
+						fileParams.put("user_image", item);
 						resultMSG = WebDataManager.getInsance().doPost(url,
 								params, fileParams);
 					}

@@ -33,7 +33,7 @@ public class DaRenActivity extends SlidingActivity {
 		};
 		initMenu();
 		initContent();
-		setLeftImage(R.drawable.navigation_menu);
+		setLeftImage(R.drawable.left_menu1);
 	}
 
 	protected void switchToView(String value) {

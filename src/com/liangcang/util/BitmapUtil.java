@@ -33,7 +33,7 @@ import android.os.Environment;
  *         E-mail:denghaizhu@brunjoy.com
  */
 public class BitmapUtil {
-    final static String dirName = "Taose";
+    final static String dirName = "iLiangCang";
     final static String TAG = "BitmapUtil";
     public static String rootCacheAppSavaPath = Environment.getExternalStorageDirectory( ).getPath( ) + "/." + dirName;
     final static String rootSavePath = Environment.getExternalStorageDirectory( ).getPath( ) + "/." + dirName + "/images";
